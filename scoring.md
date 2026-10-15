@@ -1,7 +1,7 @@
 # Scoring: current functionality and future functions
 
-State 15.10.2026, evening. Section 12 of the research log scores the outside options; this table scores
-what this repository does itself. Update it when a score changes, with the evidence.
+State 16.10.2026. Section 12 of the research log scores the outside options; this table scores what this
+repository does itself. Update it when a score changes, with the evidence.
 
 ## Scale
 
@@ -22,55 +22,55 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 
 | Topic | Function | Score | Evidence | Gap |
 |---|---|---|---|---|
-| Convert point clouds | Levels and storeys from the scan | 4 | two-storey examples in Revit 2025, all levels right | – |
-| Convert point clouds | Straight walls (faces, thickness, squaring, joins) | 4 | all scan examples in Revit; real storey against its IFC: 52 % of the wall length on an IFC wall, axis median 60 mm, thickness median -7 mm | real storey not yet in Revit; false walls across clutter |
+| Convert point clouds | Levels and storeys from the scan | 5 | real hotel, 9 storeys in Revit: every floor within 2.1 cm of the IFC storey (one, under a sloped roof, +6.6 cm) | – |
+| Convert point clouds | Straight walls (faces, thickness, squaring, joins) | 4 | all scan examples in Revit; real storeys against their IFC: 42-69 % of the wall length on an IFC wall, median axis distance 1-30 cm | real floors: a tenth of the walls found, often joined too long |
 | Convert point clouds | Curved walls | 4 | `curved_bay`: radius exact in Revit | circular arcs only |
-| Convert point clouds | Doors and windows from holes in the faces | 4 | scan examples in Revit: all hosted, sills to the millimetre | families matched by size only |
+| Convert point clouds | Doors and windows from holes in the faces | 4 | scan examples in Revit: all hosted, sills to the millimetre | few found on real floors |
 | Convert point clouds | Door swing and hinge side | 4 | door facing checks pass in Revit | – |
 | Convert point clouds | Ghost points (glass, mirrors) | 3 | benchmark S9: 97 % removed | – |
-| Convert point clouds | Stairs, slab openings | 4 | three stair examples 71 of 71 checks in Revit (16 risers, tread right) | straight runs only |
-| Convert point clouds | Rooms, floor outline | 4 | scan examples: rooms bounded, areas within 3 % | – |
-| Convert point clouds | E57 reader (real scans, in blocks) | 3 | real hotel: 9 files, 2.5 billion points, 68 GB read in about 10 minutes | – |
-| Convert point clouds | Large scans: thinning to 2 cm | 3 | 2.5 billion -> 290 M points, one measured point per voxel | – |
-| Convert point clouds | Slice-weighted storeys (walls 0.3-0.7 m, windows 1.1-1.3 m) | 3 | real storey: 10 M -> 2.7 M points, 591 s -> 112 s, more walls and openings found | storeys of 9 M points still take minutes and 10 GB |
-| Convert point clouds | Storeys merged in the survey frame, vertical check | 3 | real hotel: 8 floors within 2 cm of the IFC storeys (one +8 cm), slab 0.40-0.44 m on every floor | not yet in Revit |
+| Convert point clouds | Stairs, slab openings | 4 | three stair examples in Revit, 16 risers, tread right | straight runs only |
+| Convert point clouds | Rooms, floor outline | 4 | scan examples: rooms bounded, areas within 3 %; slivers under 1 m2 left out | – |
+| Convert point clouds | E57 reader (real scans, in blocks) | 4 | real hotel: 9 files, 2.5 billion points, 68 GB, storeys built in Revit | – |
+| Convert point clouds | Large scans: thinning to 2 cm | 4 | 2.5 billion -> 290 M points in about 10 minutes | – |
+| Convert point clouds | Slice-weighted storeys (walls 0.3-0.7 m, windows 1.1-1.3 m) | 4 | real storeys in Revit; one storey 10 M -> 2.7 M points, 591 s -> 112 s | 8-9 M points still take 10-18 GB |
+| Convert point clouds | One 20 cm slice only | 2 | 4.7 GB and 61 s instead of 10-18 GB, walls found | no rooms, floors or openings: needs a 2D extraction |
+| Convert point clouds | Storeys merged in the survey frame, vertical check | 4 | real hotel: 9 storeys in one Revit model, floors checked against the IFC | – |
 | Convert floor plans | DXF and vector PDF | 4 | plan examples in Revit, all checks | – |
 | Convert floor plans | Several storeys, aligned | 4 | two-storey PDF in Revit, stair and void right | – |
-| Convert floor plans | Raster plans through plan-extract (`fpx.py`) | 4 | plan-extract examples in Revit | one example: a room the walls do not close; never on a real result |
+| Convert floor plans | Raster plans through plan-extract (`fpx.py`) | 4 | plan-extract examples in Revit | one room the walls do not close; never on a real result |
 | Convert floor plans | plan-extract run locally | 1 | repository cloned | blocked: the segmenter model is not public |
 | Convert floor plans | Own raster reader | 0 | – | not built |
-| Convert IFC | One storey to native Revit (`ifc.py`) | 4 | real model, ground floor: 362 walls, 6 curved, 137 doors and windows, 33 floors; 26 of 32 checks in Revit | stairs with landings, one door on an overlapping shaft wall |
-| Convert IFC | Doors and windows without host link (nearest wall) | 4 | 82 of 83 doors, 54 of 54 windows hosted in Revit | – |
-| Convert IFC | Rooms without `IfcSpace` (cells between the walls) | 4 | 42 of 43 rooms bounded in Revit | 4 room areas off by overlapping walls |
-| Revit and MCP (all routes) | End-to-end runner (start, calls, checks, report) | 4 | every example and a real IFC storey; stops at "not found", a blocked Revit or a taken port | – |
-| Revit and MCP (all routes) | Unattended runs: failure dialogs answered and logged | 4 | real IFC storey: 695 warnings handled, none blocked, none rolled back | – |
-| Revit and MCP (all routes) | Wall types for every thickness | 4 | 36 types created for a real storey, thickness check passes | – |
-| Revit and MCP (all routes) | Images: new plan per level and 3D view, JPEG | 4 | checked on every example and a real storey | – |
+| Convert IFC | One storey to native Revit (`ifc.py`) | 5 | real ground floor: 28 of 34 checks; walls on the IFC axis, all thicknesses, all windows hosted | stairs with landings |
+| Convert IFC | All storeys in one model (`merge.py`) | 4 | real hotel, 12 levels: 4274 of 4278 walls, 153 floors, 29 stairs, 798 of 841 doors, 366 of 370 windows; 161 of 212 checks | doors on locked families |
+| Convert IFC | Openings on the right wall piece, panes left out | 4 | 'cannot cut from wall' 359 -> 36 on the whole building | – |
+| Convert IFC | Rooms without `IfcSpace` (cells between the walls) | 4 | real storey: 42 of 43 rooms bounded; synthetic house exact | areas off where walls overlap |
+| Convert IFC | Synthetic IFC example and tests | 4 | `bench/ifc_synth.py`: 3 tests, 22 of 22 checks in Revit | – |
+| Revit and MCP (all routes) | End-to-end runner (start, calls, checks, report) | 4 | every example, a real IFC building and real scan storeys | – |
+| Revit and MCP (all routes) | Unattended runs: failure dialogs answered and logged | 4 | whole IFC building: 6772 Revit failures answered, none blocked, none rolled back | – |
+| Revit and MCP (all routes) | Wall types for every thickness | 4 | 58 thicknesses created for the whole IFC building, every thickness check passes | – |
+| Revit and MCP (all routes) | Door and window types for every size | 3 | 137 sizes created, windows at their size; size check in every run | fire-rated door families lock their size |
+| Revit and MCP (all routes) | Images: new plan per level and 3D view, JPEG | 4 | every example and the real models | – |
 | Revit and MCP (all routes) | C# snippet compile check | 3 | `tools/snippets/compile_check.py`, Revit 2025 or 2026 | – |
 
 ## Future functions
 
 | # | Function | Value | Effort | Depends on | Raises |
 |---|---|---|---|---|---|
-| 1 | Real scan storeys in Revit, one model per floor and all floors in one | 5 | S | storey runs | scan walls 4 to 5 |
-| 2 | Accuracy table: every scanned storey against its IFC storey | 5 | S | 1 | scan 4 to 5 |
-| 3 | Door and window types for every size (like the wall types) | 4 | M | – | opening quality |
-| 4 | Fewer false walls on real scans (clutter, built-ins) | 4 | M | 2 | scan walls |
-| 5 | Raster PDF into Revit | 4 | S to L | decision: segmenter model, own reader or web app | raster plans 1 to 4 |
-| 6 | IFC: all storeys | 4 | S | – | – |
-| 7 | Stairs with landings (IFC flights, scans) | 3 | L | – | stairs 4 to 5 |
-| 8 | IFC: wall types by the IFC type name | 3 | M | – | type quality |
-| 9 | IFC: slab holes and openings | 3 | M | – | floors |
-| 10 | IFC: columns and beams | 3 | M | – | new element classes |
-| 11 | IFC: curtain walls with their doors and windows | 3 | L | – | new element class |
-| 12 | A synthetic IFC example (public image, tests without project data) | 2 | S | – | IFC tests |
-| 13 | Door swing from the IFC | 2 | S | – | – |
-| 14 | Own raster reader (instead of plan-extract) | 3 | L | decision in 5 | raster plans 0 to 3 |
+| 1 | Wall detection on densely partitioned real floors (hotel rooms) | 5 | L | – | scan walls 4 to 5 |
+| 2 | A door and a window family with free size in the blank project | 4 | S | template (you) | door sizes 3 to 4 |
+| 3 | Slice route: walls, doors and windows from 20 cm slices as a 2D drawing | 4 | L | 1 | memory, speed |
+| 4 | Raster PDF into Revit | 4 | S to L | decision: segmenter model, own reader or web app | raster plans 1 to 4 |
+| 5 | Stairs with landings (IFC flights, scans) | 3 | L | – | stairs |
+| 6 | IFC: wall types by the IFC type name | 3 | M | – | type quality |
+| 7 | IFC: slab holes and openings | 3 | M | – | floors |
+| 8 | IFC: columns and beams | 3 | M | – | new element classes |
+| 9 | IFC: curtain walls with their doors and windows | 3 | L | – | new element class |
+| 10 | Door swing from the IFC | 2 | S | – | – |
+| 11 | Own raster reader (instead of plan-extract) | 3 | L | decision in 4 | raster plans 0 to 3 |
 
 ## Reading
 
-Scans, plans, plan-extract results and IFC storeys all reach Revit natively, and every route passes its
-checks in a real Revit on synthetic data. The real data of one building (IFC and 2.5 billion scan points)
-already gives two measured results: the scans sit within 2 cm of the IFC storeys in height, and walls found
-in a scan lie a median 60 mm from the IFC walls. Nothing scores 5 yet: the real scan storeys still have to
-go through Revit and be measured storey by storey (items 1 and 2).
+Every route reaches Revit natively and passes in a real Revit. The real data of one building now gives
+measured results: an IFC storey and the whole IFC building in Revit, and nine scanned storeys within 2 cm
+of the IFC in height. The scan route's wall detection is exact on synthetic data but finds only a tenth
+of the walls of a densely partitioned hotel floor: that is the main open item (1).
