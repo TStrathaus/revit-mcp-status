@@ -6,6 +6,7 @@ Standard library only. The page shows the scale, the current functionality with 
 the future functions sorted by value and effort.
 """
 import html
+import json
 import re
 from pathlib import Path
 
@@ -65,6 +66,10 @@ def main():
     scores = [int(r[2]) for r in cur[1:] if r[2].isdigit()]
     dist = {k: scores.count(k) for k in range(6)}
     reading = md.split("## Reading", 1)[1].strip() if "## Reading" in md else ""
+    gal = json.loads((HERE / "gallery.json").read_text(encoding="utf-8")) if (HERE / "gallery.json").exists() else []
+    figs = "".join(f'<figure class="card shot"><a href="{html.escape(g["file"])}"><img src="{html.escape(g["file"])}" '
+                   f'alt="{html.escape(g["title"])}" loading="lazy"></a><figcaption><b class="t">{html.escape(g["title"])}</b>'
+                   f'{inline(g["text"])}</figcaption></figure>' for g in gal)
     hi = fut[0].index("Value")
     ei = fut[0].index("Effort")
     fut_sorted = [fut[0]] + sorted(fut[1:], key=lambda r: (-int(r[hi]), EFFORT_ORDER.get(r[ei], 9)))
@@ -102,6 +107,9 @@ code {{ font:13px ui-monospace,Consolas,monospace; background:color-mix(in srgb,
 .dot {{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:2px; background:var(--s0); opacity:.45; }}
 .s1 .dot.on {{ background:var(--s1); opacity:1; }} .s2 .dot.on {{ background:var(--s2); opacity:1; }}
 .s3 .dot.on {{ background:var(--s3); opacity:1; }} .s4 .dot.on {{ background:var(--s4); opacity:1; }} .s5 .dot.on {{ background:var(--s5); opacity:1; }}
+.gallery {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:12px; }}
+.shot {{ padding:0; overflow:hidden; }} .shot img {{ display:block; width:100%; height:auto; background:#fff; }}
+.shot figcaption {{ padding:10px 14px 14px; font-size:14px; }} .shot .t {{ display:block; font-size:15px; margin-bottom:4px; }}
 .bar {{ display:flex; align-items:center; gap:8px; margin:4px 0; }}
 .bar .lbl {{ width:16px; color:var(--muted); }} .bar .cnt {{ color:var(--muted); font-size:13px; }}
 .bar .fill {{ height:12px; border-radius:6px; min-width:2px; }}
@@ -120,6 +128,9 @@ footer {{ color:var(--muted); font-size:13px; margin-top:40px; }}
   <div class="card"><b>{dist[5]}</b>proven on real project data (score 5)</div>
   <div class="card"><b>{len(fut) - 1}</b>missing features planned</div>
 </div>
+<h2>Current functions in Revit</h2>
+<p class="sub">One image per main function, exported by the unattended Revit test from the synthetic examples (project data stays private).</p>
+<div class="gallery">{figs}</div>
 <h2>Maturity</h2>
 <div class="card">{bars}</div>
 <h2>Scale</h2>
