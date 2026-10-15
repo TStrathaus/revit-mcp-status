@@ -73,9 +73,25 @@ def main():
     hi = fut[0].index("Value")
     ei = fut[0].index("Effort")
     fut_sorted = [fut[0]] + sorted(fut[1:], key=lambda r: (-int(r[hi]), EFFORT_ORDER.get(r[ei], 9)))
-    bars = "".join(
-        f'<div class="bar"><span class="lbl">{k}</span><span class="fill s{k}" style="width:{max(dist[k], 0) * 100 / max(len(scores), 1):.1f}%"></span>'
-        f'<span class="cnt">{dist[k]}</span></div>' for k in range(6))
+    meaning = {int(r[0]): r[1] for r in t["Scale"][1:]}
+    topics = []                                          # in the order they appear
+    for r in cur[1:]:
+        if r[0] not in topics:
+            topics.append(r[0])
+
+    def stack(rows):
+        sc = [int(r[2]) for r in rows if r[2].isdigit()]
+        segs = "".join(f'<span class="seg s{k}" style="flex:{sc.count(k)}" title="{sc.count(k)} at level {k}: '
+                       f'{html.escape(meaning.get(k, ""))}">{sc.count(k)}</span>' for k in range(6) if sc.count(k))
+        avg = sum(sc) / len(sc) if sc else 0
+        return f'<div class="stack">{segs}</div><span class="avg">{len(sc)} functions, average {avg:.1f}</span>'
+
+    rows_by = {tp: [r for r in cur[1:] if r[0] == tp] for tp in topics}
+    bars = "".join(f'<div class="trow"><span class="tname">{html.escape(tp)}</span>{stack(rows_by[tp])}</div>' for tp in topics)
+    bars += f'<div class="trow total"><span class="tname">All functions</span>{stack(cur[1:])}</div>'
+    legend = "".join(f'<span class="lg"><span class="sw s{k}"></span><b>{k}</b> {inline(meaning.get(k, ""))}</span>' for k in range(6))
+    sections = "".join(f'<h3>{html.escape(tp)}</h3>' + render_table([cur[0][1:]] + [r[1:] for r in rows_by[tp]], score_cols=(1,))
+                       for tp in topics)
     page = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -110,6 +126,21 @@ code {{ font:13px ui-monospace,Consolas,monospace; background:color-mix(in srgb,
 .gallery {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:12px; }}
 .shot {{ padding:0; margin:0; overflow:hidden; }} .shot img {{ display:block; width:100%; height:auto; background:#fff; }}
 .shot figcaption {{ padding:10px 14px 14px; font-size:14px; }} .shot .t {{ display:block; font-size:15px; margin-bottom:4px; }}
+.trow {{ display:grid; grid-template-columns:230px 1fr 170px; gap:10px; align-items:center; margin:8px 0; }}
+.trow.total {{ border-top:1px solid var(--line); padding-top:10px; margin-top:12px; font-weight:600; }}
+.stack {{ display:flex; height:22px; border-radius:6px; overflow:hidden; background:var(--line); }}
+.seg {{ display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; min-width:18px; }}
+.seg.s0, .seg.s2 {{ color:#1d1d1b; }}
+.seg.s0 {{ background:var(--s0); }} .seg.s1 {{ background:var(--s1); }} .seg.s2 {{ background:var(--s2); }}
+.seg.s3 {{ background:var(--s3); }} .seg.s4 {{ background:var(--s4); }} .seg.s5 {{ background:var(--s5); }}
+.avg {{ color:var(--muted); font-size:13px; }}
+.legend {{ display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:12px; font-size:13px; color:var(--muted); }}
+.lg {{ display:inline-flex; align-items:center; gap:6px; }} .legend .lg b {{ color:var(--fg); font-size:13px; display:inline; }}
+.sw {{ width:12px; height:12px; border-radius:3px; display:inline-block; }}
+.sw.s0 {{ background:var(--s0); }} .sw.s1 {{ background:var(--s1); }} .sw.s2 {{ background:var(--s2); }}
+.sw.s3 {{ background:var(--s3); }} .sw.s4 {{ background:var(--s4); }} .sw.s5 {{ background:var(--s5); }}
+h3 {{ font-size:16px; margin:24px 0 8px; }}
+@media (max-width:640px) {{ .trow {{ grid-template-columns:1fr; gap:4px; }} }}
 .bar {{ display:flex; align-items:center; gap:8px; margin:4px 0; }}
 .bar .lbl {{ width:16px; color:var(--muted); }} .bar .cnt {{ color:var(--muted); font-size:13px; }}
 .bar .fill {{ height:12px; border-radius:6px; min-width:2px; }}
@@ -131,12 +162,15 @@ footer {{ color:var(--muted); font-size:13px; margin-top:40px; }}
 <h2>Current functions in Revit</h2>
 <p class="sub">One image per main function, exported by the unattended Revit test from the synthetic examples (project data stays private).</p>
 <div class="gallery">{figs}</div>
-<h2>Maturity</h2>
-<div class="card">{bars}</div>
+<h2>Maturity by topic</h2>
+<p class="sub">Each function has a maturity level from 0 to 5. A bar shows the functions of one topic: each
+coloured segment is one level, the number in it how many functions are at that level. Further right and
+darker green is more mature.</p>
+<div class="card">{bars}<div class="legend">{legend}</div></div>
 <h2>Scale</h2>
 {render_table(t["Scale"])}
 <h2>Current functionality</h2>
-{render_table(cur, score_cols=(2,))}
+{sections}
 <h2>Missing features</h2>
 <p class="sub">Sorted by value, then effort. Value 1 to 5, effort S (hours), M (a day or two), L (more).</p>
 {render_table(fut_sorted)}

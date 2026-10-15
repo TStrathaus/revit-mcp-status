@@ -20,33 +20,33 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 
 ## Current functionality
 
-| Area | Function | Score | Evidence | Gap |
+| Topic | Function | Score | Evidence | Gap |
 |---|---|---|---|---|
-| Scan | Levels and storeys from the scan | 4 | two-storey examples in Revit 2025, all levels right | – |
-| Scan | Straight walls (faces, thickness, squaring, joins) | 4 | all scan examples in Revit; real storey against its IFC: 52 % of the wall length on an IFC wall, axis median 60 mm, thickness median -7 mm | real storey not yet in Revit; false walls across clutter |
-| Scan | Curved walls | 4 | `curved_bay`: radius exact in Revit | circular arcs only |
-| Scan | Doors and windows from holes in the faces | 4 | scan examples in Revit: all hosted, sills to the millimetre | families matched by size only |
-| Scan | Door swing and hinge side | 4 | door facing checks pass in Revit | – |
-| Scan | Ghost points (glass, mirrors) | 3 | benchmark S9: 97 % removed | – |
-| Scan | Stairs, slab openings | 4 | three stair examples 71 of 71 checks in Revit (16 risers, tread right) | straight runs only |
-| Scan | Rooms, floor outline | 4 | scan examples: rooms bounded, areas within 3 % | – |
-| Scan | E57 reader (real scans, in blocks) | 3 | real hotel: 9 files, 2.5 billion points, 68 GB read in about 10 minutes | – |
-| Scan | Large scans: thinning to 2 cm | 3 | 2.5 billion -> 290 M points, one measured point per voxel | – |
-| Scan | Slice-weighted storeys (walls 0.3-0.7 m, windows 1.1-1.3 m) | 3 | real storey: 10 M -> 2.7 M points, 591 s -> 112 s, more walls and openings found | storeys of 9 M points still take minutes and 10 GB |
-| Scan | Storeys merged in the survey frame, vertical check | 3 | real hotel: 8 floors within 2 cm of the IFC storeys (one +8 cm), slab 0.40-0.44 m on every floor | not yet in Revit |
-| 2D plan | DXF and vector PDF | 4 | plan examples in Revit, all checks | – |
-| 2D plan | Several storeys, aligned | 4 | two-storey PDF in Revit, stair and void right | – |
-| 2D plan | Raster plans through plan-extract (`fpx.py`) | 4 | plan-extract examples in Revit | one example: a room the walls do not close; never on a real result |
-| 2D plan | plan-extract run locally | 1 | repository cloned | blocked: the segmenter model is not public |
-| 2D plan | Own raster reader | 0 | – | not built |
-| IFC | One storey to native Revit (`ifc.py`) | 4 | real model, ground floor: 362 walls, 6 curved, 137 doors and windows, 33 floors; 26 of 32 checks in Revit | stairs with landings, one door on an overlapping shaft wall |
-| IFC | Doors and windows without host link (nearest wall) | 4 | 82 of 83 doors, 54 of 54 windows hosted in Revit | – |
-| IFC | Rooms without `IfcSpace` (cells between the walls) | 4 | 42 of 43 rooms bounded in Revit | 4 room areas off by overlapping walls |
-| Revit, MCP | End-to-end runner (start, calls, checks, report) | 4 | every example and a real IFC storey; stops at "not found", a blocked Revit or a taken port | – |
-| Revit, MCP | Unattended runs: failure dialogs answered and logged | 4 | real IFC storey: 695 warnings handled, none blocked, none rolled back | – |
-| Revit, MCP | Wall types for every thickness | 4 | 36 types created for a real storey, thickness check passes | – |
-| Revit, MCP | Images: new plan per level and 3D view, JPEG | 4 | checked on every example and a real storey | – |
-| Revit, MCP | C# snippet compile check | 3 | `tools/snippets/compile_check.py`, Revit 2025 or 2026 | – |
+| Convert point clouds | Levels and storeys from the scan | 4 | two-storey examples in Revit 2025, all levels right | – |
+| Convert point clouds | Straight walls (faces, thickness, squaring, joins) | 4 | all scan examples in Revit; real storey against its IFC: 52 % of the wall length on an IFC wall, axis median 60 mm, thickness median -7 mm | real storey not yet in Revit; false walls across clutter |
+| Convert point clouds | Curved walls | 4 | `curved_bay`: radius exact in Revit | circular arcs only |
+| Convert point clouds | Doors and windows from holes in the faces | 4 | scan examples in Revit: all hosted, sills to the millimetre | families matched by size only |
+| Convert point clouds | Door swing and hinge side | 4 | door facing checks pass in Revit | – |
+| Convert point clouds | Ghost points (glass, mirrors) | 3 | benchmark S9: 97 % removed | – |
+| Convert point clouds | Stairs, slab openings | 4 | three stair examples 71 of 71 checks in Revit (16 risers, tread right) | straight runs only |
+| Convert point clouds | Rooms, floor outline | 4 | scan examples: rooms bounded, areas within 3 % | – |
+| Convert point clouds | E57 reader (real scans, in blocks) | 3 | real hotel: 9 files, 2.5 billion points, 68 GB read in about 10 minutes | – |
+| Convert point clouds | Large scans: thinning to 2 cm | 3 | 2.5 billion -> 290 M points, one measured point per voxel | – |
+| Convert point clouds | Slice-weighted storeys (walls 0.3-0.7 m, windows 1.1-1.3 m) | 3 | real storey: 10 M -> 2.7 M points, 591 s -> 112 s, more walls and openings found | storeys of 9 M points still take minutes and 10 GB |
+| Convert point clouds | Storeys merged in the survey frame, vertical check | 3 | real hotel: 8 floors within 2 cm of the IFC storeys (one +8 cm), slab 0.40-0.44 m on every floor | not yet in Revit |
+| Convert floor plans | DXF and vector PDF | 4 | plan examples in Revit, all checks | – |
+| Convert floor plans | Several storeys, aligned | 4 | two-storey PDF in Revit, stair and void right | – |
+| Convert floor plans | Raster plans through plan-extract (`fpx.py`) | 4 | plan-extract examples in Revit | one example: a room the walls do not close; never on a real result |
+| Convert floor plans | plan-extract run locally | 1 | repository cloned | blocked: the segmenter model is not public |
+| Convert floor plans | Own raster reader | 0 | – | not built |
+| Convert IFC | One storey to native Revit (`ifc.py`) | 4 | real model, ground floor: 362 walls, 6 curved, 137 doors and windows, 33 floors; 26 of 32 checks in Revit | stairs with landings, one door on an overlapping shaft wall |
+| Convert IFC | Doors and windows without host link (nearest wall) | 4 | 82 of 83 doors, 54 of 54 windows hosted in Revit | – |
+| Convert IFC | Rooms without `IfcSpace` (cells between the walls) | 4 | 42 of 43 rooms bounded in Revit | 4 room areas off by overlapping walls |
+| Revit and MCP (all routes) | End-to-end runner (start, calls, checks, report) | 4 | every example and a real IFC storey; stops at "not found", a blocked Revit or a taken port | – |
+| Revit and MCP (all routes) | Unattended runs: failure dialogs answered and logged | 4 | real IFC storey: 695 warnings handled, none blocked, none rolled back | – |
+| Revit and MCP (all routes) | Wall types for every thickness | 4 | 36 types created for a real storey, thickness check passes | – |
+| Revit and MCP (all routes) | Images: new plan per level and 3D view, JPEG | 4 | checked on every example and a real storey | – |
+| Revit and MCP (all routes) | C# snippet compile check | 3 | `tools/snippets/compile_check.py`, Revit 2025 or 2026 | – |
 
 ## Future functions
 
