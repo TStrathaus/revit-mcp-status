@@ -34,6 +34,7 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 | Convert point clouds | Large scans: thinning to 2 cm | 4 | 2.5 billion -> 290 M points in about 10 minutes | – |
 | Convert point clouds | Slice-weighted storeys (walls 0.3-0.7 m, windows 1.1-1.3 m) | 4 | real storeys in Revit; one storey 10 M -> 2.7 M points, 591 s -> 112 s | 8-9 M points still take 10-18 GB |
 | Convert point clouds | Slice route: walls, doors, windows, rooms, floor from two 20 cm slices (`slice2d`) | 4 | synthetic (bench SL1-SL5): all walls (faces within 1 mm), doors with swing, windows, rooms; example 15 of 16 checks in Revit. Real hotel, 9 storeys: 14-70 s and under 1.1 GB each; guest floors 39-49 % of the IFC wall length found (full route 19-35 %), 90-93 % of it on IFC walls (51-69 %), rooms 26-54 % one to one with the IFC (0-5 %); a real storey in Revit 14 of 17 checks | rooms not closed in Revit where walls are missing; opening heights given, not measured; sloped roofs (6OG) |
+| Convert point clouds | Slabs and levels from vertical sections (`sections`), refined where neighbours differ | 3 | synthetic: floors exact, slab thickness within 2 cm, gallery found, beds and a ramp no level; real hotel: 11 of 12 IFC levels without given heights (within 1.5 cm, attic +7 cm), the gallery IFC 01 within 0.4 cm, slabs 0.40-0.42 m; floors and slab thickness go into the slice route | galleries not built as their own Revit level yet; levels need 3 m both ways |
 | Convert point clouds | Storeys merged in the survey frame, vertical check | 4 | real hotel: 9 storeys in one Revit model, floors checked against the IFC | – |
 | Convert floor plans | DXF and vector PDF | 4 | plan examples in Revit, all checks | – |
 | Convert floor plans | Several storeys, aligned | 4 | two-storey PDF in Revit, stair and void right | – |
@@ -67,6 +68,7 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 | 9 | IFC: curtain walls with their doors and windows | 3 | L | – | new element class |
 | 10 | Door swing from the IFC | 2 | S | – | – |
 | 11 | Own raster reader (instead of plan-extract) | 3 | L | decision in 4 | raster plans 0 to 3 |
+| 13 | Galleries (partial levels from the sections) as their own Revit level and floor | 3 | M | – | sections 3 to 4 |
 | 12 | Slice route: opening heights (a third slice or the top of each gap), sloped roofs, one wall from its upper and lower face | 3 | M | – | slice route 4 to 5 |
 
 ## Reading
