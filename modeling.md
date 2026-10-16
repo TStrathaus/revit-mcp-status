@@ -111,8 +111,10 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
 
 - One room per enclosed area, placed at a point inside it; name and number from the plan or the IFC, else
   `Room <storey>.<n>`; net area to the wall faces. Cells under 1 m2 are slivers, not rooms.
-- A room must be enclosed by walls (Revit: "bounded"). Where walls are missing (real scans), rooms come from
-  the free space and are placed but not enclosed (**open**: room separation lines where a wall is missing).
+- A room must be enclosed (Revit: "bounded"). A passage between two rooms (a gap with no wall and no door)
+  gets a room separation line across it, 5 cm into the wall ends (plan-extract passages: done). Where walls
+  are missing (real scans), rooms come from the free space and are placed but not enclosed (**open**: room
+  separation lines along the free-space boundaries where no wall was found).
 
 ## 10. Coordinates and georeferencing
 
