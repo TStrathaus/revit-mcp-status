@@ -15,6 +15,11 @@
   "text": "A straight stair from rising tread patches and the slab void above it, cut into the upper floor."
  },
  {
+  "file": "images/scan-slices-3d.jpeg",
+  "title": "Point cloud slices to Revit",
+  "text": "The synthetic storey reduced to two 20 cm slices (0.4-0.6 m and 1.1-1.3 m) and thin floor and ceiling bands, a quarter of the points: walls, doors with their swing from the open leaf, windows from the upper slice, rooms and floor, natively in Revit 2025. 15 of 16 checks (door size: a locked template family)."
+ },
+ {
   "file": "images/plan-pdf-floor-plan.jpeg",
   "title": "2D plan (vector PDF) to Revit",
   "text": "Floor plan of the ground floor rebuilt from a vector PDF at 1:100: walls from paired face lines, doors from swing arcs, windows from glass lines, the stair from its tread lines."
