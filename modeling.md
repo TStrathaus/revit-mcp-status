@@ -30,8 +30,9 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
 - Doors and windows follow the same idea: generic families with free width and height; no fire rating, no
   hardware, no material.
 - Current: the runner uses only `scan2revit` wall and floor types (one layer, no material) and makes the
-  missing ones (`wall_types_code`, `floor_types_code`); the check "walls and floors generic" fails on any wall
-  or floor with a build-up or a material. Door families with free size are not yet in the blank project:
+  missing ones (`wall_types_code`, `floor_types_code`; floor types are copied from a floor type, never from a
+  foundation slab type, which Revit also files as a floor type); the check "walls and floors generic" fails on
+  any wall or floor with a build-up or a material. All nine examples pass it in Revit 2025. Door families with free size are not yet in the blank project:
   fire-rated families of the template lock their size (**open**: a generic door and window family in
   `blank.rvt`).
 
