@@ -1,7 +1,8 @@
 # Scoring: current functionality and future functions
 
 State 16.10.2026. Section 12 of the research log scores the outside options; this table scores what this
-repository does itself. Update it when a score changes, with the evidence.
+repository does itself. Update it when a score changes, with the evidence. How the models are built:
+the modelling guideline `scan2revit/skills/modeling/SKILL.md` (https://tstrathaus.github.io/revit-mcp-status/modeling.html).
 
 ## Scale
 
@@ -71,6 +72,7 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 | 11 | Own raster reader (instead of plan-extract) | 3 | L | decision in 4 | raster plans 0 to 3 |
 | 13 | Stairs and ramps in the voids of the slab regions (steps in thin horizontal slices) | 4 | M | – | stairs 4 to 5 |
 | 14 | Slab outlines: straight, square edges instead of the 10 cm raster | 3 | S | – | fewer Revit warnings |
+| 15 | Modelling guideline, open points: phase "Existing" for every element, a parameter measured / assumed on walls, floors, doors and windows | 3 | S | – | guideline met |
 | 12 | Slice route: opening heights (a third slice or the top of each gap), sloped roofs, one wall from its upper and lower face | 3 | M | – | slice route 4 to 5 |
 
 ## Reading

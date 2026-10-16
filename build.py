@@ -1,6 +1,7 @@
-"""Builds index.html from scoring.md (a copy of documentation/scoring.md in the Revit-MCP repository).
+"""Builds index.html from scoring.md (a copy of documentation/scoring.md in the Revit-MCP repository) and
+modeling.html from modeling.md (a copy of scan2revit/skills/modeling/SKILL.md, the modelling guideline).
 
-    python build.py        # then commit and push; GitHub Pages serves index.html
+    python build.py        # then commit and push; GitHub Pages serves both
 
 Standard library only. The page shows the scale, the current functionality with its maturity score and
 the future functions sorted by value and effort.
@@ -34,7 +35,51 @@ def tables(md):
 
 def inline(s):
     s = html.escape(s)
-    return re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
+    s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
+    s = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", s)
+    s = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", r'<a href="\2">\1</a>', s)
+    return re.sub(r'(?<![="])(https?://[^\s,;<)]+)', r'<a href="\1">\1</a>', s)
+
+
+def md_body(md):
+    """A small Markdown subset: ## and ### headings, paragraphs, - lists (indented lines continue an item), tables."""
+    out, para, items, table = [], [], [], []
+
+    def flush():
+        nonlocal para, items, table
+        if para:
+            out.append(f"<p>{inline(' '.join(para))}</p>")
+        if items:
+            out.append("<ul>" + "".join(f"<li>{inline(i)}</li>" for i in items) + "</ul>")
+        if table:
+            rows = [[c.strip() for c in r.strip().strip("|").split("|")] for r in table]
+            rows = [r for r in rows if not all(re.fullmatch(r":?-+:?", c) for c in r)]
+            out.append(render_table(rows))
+        para, items, table = [], [], []
+
+    for line in md.splitlines():
+        if line.startswith("|"):
+            if para or items:
+                flush()
+            table.append(line)
+        elif line.startswith("#"):
+            flush()
+            level = len(line) - len(line.lstrip("#"))
+            out.append(f"<h{min(level, 3)}>{inline(line.lstrip('#').strip())}</h{min(level, 3)}>")
+        elif line.startswith("- "):
+            if para or table:
+                flush()
+            items.append(line[2:].strip())
+        elif line.startswith("  ") and items:
+            items[-1] += " " + line.strip()
+        elif not line.strip():
+            flush()
+        else:
+            if items or table:
+                flush()
+            para.append(line.strip())
+    flush()
+    return "\n".join(out)
 
 
 def score_cell(v):
@@ -152,7 +197,8 @@ footer {{ color:var(--muted); font-size:13px; margin-top:40px; }}
 <body>
 <main>
 <h1>Revit-MCP status</h1>
-<p class="sub">Point clouds, 2D plans and IFC storeys to native Revit elements through the open Revit MCP. State {html.escape(state)}.</p>
+<p class="sub">Point clouds, 2D plans and IFC storeys to native Revit elements through the open Revit MCP. State {html.escape(state)}.
+How the models are built: <a href="modeling.html">modelling guideline</a>.</p>
 <div class="cards">
   <div class="card"><b>{len(scores)}</b>functions scored</div>
   <div class="card"><b>{sum(1 for s in scores if s >= 4)}</b>pass in a real Revit (score 4 or 5)</div>
@@ -183,6 +229,33 @@ darker green is more mature.</p>
 """
     (HERE / "index.html").write_text(page, encoding="utf-8")
     print(f"index.html: {len(scores)} functions, {len(fut) - 1} future functions")
+    if (HERE / "modeling.md").exists():
+        gm = (HERE / "modeling.md").read_text(encoding="utf-8")
+        gm = re.sub(r"\A---\n.*?\n---\n", "", gm, flags=re.S)          # the skill's front matter
+        style = page.split("<style>", 1)[1].split("</style>", 1)[0]
+        guide = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modelling guideline</title>
+<meta name="description" content="How Revit-MCP builds as-built Revit models from scans, plans and IFC: generic walls and slabs, levels, naming, coordinates, checks.">
+<style>{style}
+main p, main li {{ max-width:820px; }} main ul {{ padding-left:20px; }} main h2 {{ border-top:1px solid var(--line); padding-top:24px; }}
+a {{ color:var(--accent); overflow-wrap:anywhere; }}
+</style>
+</head>
+<body>
+<main>
+<p class="sub"><a href="index.html">&larr; Revit-MCP status</a></p>
+{md_body(gm)}
+<footer>Generated from modeling.md (scan2revit/skills/modeling/SKILL.md) by build.py.</footer>
+</main>
+</body>
+</html>
+"""
+        (HERE / "modeling.html").write_text(guide, encoding="utf-8")
+        print("modeling.html: the modelling guideline")
 
 
 if __name__ == "__main__":
