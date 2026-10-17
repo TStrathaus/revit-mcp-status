@@ -1,4 +1,5 @@
-"""Builds index.html from scoring.md (a copy of documentation/scoring.md in the Revit-MCP repository) and
+"""Builds index.html from scoring.md (a copy of documentation/scoring.md in the Revit-MCP repository),
+open.html from open-tasks.md (a copy of documentation/open-tasks.md: open functions and tasks per sub-project) and
 modeling.html from modeling.md (a copy of scan2revit/skills/modeling/SKILL.md, the modelling guideline).
 
     python build.py        # then commit and push; GitHub Pages serves both
@@ -197,8 +198,9 @@ footer {{ color:var(--muted); font-size:13px; margin-top:40px; }}
 <body>
 <main>
 <h1>Revit-MCP status</h1>
-<p class="sub">Point clouds, 2D plans and IFC storeys to native Revit elements through the open Revit MCP. State {html.escape(state)}.
-How the models are built: <a href="modeling.html">modelling guideline</a>.</p>
+<p class="sub">Point clouds, 2D plans and IFC storeys to native Revit elements through the pyRevit agent runtime. State {html.escape(state)}.
+Open functions and tasks per sub-project: <a href="open.html">open items</a>. How the models are built:
+<a href="modeling.html">modelling guideline</a>.</p>
 <div class="cards">
   <div class="card"><b>{len(scores)}</b>functions scored</div>
   <div class="card"><b>{sum(1 for s in scores if s >= 4)}</b>pass in a real Revit (score 4 or 5)</div>
@@ -218,7 +220,8 @@ darker green is more mature.</p>
 <h2>Current functionality</h2>
 {sections}
 <h2>Missing features</h2>
-<p class="sub">Sorted by value, then effort. Value 1 to 5, effort S (hours), M (a day or two), L (more).</p>
+<p class="sub">Sorted by value, then effort. Value 1 to 5, effort S (hours), M (a day or two), L (more).
+By sub-project, with the gaps and the tasks: <a href="open.html">open items</a>.</p>
 {render_table(fut_sorted)}
 <h2>Reading</h2>
 <p>{inline(reading)}</p>
@@ -256,6 +259,75 @@ a {{ color:var(--accent); overflow-wrap:anywhere; }}
 """
         (HERE / "modeling.html").write_text(guide, encoding="utf-8")
         print("modeling.html: the modelling guideline")
+    if (HERE / "open-tasks.md").exists():
+        open_page(page.split("<style>", 1)[1].split("</style>", 1)[0])
+
+
+def open_page(style):
+    """open.html: one section per sub-project (## heading in open-tasks.md), its intro and its table of open
+    items; a Kind column (Function, Gap, Task) becomes a coloured tag."""
+    md = (HERE / "open-tasks.md").read_text(encoding="utf-8")
+    md = md.split("\n## ", 1)
+    head, rest = md[0], ("## " + md[1]) if len(md) > 1 else ""
+    title = head.splitlines()[0].lstrip("# ").strip()
+    intro = "\n".join(head.splitlines()[1:])
+    state = re.search(r"State (\d{1,2}\.\d{1,2}\.\d{4})", head)
+    legend = "\n\n".join(p for p in intro.split("\n\n") if p.strip() and not p.strip().startswith("State"))  # not the sources note
+    t = tables(rest)
+    secs = [b for b in rest.split("\n## ") if b.strip()]
+    kinds = ("Function", "Gap", "Task")
+    cards, body = [], []
+    for b in secs:
+        b = b[3:] if b.startswith("## ") else b
+        name = b.splitlines()[0].strip()
+        rows = t.get(name, [])
+        text = "\n".join(l for l in b.splitlines()[1:] if not l.startswith("|"))
+        ki = rows[0].index("Kind") if rows and "Kind" in rows[0] else None
+        n = {k: sum(1 for r in rows[1:] if ki is not None and r[ki] == k) for k in kinds}
+        anchor = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+        cards.append(f'<a class="card route" href="#{anchor}"><span class="rn">{html.escape(name)}</span><b>{len(rows) - 1 if rows else 0}</b>'
+                     + " ".join(f'<span class="kind k{k.lower()}">{n[k]} {k.lower()}{"s" if n[k] != 1 else ""}</span>' for k in kinds if n[k])
+                     + "</a>")
+        tbl = ""
+        if rows:
+            h = "".join(f"<th>{inline(c)}</th>" for c in rows[0])
+            trs = "".join("<tr>" + "".join(
+                (f'<td><span class="kind k{c.lower()}">{html.escape(c)}</span></td>' if i == ki else f"<td>{inline(c)}</td>")
+                for i, c in enumerate(r)) + "</tr>" for r in rows[1:])
+            tbl = f'<div class="wrap"><table><thead><tr>{h}</tr></thead><tbody>{trs}</tbody></table></div>'
+        body.append(f'<h2 id="{anchor}">{html.escape(name)}</h2>{md_body(text)}{tbl}')
+    page = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open items</title>
+<meta name="description" content="Open functions, gaps and tasks of Revit-MCP per sub-project: Pointcloud2Revit, IFC2Revit, Plans2Revit and the shared core.">
+<style>{style}
+main p {{ max-width:820px; }} a {{ color:var(--accent); overflow-wrap:anywhere; }}
+.route {{ text-decoration:none; color:var(--fg); display:block; }} .route:hover {{ border-color:var(--accent); }}
+.route .rn {{ display:block; font-weight:600; }} .route b {{ margin:2px 0 6px; }}
+.kind {{ display:inline-block; font-size:12px; font-weight:600; padding:1px 7px; border-radius:10px; white-space:nowrap; margin:2px 4px 0 0; }}
+.kfunction {{ background:color-mix(in srgb,var(--accent) 18%,transparent); color:var(--accent); }}
+.kgap {{ background:color-mix(in srgb,var(--s1) 25%,transparent); color:color-mix(in srgb,var(--s1) 70%,var(--fg)); }}
+.ktask {{ background:color-mix(in srgb,var(--s4) 22%,transparent); color:color-mix(in srgb,var(--s4) 75%,var(--fg)); }}
+</style>
+</head>
+<body>
+<main>
+<p class="sub"><a href="index.html">&larr; Revit-MCP status</a></p>
+<h1>{html.escape(title)}</h1>
+<p class="sub">State {html.escape(state.group(1) if state else "")}. Open functions, known gaps and tasks, one section per sub-project; the order within a section is the order of work.</p>
+<div class="cards">{"".join(cards)}</div>
+{md_body(legend)}
+{"".join(body)}
+<footer>Generated from open-tasks.md (documentation/open-tasks.md) by build.py.</footer>
+</main>
+</body>
+</html>
+"""
+    (HERE / "open.html").write_text(page, encoding="utf-8")
+    print(f"open.html: {len(secs)} sections")
 
 
 if __name__ == "__main__":

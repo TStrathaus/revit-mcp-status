@@ -65,7 +65,7 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
 - Every element sits on the level of its storey; nothing hangs on a level of another storey.
 - Elevations: Level 0 at elevation 0 in the local frame; the survey offset carries the height above sea
   (`plan.origin.offset_xyz`). Several storeys from one survey frame (`merge`) keep their measured heights.
-- Floor heights come from the vertical sections (`scan2revit.sections`) or from the scan's height histogram;
+- Floor heights come from the vertical sections (`scan2revit.pointcloud.sections`) or from the scan's height histogram;
   storeys with steps are separate levels or reported (`steps_to` in slabs.json).
 
 ## 5. Walls
@@ -83,7 +83,7 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
 
 ## 6. Floors (slabs) and voids
 
-- One floor per slab region (from a horizontal slice at the level, `scan2revit.sections` / `slice2d --slabs`),
+- One floor per slab region (from a horizontal slice at the level, `scan2revit.pointcloud.sections` / `slice2d --slabs`),
   top of the slab at the level, thickness downwards as measured in the vertical sections (else 0.25 m,
   assumed). Without slab regions the outline comes from the walls or the free space.
 - Voids are openings cut into the floor (`NewOpening`): shafts and stairwells (5 m2 or more with no ceiling of
