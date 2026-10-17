@@ -1,6 +1,6 @@
 # Scoring: current functionality and future functions
 
-State 16.10.2026. Section 12 of the research log scores the outside options; this table scores what this
+State 17.10.2026. Section 12 of the research log scores the outside options; this table scores what this
 repository does itself. Update it when a score changes, with the evidence. How the models are built:
 the modelling guideline `scan2revit/skills/modeling/SKILL.md` (https://tstrathaus.github.io/revit-mcp-status/modeling.html).
 
@@ -48,12 +48,14 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 | Convert IFC | Openings on the right wall piece, panes left out | 4 | 'cannot cut from wall' 359 -> 36 on the whole building | – |
 | Convert IFC | Rooms without `IfcSpace` (cells between the walls) | 4 | real storey: 42 of 43 rooms bounded; synthetic house exact | areas off where walls overlap |
 | Convert IFC | Synthetic IFC example and tests | 4 | `bench/ifc_synth.py`: 3 tests, 22 of 22 checks in Revit | – |
-| Revit and MCP (all routes) | End-to-end runner (start, calls, checks, report) | 4 | every example, a real IFC building and real scan storeys | – |
-| Revit and MCP (all routes) | Unattended runs: failure dialogs answered and logged | 4 | whole IFC building: 6772 Revit failures answered, none blocked, none rolled back | – |
-| Revit and MCP (all routes) | Wall types for every thickness | 4 | 58 thicknesses created for the whole IFC building, every thickness check passes | – |
-| Revit and MCP (all routes) | Door and window types for every size | 3 | 137 sizes created, windows at their size; size check in every run | fire-rated door families lock their size |
-| Revit and MCP (all routes) | Images: new plan per level and 3D view, JPEG | 4 | every example and the real models | – |
-| Revit and MCP (all routes) | C# snippet compile check | 3 | `tools/snippets/compile_check.py`, Revit 2025 or 2026 | – |
+| Revit and MCP (all routes) | End-to-end runner (start, calls, checks, report) | 4 | every example, a real IFC building and real scan storeys (0.5 add-in) | again through pyRevit (0.6) |
+| Revit and MCP (all routes) | Unattended runs: failure dialogs answered and logged | 4 | whole IFC building: 6772 Revit failures answered, none blocked, none rolled back (0.5 add-in) | in 0.6 the pyRevit agent host answers them; again in Revit |
+| Revit and MCP (all routes) | Wall types for every thickness | 4 | 58 thicknesses created for the whole IFC building, every thickness check passes (0.5 add-in) | again through pyRevit (0.6) |
+| Revit and MCP (all routes) | Door and window types for every size | 4 | every size of the nine examples made in Revit 2025 (Swiss families through the masonry opening); size check in every run | ported to pyRevit (0.6), tested in the stand-in |
+| Revit and MCP (all routes) | Images: a plan per level and a 3D view, JPEG | 4 | every example and the real models (0.5 add-in); 0.6 converts the PNG of capture_view to JPEG | again through pyRevit (0.6) |
+| Revit and MCP (all routes) | Revit through the pyRevit agent runtime (0.6: stages, read back, checks) | 3 | pyRevit 7 installed; every example builds and passes its checks in the Revit API stand-in | the Revit test through pyRevit |
+| Revit and MCP (all routes) | Revit API check (`tools/api_check.py`) | 4 | all 136 API names of the Revit module found in Revit 2025.1 | – |
+| Revit and MCP (all routes) | Agent team: 9 agents, workflow with gates, phase tool for one model | 3 | three examples built phase by phase in the stand-in, every check passes; the family man's types stage makes every type before the builders | first run in Revit |
 
 ## Future functions
 

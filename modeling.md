@@ -29,10 +29,11 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   type of the same thickness, never by editing the generic one.
 - Doors and windows follow the same idea: generic families with free width and height; no fire rating, no
   hardware, no material.
-- Current: the runner uses only `scan2revit` wall and floor types (one layer, no material) and makes the
-  missing ones (`wall_types_code`, `floor_types_code`; floor types are copied from a floor type, never from a
+- Current: the Revit module (`revit_runtime.py`, run by pyRevit) uses only `scan2revit` wall and floor types
+  (one layer, no material) and makes the missing ones (floor types are copied from a floor type, never from a
   foundation slab type, which Revit also files as a floor type); the check "walls and floors generic" fails on
-  any wall or floor with a build-up or a material. All nine examples pass it in Revit 2025. Door and window sizes are
+  any wall or floor with a build-up or a material. All nine examples passed it in Revit 2025 (scan2revit 0.5,
+  through the old add-in; the pyRevit route passes it against the Revit API stand-in). Door and window sizes are
   set where the family takes them: Swiss families ("TU ...") through "Angabe Maueröffnungsmaß Breite / Höhe"
   (the masonry opening, what a scan measures), read back from "Breite" / "Höhe ab FBOK"; every door and window
   of the examples gets its size. The template's door families still carry fire ratings in some types
