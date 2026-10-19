@@ -29,8 +29,14 @@ code { font:13px ui-monospace,Consolas,monospace; background:color-mix(in srgb,v
 .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:2px; background:var(--s0); opacity:.45; }
 .s1 .dot.on { background:var(--s1); opacity:1; } .s2 .dot.on { background:var(--s2); opacity:1; }
 .s3 .dot.on { background:var(--s3); opacity:1; } .s4 .dot.on { background:var(--s4); opacity:1; } .s5 .dot.on { background:var(--s5); opacity:1; }
-.gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:12px; }
+.gallery { display:grid; grid-template-columns:1fr; gap:16px; }
 .shot { padding:0; margin:0; overflow:hidden; } .shot img { display:block; width:100%; height:auto; background:#fff; }
+.pair { display:grid; grid-template-columns:1fr; gap:1px; background:var(--line); align-items:center; }
+.pair.two { grid-template-columns:1fr 1fr; }
+.pane { position:relative; background:#fff; height:100%; display:flex; align-items:center; } .pane a { display:block; width:100%; }
+.tag { position:absolute; top:8px; left:8px; font-size:12px; font-weight:600; padding:2px 8px; border-radius:10px;
+  background:rgba(29,29,27,.72); color:#fff; }
+@media (max-width:640px) { .pair.two { grid-template-columns:1fr; } }
 .shot figcaption { padding:10px 14px 14px; font-size:14px; } .shot .t { display:block; font-size:15px; margin-bottom:4px; }
 .trow { display:grid; grid-template-columns:230px 1fr 170px; gap:10px; align-items:center; margin:8px 0; }
 .trow.total { border-top:1px solid var(--line); padding-top:10px; margin-top:12px; font-weight:600; }

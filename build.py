@@ -113,9 +113,16 @@ def main():
     dist = {k: scores.count(k) for k in range(6)}
     reading = md.split("## Reading", 1)[1].strip() if "## Reading" in md else ""
     gal = json.loads((HERE / "gallery.json").read_text(encoding="utf-8")) if (HERE / "gallery.json").exists() else []
-    figs = "".join(f'<figure class="card shot"><a href="{html.escape(g["file"])}"><img src="{html.escape(g["file"])}" '
-                   f'alt="{html.escape(g["title"])}" loading="lazy"></a><figcaption><b class="t">{html.escape(g["title"])}</b>'
-                   f'{inline(g["text"])}</figcaption></figure>' for g in gal)
+    def pane(file, label, alt):
+        return (f'<div class="pane"><span class="tag">{label}</span><a href="{html.escape(file)}">'
+                f'<img src="{html.escape(file)}" alt="{html.escape(alt)}" loading="lazy"></a></div>')
+
+    def fig(g):                                          # before (the input) and after (Revit) side by side
+        panes = (pane(g["before"], "Before: " + html.escape(g.get("before_label", "input")), g.get("before_label", "input"))
+                 if g.get("before") else "") + pane(g["file"], "After: Revit", g["title"])
+        return (f'<figure class="card shot"><div class="pair{" two" if g.get("before") else ""}">{panes}</div>'
+                f'<figcaption><b class="t">{html.escape(g["title"])}</b>{inline(g["text"])}</figcaption></figure>')
+    figs = "".join(fig(g) for g in gal)
     hi = fut[0].index("Value")
     ei = fut[0].index("Effort")
     fut_sorted = [fut[0]] + sorted(fut[1:], key=lambda r: (-int(r[hi]), EFFORT_ORDER.get(r[ei], 9)))
@@ -169,8 +176,14 @@ code {{ font:13px ui-monospace,Consolas,monospace; background:color-mix(in srgb,
 .dot {{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:2px; background:var(--s0); opacity:.45; }}
 .s1 .dot.on {{ background:var(--s1); opacity:1; }} .s2 .dot.on {{ background:var(--s2); opacity:1; }}
 .s3 .dot.on {{ background:var(--s3); opacity:1; }} .s4 .dot.on {{ background:var(--s4); opacity:1; }} .s5 .dot.on {{ background:var(--s5); opacity:1; }}
-.gallery {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:12px; }}
+.gallery {{ display:grid; grid-template-columns:1fr; gap:16px; }}
 .shot {{ padding:0; margin:0; overflow:hidden; }} .shot img {{ display:block; width:100%; height:auto; background:#fff; }}
+.pair {{ display:grid; grid-template-columns:1fr; gap:1px; background:var(--line); align-items:center; }}
+.pair.two {{ grid-template-columns:1fr 1fr; }}
+.pane {{ position:relative; background:#fff; height:100%; display:flex; align-items:center; }} .pane a {{ display:block; width:100%; }}
+.tag {{ position:absolute; top:8px; left:8px; font-size:12px; font-weight:600; padding:2px 8px; border-radius:10px;
+  background:rgba(29,29,27,.72); color:#fff; }}
+@media (max-width:640px) {{ .pair.two {{ grid-template-columns:1fr; }} }}
 .shot figcaption {{ padding:10px 14px 14px; font-size:14px; }} .shot .t {{ display:block; font-size:15px; margin-bottom:4px; }}
 .trow {{ display:grid; grid-template-columns:230px 1fr 170px; gap:10px; align-items:center; margin:8px 0; }}
 .trow.total {{ border-top:1px solid var(--line); padding-top:10px; margin-top:12px; font-weight:600; }}
@@ -208,7 +221,8 @@ Open functions and tasks per sub-project: <a href="open.html">open items</a>. Ho
   <div class="card"><b>{len(fut) - 1}</b>missing features planned</div>
 </div>
 <h2>Current functions in Revit</h2>
-<p class="sub">One image per main function, exported by the unattended Revit test from the synthetic examples (project data stays private).</p>
+<p class="sub">Before and after for each main function: on the left what the route starts from (point cloud, plan, IFC),
+on the right the native Revit model, exported by the unattended Revit test. Synthetic examples only (project data stays private).</p>
 <div class="gallery">{figs}</div>
 <h2>Maturity by topic</h2>
 <p class="sub">Each function has a maturity level from 0 to 5. A bar shows the functions of one topic: each

@@ -2,36 +2,50 @@
  {
   "file": "images/scan-two-storeys.jpeg",
   "title": "Point cloud to Revit, two storeys",
-  "text": "Synthetic scan of a two-storey house: levels, walls, doors with swing side, windows, floors and rooms, created natively in Revit 2025 through the MCP. All checks pass."
+  "text": "Synthetic scan of a two-storey house: levels, walls, doors with swing side, windows, floors and rooms, created natively in Revit 2025 through the MCP. All checks pass.",
+  "before": "images/scan-two-storeys-before.jpeg",
+  "before_label": "synthetic scan, 1.3 M points"
  },
  {
   "file": "images/scan-curved-walls.jpeg",
   "title": "Curved walls with openings",
-  "text": "A curved bay found in the scan by a circle fit: radius exact in Revit, a door and a window placed in the curved wall."
+  "text": "A curved bay found in the scan by a circle fit: radius exact in Revit, a door and a window placed in the curved wall.",
+  "before": "images/scan-curved-walls-before.jpeg",
+  "before_label": "synthetic scan, 0.6 M points"
  },
  {
   "file": "images/scan-stairs-voids.jpeg",
   "title": "Stairs and slab openings",
-  "text": "A straight stair from rising tread patches and the slab void above it, cut into the upper floor."
+  "text": "A straight stair from rising tread patches and the slab void above it, cut into the upper floor.",
+  "before": "images/scan-stairs-voids-before.jpeg",
+  "before_label": "synthetic scan, 1.3 M points"
  },
  {
   "file": "images/scan-slices-3d.jpeg",
   "title": "Point cloud slices to Revit",
-  "text": "The synthetic storey reduced to two 20 cm slices (0.4-0.6 m and 1.1-1.3 m) and thin floor and ceiling bands, a quarter of the points: walls, doors with their swing from the open leaf, windows from the upper slice, rooms and floor, natively in Revit 2025. 15 of 16 checks (door size: a locked template family)."
+  "text": "The synthetic storey reduced to two 20 cm slices (0.4-0.6 m and 1.1-1.3 m) and thin floor and ceiling bands, a quarter of the points: walls, doors with their swing from the open leaf, windows from the upper slice, rooms and floor, natively in Revit 2025. 15 of 16 checks (door size: a locked template family).",
+  "before": "images/scan-slices-3d-before.jpeg",
+  "before_label": "two 20 cm slices and the floor band"
  },
  {
   "file": "images/plan-pdf-floor-plan.jpeg",
   "title": "2D plan (vector PDF) to Revit",
-  "text": "Floor plan of the ground floor rebuilt from a vector PDF at 1:100: walls from paired face lines, doors from swing arcs, windows from glass lines, the stair from its tread lines."
+  "text": "Floor plan of the ground floor rebuilt from a vector PDF at 1:100: walls from paired face lines, doors from swing arcs, windows from glass lines, the stair from its tread lines.",
+  "before": "images/plan-pdf-floor-plan-before.jpeg",
+  "before_label": "vector PDF, 1:100"
  },
  {
   "file": "images/plan-extract-3d.jpeg",
   "title": "plan-extract result to Revit",
-  "text": "Two storeys from plan-extract results (BBL's reader for raster plans): wall centre lines with thickness, openings on their host walls, the void over the stair."
+  "text": "Two storeys from plan-extract results (BBL's reader for raster plans): wall centre lines with thickness, openings on their host walls, the void over the stair.",
+  "before": "images/plan-extract-3d-before.jpeg",
+  "before_label": "plan-extract results, two storeys"
  },
  {
   "file": "images/ifc-house-3d.jpeg",
   "title": "IFC to Revit",
-  "text": "A synthetic IFC4 house written like a Revit export (walls with axis and Qto width, a window without fill relation, no IfcSpace): walls, doors, window, floor and the rooms from the walls, natively in Revit. 22 of 22 checks."
+  "text": "A synthetic IFC4 house written like a Revit export (walls with axis and Qto width, a window without fill relation, no IfcSpace): walls, doors, window, floor and the rooms from the walls, natively in Revit. 22 of 22 checks.",
+  "before": "images/ifc-house-3d-before.jpeg",
+  "before_label": "IFC4, storey 00"
  }
 ]

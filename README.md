@@ -10,3 +10,7 @@ Update: automatic. In the Revit-MCP repository a commit that changes `documentat
 `documentation/open-tasks.md` or `scan2revit/skills/modeling/SKILL.md` runs `tools/publish_status.py`
 (git hook `tools/hooks/post-commit`): it copies them here as `scoring.md`, `open-tasks.md` and
 `modeling.md`, runs `python build.py`, commits and pushes. By hand: `py tools/publish_status.py` there.
+
+Gallery (`gallery.json`, `images/`): each entry pairs the Revit result (`file`) with its input (`before`). The
+before images come from `py tools/before_images.py --out <this repo>/images` in Revit-MCP's `scan2revit/`
+(synthetic inputs only); the Revit images from the unattended Revit test (`e2e_results`).
