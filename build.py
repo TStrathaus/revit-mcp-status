@@ -118,8 +118,9 @@ def main():
                 f'<img src="{html.escape(file)}" alt="{html.escape(alt)}" loading="lazy"></a></div>')
 
     def fig(g):                                          # before (the input) and after (Revit) side by side
-        panes = (pane(g["before"], "Before: " + html.escape(g.get("before_label", "input")), g.get("before_label", "input"))
-                 if g.get("before") else "") + pane(g["file"], "After: Revit", g["title"])
+        tags = g.get("tags") or ["Before: " + g.get("before_label", "input"), "After: Revit"]   # own labels, e.g. two steps
+        panes = (pane(g["before"], html.escape(tags[0]), tags[0]) if g.get("before") else "") + \
+            pane(g["file"], html.escape(tags[1]), g["title"])
         return (f'<figure class="card shot"><div class="pair{" two" if g.get("before") else ""}">{panes}</div>'
                 f'<figcaption><b class="t">{html.escape(g["title"])}</b>{inline(g["text"])}</figcaption></figure>')
     figs = "".join(fig(g) for g in gal)
