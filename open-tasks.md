@@ -1,6 +1,6 @@
 # Open functions and tasks
 
-State 17.10.2026, scan2revit 0.7.0. One table per sub-project, then what all three share. Sources: the gaps
+State 20.10.2026, scan2revit 0.7.0. One table per sub-project, then what all three share. Sources: the gaps
 and the future functions of `scoring.md` (numbers F1 to F15 are its future functions), the build log and the
 status of the Revit tests. Published at https://tstrathaus.github.io/revit-mcp-status/open.html; a commit that
 changes this file, `scoring.md` or the modelling guideline updates the site (`tools/publish_status.py`, run by
@@ -68,4 +68,3 @@ agent team. Code `scan2revit/core/`, `tools/`, `.claude/`.
 | Function | F2 A door and a window family with free size in the blank project (the template) | 4 | S | **you**: load the families into the template |
 | Task | Agent team: first model built in Revit, phase by phase with its gates | 4 | M | the synthetic project first, then a real building |
 | Function | F15 Modelling guideline: phase "Existing" for every element, a parameter measured / assumed on walls, floors, doors and windows | 3 | S | – |
-| Task | Build log: a section for 0.6 (pyRevit route), the agent team and 0.7 (one subpackage per route) | 2 | S | ask the user first |
