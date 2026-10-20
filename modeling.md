@@ -32,12 +32,14 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
 - Current: the Revit module (`revit_runtime.py`, run by pyRevit) uses only `scan2revit` wall and floor types
   (one layer, no material) and makes the missing ones (floor types are copied from a floor type, never from a
   foundation slab type, which Revit also files as a floor type); the check "walls and floors generic" fails on
-  any wall or floor with a build-up or a material. All nine examples passed it in Revit 2025 (scan2revit 0.5,
-  through the old add-in; the pyRevit route passes it against the Revit API stand-in). Door and window sizes are
+  any wall or floor with a build-up or a material. All nine examples passed it in Revit 2025, through the old
+  add-in (0.5) and through pyRevit (0.7, 20.10.2026). Door and window sizes are
   set where the family takes them: Swiss families ("TU ...") through "Angabe Maueröffnungsmaß Breite / Höhe"
   (the masonry opening, what a scan measures), read back from "Breite" / "Höhe ab FBOK"; every door and window
-  of the examples gets its size. The template's door families still carry fire ratings in some types
-  (**open**: generic door and window families without them in `blank.rvt`).
+  of the examples gets its size. A door of the plan never gets a passage family (an opening without a leaf,
+  e.g. "TU Durchgang": it draws no swing in plan), even where its stock size fits best; a passage of the plan
+  gets no element but a room separation line (section 9). The template's door families still carry fire ratings
+  in some types (**open**: generic door and window families without them in `blank.rvt`).
 
 ## 2. Measured or assumed: say which
 
