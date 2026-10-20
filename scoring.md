@@ -79,7 +79,8 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 
 ## Reading
 
-Every route reaches Revit natively and passes in a real Revit. The real data of one building now gives
+Every route reaches Revit natively and passes in a real Revit, since 20.10.2026 through pyRevit (all nine
+examples, 218 of 218 checks). The real data of one building now gives
 measured results: an IFC storey and the whole IFC building in Revit, and nine scanned storeys within 2 cm
 of the IFC in height. The full scan route's wall detection is exact on synthetic data but finds only a
 tenth of the walls of a densely partitioned hotel floor. The slice route reads the same floors from two
