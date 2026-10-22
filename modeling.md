@@ -47,8 +47,7 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   of a wall seen from one side (`thickness_assumed`), door head, window sill and head in the slice route and
   in 2D plans (`heights_assumed`), slab thickness without a vertical section through it.
 - The accuracy is stated per element class as USIBD LOA: measured accuracy (of the scan) and represented
-  accuracy (of the model) apart. Measured on real data so far: floor heights within 2 cm of the IFC, wall
-  axes 6-9 cm (median) from the IFC on guest floors; synthetic faces within 1 mm.
+  accuracy (of the model) apart. Measured on real data so far: real project data (details private); synthetic faces within 1 mm.
 - Current: the flags are in `plan.json` and `report.md`, not in Revit (**open**: a shared parameter
   `scan2revit source` = measured / assumed on walls, floors, doors and windows).
 

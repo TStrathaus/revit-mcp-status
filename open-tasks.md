@@ -15,7 +15,7 @@ Scans (E57, PLY, LAS) to levels, walls, openings, floors, stairs and rooms. Code
 
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
-| Function | F1 Wall detection on densely partitioned real floors (hotel rooms): full route finds a tenth of the walls | 5 | L | build on the slice route (39-49 % of the IFC wall length found) |
+| Function | F1 Wall detection on densely partitioned real floors: real project data (details private) | 5 | L | build on the slice route real project data (details private) |
 | Function | F3 Room separation lines where the slice route's rooms have no wall, so rooms close in Revit | 4 | M | reuse the passage lines of the plan-extract route |
 | Function | F13 Stairs and ramps in the voids of the slab regions (steps in thin horizontal slices) | 4 | M | – |
 | Function | F12 Slice route: measured opening heights, sloped roofs, one wall from its upper and lower face | 3 | M | a third slice or the top of each gap |
@@ -23,7 +23,7 @@ Scans (E57, PLY, LAS) to levels, walls, openings, floors, stairs and rooms. Code
 | Gap | Galleries: missed at 3 m section spacing, not built as their own Revit level yet | 3 | M | – |
 | Gap | Doors and windows: few found on real floors | 3 | M | after F1 |
 | Gap | Stairs: straight runs only; curved walls: circular arcs only | 2 | L | stairs with landings: F5 |
-| Gap | Memory: storeys of 8-9 M points still take 10-18 GB on the full route | 2 | M | slice route by default |
+| Gap | Memory: large real storeys still take much memory on the full route real project data (details private) | 2 | M | slice route by default |
 | Gap | Slab voids under 5 m2 are not cut | 2 | S | – |
 
 ## IFC2Revit
@@ -33,7 +33,7 @@ IFC storeys to native Revit elements, all storeys in one model. Code `scan2revit
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
 | Task | Revit test of the whole real IFC building through pyRevit (0.7; the synthetic IFC house passes) | 5 | S | `tools/revit_e2e.py --plan` with the merged plan of all storeys |
-| Gap | Doors on locked (fire-rated) families keep their size: 798 of 841 doors right on the real building | 4 | S | F2 (a door family with free size) |
+| Gap | Doors on locked (fire-rated) families keep their size real project data (details private) | 4 | S | F2 (a door family with free size) |
 | Function | F5 Stairs with landings (IFC flights; also for scans) | 3 | L | – |
 | Function | F6 Wall types by the IFC type name | 3 | M | – |
 | Function | F7 Slab holes and openings from the IFC | 3 | M | – |
@@ -48,11 +48,16 @@ IFC storeys to native Revit elements, all storeys in one model. Code `scan2revit
 
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
-| Function | F4 Raster PDF (scanned plan) into Revit | 4 | S to L | **decision (you)**: plan-extract's segmenter model, an own reader (F11) or the web app (the plan leaves the machine) |
-| Task | First real plan through the route: a real measured PDF plan is waiting in the data folder | 4 | S | depends on F4 if it is a raster PDF |
-| Gap | plan-extract run locally: blocked, the segmenter model is not public | 3 | – | ask BBL for the model or decide F4 |
-| Gap | plan-extract results: one room the walls do not close; never run on a real result | 3 | S | a real result |
-| Function | F11 Own raster reader instead of plan-extract | 3 | L | decision in F4 |
+| Function | Plan sheets with several storeys: split the sheet into its drawings, one storey each, aligned to each other | 5 | M | in work: a real CAD sheet at 1:100 with four storeys |
+| Function | Orientation and scale from the sheet: scale from the title block ("1 : 100"), drawings turned upright | 5 | S | in work |
+| Function | Rooms with the data of their stamps: name, unit (Revit "Abteilung"), number storey.unit.nn | 5 | M | in work |
+| Function | Clutter filter: furniture, sanitary, kitchen, symbols, annotation; the list in the modelling guideline, the machine list in `plans/filters.json` | 4 | M | in work |
+| Function | Walls drawn as filled areas (poché) in vector PDFs, not only as two face lines | 4 | S | after the sheet split |
+| Function | F4 Raster PDF (scanned plan) into Revit: **postponed** (22.10.2026) | 4 | S to L | own reader for filled walls preferred; OCR of room stamps; scale from stamps or dimensions |
+| Function | Handwritten measurements on a scanned plan (other ink) as checks, kept out of the geometry | 3 | M | with F4 |
+| Gap | plan-extract run locally: blocked, the segmenter model is not public | 2 | – | only needed for thin-line or sketched plans |
+| Gap | plan-extract results: one room the walls do not close; never run on a real result | 2 | S | a real result |
+| Function | F11 Own raster reader instead of plan-extract | 3 | L | part of F4 |
 
 ## Shared: core, Revit side, agent team
 
