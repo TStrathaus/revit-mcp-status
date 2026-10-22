@@ -48,11 +48,12 @@ IFC storeys to native Revit elements, all storeys in one model. Code `scan2revit
 
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
-| Function | Plan sheets with several storeys: split the sheet into its drawings, one storey each, aligned to each other | 5 | M | in work: a real CAD sheet at 1:100 with four storeys |
-| Function | Orientation and scale from the sheet: scale from the title block ("1 : 100"), drawings turned upright | 5 | S | in work |
-| Function | Rooms with the data of their stamps: name, unit (Revit "Abteilung"), number storey.unit.nn | 5 | M | in work |
-| Function | Clutter filter: furniture, sanitary, kitchen, symbols, annotation; the list in the modelling guideline, the machine list in `plans/filters.json` | 4 | M | in work |
-| Function | Walls drawn as filled areas (poché) in vector PDFs, not only as two face lines | 4 | S | after the sheet split |
+| Function | Plan sheets with several storeys (`plans/sheet.py`): drawings split, storey labels, ordered bottom first, aligned | 5 | M | done on one real CAD sheet (four storeys); a test needs example sheets from the user |
+| Function | Orientation and scale from the sheet: scale from the title block ("1 : 100") done; turning a sheet whose text is not upright not built yet | 5 | S | a turned sheet as example |
+| Function | Rooms with the data of their stamps: name, unit (Revit "Abteilung"), number storey.unit.nn; a room at every stamp | 5 | M | done; Revit run of the real sheet next (department check) |
+| Function | Clutter filter: built-in units, sanitary, text masks, annotation; list in the modelling guideline, machine list `plans/filters.json` | 4 | M | done; furniture only implicitly (no wall pairs) |
+| Function | Walls drawn as filled areas in vector PDFs: wall rectangles, openings where the rendered wall colour is absent, swings from chains of short lines | 4 | S | done |
+| Gap | Rooms on a real sheet not all closed by walls: real project data (details private) (corner joins, stair walls, knee walls under a sloping roof drawn as roof bands) | 4 | M | knee walls as walls of their own height; joins of stubs |
 | Function | F4 Raster PDF (scanned plan) into Revit: **postponed** (22.10.2026) | 4 | S to L | own reader for filled walls preferred; OCR of room stamps; scale from stamps or dimensions |
 | Function | Handwritten measurements on a scanned plan (other ink) as checks, kept out of the geometry | 3 | M | with F4 |
 | Gap | plan-extract run locally: blocked, the segmenter model is not public | 2 | – | only needed for thin-line or sketched plans |

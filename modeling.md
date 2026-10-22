@@ -117,6 +117,27 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   gets a room separation line across it, 5 cm into the wall ends (plan-extract passages: done). Where walls
   are missing (real scans), rooms come from the free space and are placed but not enclosed (**open**: room
   separation lines along the free-space boundaries where no wall was found).
+- Room stamps of a plan sheet (plans.sheet): every stamp gives a room at its position, also where the walls do
+  not close around it (then placed, not enclosed, listed in qa). Name = the stamp's name ("Küche"); the unit
+  above it goes to Revit's room parameter "Abteilung" (Department): "Wohnung <n>", "G" = "Allgemein"; number =
+  storey.unit.nn ("EG.1.03", counted per storey and unit). On sheets with filled walls every gap in a wall is
+  an opening: a door (swing), a window (frame lines) or, without a symbol, a passage with a room separation line.
+
+## Not modelled: what a plan carries that is not building
+
+Left out of the model (machine list: `scan2revit/plans/filters.json`; keep both in step):
+
+| Drawn | How it is recognised | Why left out |
+|---|---|---|
+| Built-in units, cupboards, kitchen units, shafts | a rectangle with both diagonals (crossed box), up to 3 m, not on a wall | furniture and fit-out, not structure; shafts: **open** (slab openings) |
+| WC, washbasin, sink, hob, drain, washing machine | full circles and closed arcs up to 0.45 m radius | sanitary and kitchen equipment |
+| Furniture (tables, chairs, beds, sofas) | line work inside a room that pairs into no wall and no opening | not building |
+| Text masks behind stamps and labels | white filled rectangles not on a wall | drawing aid |
+| Dimensions, levels (+3.40), areas (m2), symbol labels (EL, Dachfenster) | text patterns (`filters.json` "texts") | annotation, not a room name |
+| Frame, title block, view numbers | long lines, the box with PLAN-NR / DATUM / scale | sheet, not drawing |
+
+A crossed box on a wall is a window, never a cupboard. A white box on a wall is a window symbol.
+
 
 ## 10. Coordinates and georeferencing
 
