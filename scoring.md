@@ -1,6 +1,6 @@
 # Scoring: current functionality and future functions
 
-State 20.10.2026. Section 12 of the research log scores the outside options; this table scores what this
+State 23.10.2026. Section 12 of the research log scores the outside options; this table scores what this
 repository does itself. Update it when a score changes, with the evidence. How the models are built:
 the modelling guideline `scan2revit/skills/modeling/SKILL.md` (https://tstrathaus.github.io/revit-mcp-status/modeling.html).
 
@@ -40,6 +40,10 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 | Convert point clouds | Storeys merged in the survey frame, vertical check | 4 | real project data (details private) | – |
 | Convert floor plans | DXF and vector PDF | 4 | plan examples in Revit, all checks | – |
 | Convert floor plans | Several storeys, aligned | 4 | two-storey PDF in Revit, stair and void right | – |
+| Convert floor plans | CAD sheet with several storeys (`sheet.py`): drawings split, storey labels, scale from the title block | 3 | real project data (details private) | sheets with turned text; no test yet (example sheets from the user) |
+| Convert floor plans | Walls drawn as filled areas, openings where the wall colour is absent, swings from chains of short lines | 3 | real project data (details private) | corner joins of short stubs; knee walls under a sloping roof drawn as roof bands |
+| Convert floor plans | Room stamps: name, unit as Revit department, number storey.unit.nn, a room at every stamp | 3 | real project data (details private); department set and checked by the runner, tested in the stand-in | first Revit run of a real sheet |
+| Convert floor plans | Clutter filter (built-in units, sanitary, text masks, annotation), list in the guideline and `plans/filters.json` | 3 | real sheet: crossed boxes, circles and masks left out, windows drawn as crossed boxes kept | furniture only implicitly |
 | Convert floor plans | Raster plans through plan-extract (`fpx.py`) | 4 | plan-extract examples in Revit | one room the walls do not close; never on a real result |
 | Convert floor plans | plan-extract run locally | 1 | repository cloned | blocked: the segmenter model is not public |
 | Convert floor plans | Own raster reader | 0 | – | not built |
