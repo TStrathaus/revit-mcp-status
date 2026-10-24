@@ -16,8 +16,8 @@ Scans (E57, PLY, LAS) to levels, walls, openings, floors, stairs and rooms. Code
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
 | Function | F1 Wall detection on densely partitioned real floors: real project data (details private) | 5 | L | build on the slice route real project data (details private) |
-| Function | F16 External parts of the point cloud (`pointcloud/facade.py`): exterior walls measured, slab outline from the facade ring, courtyards as voids | 5 | M | done for full storeys (24.10.2026); open: rings that do not close (shop fronts, terrain), slab edge on the outer facade face (cladding), storeys under the roof and below ground, a Revit run |
-| Function | F3 Room separation lines where the slice route's rooms have no wall, so rooms close in Revit | 4 | M | reuse the passage lines of the plan-extract route |
+| Function | F16 External parts of the point cloud (`pointcloud/facade.py`): exterior walls measured, slab outline from the facade ring (closed stepwise), edge on the walls' outer face, courtyards as voids | 5 | M | done (24.10.2026), in Revit with the stacked storeys; open: rings where no facade is seen, storeys under the roof and below ground |
+| Function | F3 Room separation lines where the slice route's rooms have no wall | 4 | M | at the necks done (short straight shared boundaries); in Revit the rooms still do not close where walls are missing real project data (details private): needs F1 |
 | Function | F13 Stairs and ramps in the voids of the slab regions (steps in thin horizontal slices) | 4 | M | – |
 | Function | F12 Slice route: measured opening heights, sloped roofs, one wall from its upper and lower face | 3 | M | a third slice or the top of each gap |
 | Function | F14 Slab outlines with straight, square edges instead of the 10 cm raster (fewer Revit warnings) | 3 | S | done with F16 where an external scan closes the ring; without one still the 10 cm raster |
