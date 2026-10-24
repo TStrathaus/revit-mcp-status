@@ -1,6 +1,6 @@
 # Open functions and tasks
 
-State 24.10.2026, scan2revit 0.7.0. All nine examples pass in Revit through pyRevit; the whole real IFC building builds unattended. One table per sub-project, then what all three share. Sources: the gaps
+State 24.10.2026, scan2revit 0.7.0. All nine examples pass in Revit through pyRevit; the whole real IFC building builds unattended. One table per sub-project, then what all three share. Plans and decisions: `drawings-and-scans.md`, `local-llm.md`, `github-sources.md`, `decisions.md`. Sources: the gaps
 and the future functions of `scoring.md` (numbers F1 to F15 are its future functions), the build log and the
 status of the Revit tests. Published at https://tstrathaus.github.io/revit-mcp-status/open.html; a commit that
 changes this file, `scoring.md` or the modelling guideline updates the site (`tools/publish_status.py`, run by
@@ -15,6 +15,7 @@ Scans (E57, PLY, LAS) to levels, walls, openings, floors, stairs and rooms. Code
 
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
+| Function | A4 Scan coverage per storey: share of every wall and of the outline seen, coverage image | 4 | M | in development (24.10.2026) |
 | Function | F1 Wall detection on densely partitioned real floors: real project data (details private) | 5 | L | build on the slice route real project data (details private) |
 | Function | F16 External parts of the point cloud (`pointcloud/facade.py`): exterior walls measured, slab outline from the facade ring (closed stepwise), edge on the walls' outer face, courtyards as voids | 5 | M | done (24.10.2026), in Revit with the stacked storeys; open: rings where no facade is seen, storeys under the roof and below ground |
 | Function | F3 Room separation lines where the slice route's rooms have no wall | 4 | M | at the necks done (short straight shared boundaries); in Revit the rooms still do not close where walls are missing real project data (details private): needs F1 |
@@ -33,12 +34,13 @@ IFC storeys to native Revit elements, all storeys in one model. Code `scan2revit
 
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
+| Function | A3 IFC pre-check: what Revit will refuse (degenerate arcs, short pieces, duplicates), fixed where safe, reported | 4 | S | in development (24.10.2026), with the refused walls and doors in curved walls |
 | Task | Revit test of the whole real IFC building through pyRevit (0.7) | 5 | S | done (24.10.2026) real project data (details private) |
 | Gap | IFC: a few walls and their openings Revit refuses ("Wand kann nicht erstellt werden"), doors in curved walls | 3 | M | real project data (details private); read the refused wall's geometry |
 | Gap | Doors on locked (fire-rated) families keep their size real project data (details private) | 4 | S | F2 (a door family with free size) |
 | Function | F5 Stairs with landings (IFC flights; also for scans) | 3 | L | – |
 | Function | F6 Wall types by the IFC type name | 3 | M | – |
-| Function | F7 Slab holes and openings from the IFC | 3 | M | – |
+| Function | F7 Slab holes and openings from the IFC | 3 | M | in development (24.10.2026) |
 | Function | F8 Columns and beams | 3 | M | – |
 | Function | F9 Curtain walls with their doors and windows | 3 | L | – |
 | Gap | Rooms without `IfcSpace`: areas off where walls overlap | 2 | M | – |
@@ -57,7 +59,7 @@ IFC storeys to native Revit elements, all storeys in one model. Code `scan2revit
 | Function | Walls drawn as filled areas in vector PDFs: wall rectangles, openings where the rendered wall colour is absent, swings from chains of short lines | 4 | S | done |
 | Gap | Rooms on a real sheet not all closed by walls: real project data (details private) (corner joins, stair walls, knee walls under a sloping roof drawn as roof bands) | 4 | M | knee walls as walls of their own height; joins of stubs |
 | Gap | Plan sheets: small symbols drawn in wall colour outside the building became wall stubs; a door beside a window in one gap got only the window | 3 | S | done (24.10.2026): loose groups under 1.5 m outside the outline left out and listed; a window gap with a swing at one end split into door and window |
-| Function | Storey heights from the elevations sheet (levels and heights instead of the assumed storey height) | 4 | M | the elevations sheet of the same building is there |
+| Function | Storey heights from the elevations sheet (levels and heights instead of the assumed storey height) | 4 | M | in development (24.10.2026) |
 | Function | F4 Raster PDF (scanned plan) into Revit: **postponed** (22.10.2026) | 4 | S to L | own reader for filled walls preferred; OCR of room stamps; scale from stamps or dimensions |
 | Function | Handwritten measurements on a scanned plan (other ink) as checks, kept out of the geometry | 3 | M | with F4 |
 | Gap | plan-extract run locally: blocked, the segmenter model is not public | 2 | – | only needed for thin-line or sketched plans |
@@ -71,6 +73,21 @@ agent team. Code `scan2revit/core/`, `tools/`, `.claude/`.
 
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
+| Function | F17 Facts from drawings: catalogue of 29 information types from plans, sections, elevations, build-up legends, schedules, site plans into `facts.json` per project (`drawings-and-scans.md`) | 5 | L | the types half built first (scale, storeys, levels, walls, openings, swings, stamps), then sections and labels |
+| Function | F18 Review page: a person accepts, corrects or rejects every fact at gate 1, crops of the drawing beside each value | 5 | M | after F17; decision D-15 (local server) |
+| Function | F19 Drawings aligned to the scan frame per storey (2D fit of wall axes, person confirms) | 5 | M | needs drawings and a scan of the same building from the user; D-14 |
+| Function | F20 Drawn facts as priors in modelling: levels, thickness of one-sided walls, slab thickness, opening heights, room names on scan rooms, drawn walls as hypotheses for the slice route | 5 | L | after F18, F19; D-4, D-16 |
+| Function | F21 Checker: drawn vs measured for every accepted fact, unused facts listed | 4 | M | after F20 |
+| Function | F22 Local LLM helper (`local-llm.md`): text classification, build-up parsing, raster reading; always proposed facts, checked by code | 3 | M | measure speed on this machine, pilot on the plan sheets; D-7 |
+| Function | F23 Build-ups (floor, wall, roof) parsed into layers and thicknesses; slab thickness from them | 4 | M | with F17; D-5 (generic types stay) |
+| Task | F24 Agent team phases updated for drawings first (phase 2a, alignment 2c, review at gate 1, drawn vs measured in the check) | 4 | S | after the current development round is merged |
+| Task | GitHub sources: licence and security check before any skill or code is taken; pinned and listed (`github-sources.md`) | 3 | S | rule in place; `third_party/README.md` with the first copied file |
+| Function | S1 Agent scoreboard: actions, findings, defects found and fixed, gate verdicts and check scores per agent and project, summed up over projects | 5 | M | in development (24.10.2026) |
+| Function | V1 Rule ids in the modelling guideline, each rule with its Revit check; R2 table rule -> check | 4 | M | in development (24.10.2026) |
+| Function | R1 Rule proposals: agents propose guideline changes in their handover, the project manager collects them, the user approves | 4 | S | in development (24.10.2026) |
+| Function | V2 Comparison with a reference (an IFC of the same building) as a standard checker step, LOA tolerances | 4 | M | in development (24.10.2026) |
+| Function | V3 Each Revit run compared with the previous one: checks gained, lost, still failing | 3 | S | in development (24.10.2026) |
+| Function | A1 Machine-readable input reports for every route (verdict per item) | 4 | M | in development (24.10.2026) |
 | Task | Unattended runs: check that the pyRevit agent host answers Revit's failure dialogs like the old add-in | 4 | S | done (24.10.2026) real project data (details private) |
 | Function | F2 A door and a window family with free size in the blank project (the template) | 4 | S | **you**: load the families into the template |
 | Task | Agent team: first model built in Revit, phase by phase with its gates | 4 | M | the synthetic project first, then a real building |
