@@ -214,7 +214,8 @@ footer {{ color:var(--muted); font-size:13px; margin-top:40px; }}
 <h1>Revit-MCP status</h1>
 <p class="sub">Point clouds, 2D plans and IFC storeys to native Revit elements through the pyRevit agent runtime. State {html.escape(state)}.
 Open functions and tasks per sub-project: <a href="open.html">open items</a>. How the models are built:
-<a href="modeling.html">modelling guideline</a>.</p>
+<a href="modeling.html">modelling guideline</a>. What the agent team did and found:
+<a href="agents.html">agent scoreboard</a>.</p>
 <div class="cards">
   <div class="card"><b>{len(scores)}</b>functions scored</div>
   <div class="card"><b>{sum(1 for s in scores if s >= 4)}</b>pass in a real Revit (score 4 or 5)</div>
@@ -276,6 +277,8 @@ a {{ color:var(--accent); overflow-wrap:anywhere; }}
         print("modeling.html: the modelling guideline")
     if (HERE / "open-tasks.md").exists():
         open_page(page.split("<style>", 1)[1].split("</style>", 1)[0])
+    if (HERE / "agent-scoreboard.md").exists():
+        scoreboard_page(page.split("<style>", 1)[1].split("</style>", 1)[0])
 
 
 def open_page(style):
@@ -344,6 +347,35 @@ main p {{ max-width:820px; }} a {{ color:var(--accent); overflow-wrap:anywhere; 
     (HERE / "open.html").write_text(page, encoding="utf-8")
     print(f"open.html: {len(secs)} sections")
 
+
+
+
+def scoreboard_page(style):
+    """agents.html from agent-scoreboard.md (documentation/agent-scoreboard.md: actions and findings per agent)."""
+    md = (HERE / "agent-scoreboard.md").read_text(encoding="utf-8")
+    page = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent scoreboard</title>
+<meta name="description" content="What the agents of the Revit-MCP modelling team did and found, per agent and project.">
+<style>{style}
+main p, main li {{ max-width:820px; }} main h2 {{ border-top:1px solid var(--line); padding-top:24px; }}
+.tablewrap {{ overflow-x:auto; }}
+</style>
+</head>
+<body>
+<main>
+<p class="sub"><a href="index.html">&larr; Revit-MCP status</a></p>
+{md_body(md)}
+<footer>Generated from agent-scoreboard.md (documentation/agent-scoreboard.md) by build.py.</footer>
+</main>
+</body>
+</html>
+"""
+    (HERE / "agents.html").write_text(page, encoding="utf-8")
+    print("agents.html: the agent scoreboard")
 
 if __name__ == "__main__":
     main()
