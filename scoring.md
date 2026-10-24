@@ -54,11 +54,11 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 | Convert IFC | Rooms without `IfcSpace` (cells between the walls) | 4 | real project data (details private); synthetic house exact | areas off where walls overlap |
 | Convert IFC | Synthetic IFC example and tests | 4 | `bench/ifc_synth.py`: 3 tests, 22 of 22 checks in Revit | – |
 | Revit and MCP (all routes) | End-to-end runner (start, calls, checks, report) | 4 | every example, a real IFC building and real scan storeys (0.5 add-in); all nine examples through pyRevit, 218 of 218 checks (0.7, 20.10.2026) | the real IFC building and the scan storeys again through pyRevit |
-| Revit and MCP (all routes) | Unattended runs: failure dialogs answered and logged | 4 | real project data (details private) (0.5 add-in) | in 0.6 the pyRevit agent host answers them; again in Revit |
-| Revit and MCP (all routes) | Wall types for every thickness | 4 | real project data (details private) (0.5 add-in); every thickness of the nine examples through pyRevit (0.7) | the whole IFC building again through pyRevit |
+| Revit and MCP (all routes) | Unattended runs: failure dialogs answered and logged | 5 | real project data (details private) | – |
+| Revit and MCP (all routes) | Wall types for every thickness | 4 | real project data (details private); every thickness of the nine examples through pyRevit (0.7) | – |
 | Revit and MCP (all routes) | Door and window types for every size | 4 | every size of the nine examples made in Revit 2025, through the add-in and through pyRevit (Swiss families through the masonry opening; passage families without a leaf never used for a door); size check in every run | fire-rated door families lock their size |
 | Revit and MCP (all routes) | Images: a plan per level and a 3D view, JPEG | 4 | every example and the real models (0.5 add-in); every example through pyRevit: a fresh plan per level without the template's view template, cropped, fine detail (0.7) | – |
-| Revit and MCP (all routes) | Revit through the pyRevit agent runtime (stages, read back, checks) | 4 | all nine examples in Revit 2025 through `pyrevit mcp`, unattended, 218 of 218 checks (20.10.2026); fixed on the way: Room.Name under IronPython, umlauts in results, a Revit chosen by process id | real project data through pyRevit |
+| Revit and MCP (all routes) | Revit through the pyRevit agent runtime (stages, read back, checks) | 4 | all nine examples in Revit 2025 through `pyrevit mcp`, unattended, 218 of 218 checks (20.10.2026); fixed on the way: Room.Name under IronPython, umlauts in results, a Revit chosen by process id; real project data (details private); results too large for the response read from the run | – |
 | Revit and MCP (all routes) | Revit API check (`tools/api_check.py`) | 4 | all 136 API names of the Revit module found in Revit 2025.1 | – |
 | Revit and MCP (all routes) | Agent team: 9 agents, workflow with gates, phase tool for one model | 3 | three examples built phase by phase in the stand-in, every check passes; the family man's types stage makes every type before the builders | first run in Revit |
 
@@ -75,11 +75,11 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 | 7 | IFC: slab holes and openings | 3 | M | – | floors |
 | 8 | IFC: columns and beams | 3 | M | – | new element classes |
 | 9 | IFC: curtain walls with their doors and windows | 3 | L | – | new element class |
-| 10 | Door swing from the IFC | 2 | S | – | – |
+| 10 | Door swing from the IFC (done 24.10.2026) | 2 | S | – | – |
 | 11 | Own raster reader (instead of plan-extract) | 3 | L | decision in 4 | raster plans 0 to 3 |
 | 13 | Stairs and ramps in the voids of the slab regions (steps in thin horizontal slices) | 4 | M | – | stairs 4 to 5 |
 | 14 | Slab outlines: straight, square edges instead of the 10 cm raster | 3 | S | – | fewer Revit warnings |
-| 15 | Modelling guideline, open points: phase "Existing" for every element, a parameter measured / assumed on walls, floors, doors and windows | 3 | S | – | guideline met |
+| 15 | Modelling guideline, open points: phase "Existing" for every element, a parameter measured / assumed on walls, floors, doors and windows (done 24.10.2026) | 3 | S | – | guideline met |
 | 12 | Slice route: opening heights (a third slice or the top of each gap), sloped roofs, one wall from its upper and lower face | 3 | M | – | slice route 4 to 5 |
 
 ## Reading

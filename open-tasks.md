@@ -1,6 +1,6 @@
 # Open functions and tasks
 
-State 20.10.2026, scan2revit 0.7.0. All nine examples pass in Revit through pyRevit (218 of 218). One table per sub-project, then what all three share. Sources: the gaps
+State 24.10.2026, scan2revit 0.7.0. All nine examples pass in Revit through pyRevit; the whole real IFC building builds unattended. One table per sub-project, then what all three share. Sources: the gaps
 and the future functions of `scoring.md` (numbers F1 to F15 are its future functions), the build log and the
 status of the Revit tests. Published at https://tstrathaus.github.io/revit-mcp-status/open.html; a commit that
 changes this file, `scoring.md` or the modelling guideline updates the site (`tools/publish_status.py`, run by
@@ -33,7 +33,8 @@ IFC storeys to native Revit elements, all storeys in one model. Code `scan2revit
 
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
-| Task | Revit test of the whole real IFC building through pyRevit (0.7; the synthetic IFC house passes) | 5 | S | `tools/revit_e2e.py --plan` with the merged plan of all storeys |
+| Task | Revit test of the whole real IFC building through pyRevit (0.7) | 5 | S | done (24.10.2026) real project data (details private) |
+| Gap | IFC: a few walls and their openings Revit refuses ("Wand kann nicht erstellt werden"), doors in curved walls | 3 | M | real project data (details private); read the refused wall's geometry |
 | Gap | Doors on locked (fire-rated) families keep their size real project data (details private) | 4 | S | F2 (a door family with free size) |
 | Function | F5 Stairs with landings (IFC flights; also for scans) | 3 | L | – |
 | Function | F6 Wall types by the IFC type name | 3 | M | – |
@@ -41,7 +42,7 @@ IFC storeys to native Revit elements, all storeys in one model. Code `scan2revit
 | Function | F8 Columns and beams | 3 | M | – |
 | Function | F9 Curtain walls with their doors and windows | 3 | L | – |
 | Gap | Rooms without `IfcSpace`: areas off where walls overlap | 2 | M | – |
-| Function | F10 Door swing from the IFC | 2 | S | – |
+| Function | F10 Door swing from the IFC: single-swing doors from the placement (opens towards local +Y) and the operation type (hinge side) | 2 | S | done (24.10.2026) real project data (details private); double doors without swing |
 
 ## Plans2Revit
 
@@ -55,7 +56,8 @@ IFC storeys to native Revit elements, all storeys in one model. Code `scan2revit
 | Function | Clutter filter: built-in units, sanitary, text masks, annotation; list in the modelling guideline, machine list `plans/filters.json` | 4 | M | done; furniture only implicitly (no wall pairs) |
 | Function | Walls drawn as filled areas in vector PDFs: wall rectangles, openings where the rendered wall colour is absent, swings from chains of short lines | 4 | S | done |
 | Gap | Rooms on a real sheet not all closed by walls: real project data (details private) (corner joins, stair walls, knee walls under a sloping roof drawn as roof bands) | 4 | M | knee walls as walls of their own height; joins of stubs |
-| Gap | Plan sheets: small symbols drawn in wall colour outside the building become wall stubs; a door beside a window in one gap gets only the window | 3 | S | drop walls outside the building outline; door of the split gap |
+| Gap | Plan sheets: small symbols drawn in wall colour outside the building became wall stubs; a door beside a window in one gap got only the window | 3 | S | done (24.10.2026): loose groups under 1.5 m outside the outline left out and listed; a window gap with a swing at one end split into door and window |
+| Function | Storey heights from the elevations sheet (levels and heights instead of the assumed storey height) | 4 | M | the elevations sheet of the same building is there |
 | Function | F4 Raster PDF (scanned plan) into Revit: **postponed** (22.10.2026) | 4 | S to L | own reader for filled walls preferred; OCR of room stamps; scale from stamps or dimensions |
 | Function | Handwritten measurements on a scanned plan (other ink) as checks, kept out of the geometry | 3 | M | with F4 |
 | Gap | plan-extract run locally: blocked, the segmenter model is not public | 2 | – | only needed for thin-line or sketched plans |
@@ -69,7 +71,7 @@ agent team. Code `scan2revit/core/`, `tools/`, `.claude/`.
 
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
-| Task | Unattended runs: check that the pyRevit agent host answers Revit's failure dialogs like the old add-in | 4 | S | the whole IFC building as the hard case |
+| Task | Unattended runs: check that the pyRevit agent host answers Revit's failure dialogs like the old add-in | 4 | S | done (24.10.2026) real project data (details private) |
 | Function | F2 A door and a window family with free size in the blank project (the template) | 4 | S | **you**: load the families into the template |
 | Task | Agent team: first model built in Revit, phase by phase with its gates | 4 | M | the synthetic project first, then a real building |
-| Function | F15 Modelling guideline: phase "Existing" for every element, a parameter measured / assumed on walls, floors, doors and windows | 3 | S | – |
+| Function | F15 Modelling guideline: phase "Existing" for every element, a parameter measured / assumed on walls, floors, doors and windows | 3 | S | done (24.10.2026): stage `existing`, shared parameter `scan2revit source`; checked by the runner |

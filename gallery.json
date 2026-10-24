@@ -38,6 +38,16 @@
   "before_label": "two 20 cm slices and the floor band"
  },
  {
+  "file": "images/source-measured-assumed.jpeg",
+  "before": "images/source-measured-assumed-before.jpeg",
+  "tags": [
+   "Plan: coloured by measured / assumed",
+   "3D: the same filter"
+  ],
+  "title": "Measured or assumed, in Revit",
+  "text": "Every wall, floor, door and window carries the parameter 'scan2revit source', and every element is in the existing phase. Here the slice-route example in Revit 2025 with a view filter on it: orange = thickness assumed (outer walls seen from inside only), grey = measured, blue = sill and head assumed (the slices see no opening heights). All checks pass (24.10.2026)."
+ },
+ {
   "file": "images/plan-pdf-floor-plan.jpeg",
   "title": "2D plan (vector PDF) to Revit",
   "text": "Floor plan of the ground floor rebuilt from a vector PDF at 1:100: walls from paired face lines, doors from swing arcs, windows from glass lines, the stair from its tread lines.",

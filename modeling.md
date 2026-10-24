@@ -48,14 +48,18 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   in 2D plans (`heights_assumed`), slab thickness without a vertical section through it.
 - The accuracy is stated per element class as USIBD LOA: measured accuracy (of the scan) and represented
   accuracy (of the model) apart. Measured on real data so far: real project data (details private); synthetic faces within 1 mm.
-- Current: the flags are in `plan.json` and `report.md`, not in Revit (**open**: a shared parameter
-  `scan2revit source` = measured / assumed on walls, floors, doors and windows).
+- In Revit: the shared instance parameter `scan2revit source` (group Data) on walls, floors, doors and windows
+  says `measured` (taken from the scan, the drawing or the IFC) or `assumed: <what>` (`assumed: thickness`,
+  `assumed: head`, `assumed: sill and head`). The last build stage (`existing`) adds it through a shared
+  parameter file in the temp folder and restores the user's own shared parameter file setting. The flags stay
+  in `plan.json` and `report.md` as well.
 
 ## 3. Existing elements only
 
 - An as-built model holds the building as it is: no demolition, no new construction, no design intent.
-- Recommended: every element in the phase "Existing" (Bestand). **Open**: the calls create elements in the
-  view's phase; set "Phase Created" to the existing phase in the template or after loading.
+- Every element in the phase "Existing" (Bestand): the stage `existing` sets "Phase Created" of every element
+  the tool made to the template's existing phase (by name: Existing, Bestand, Bestehend; else the first phase).
+  Rooms keep the phase of the view they were placed in; they are bounded by the existing walls all the same.
 - Not modelled, only reported in the QA: furniture, fittings, MEP, finishes, build-ups, anything the scan
   only shows in part (ghost points, mirrors).
 
@@ -112,8 +116,10 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   with width and height set; existing sizes within 50 mm are reused). Sizes under 200 mm are not openings.
 - Width and position as measured; sill and head as measured in the full scan route, given (and flagged) in
   the slice route and in 2D plans.
-- Door swing and hinge side as scanned (the open leaf) or drawn (the swing arc); a closed door has no leaf:
-  its swing stays the family default and is reported.
+- Door swing and hinge side as scanned (the open leaf), drawn (the swing arc) or given in the IFC (single-swing
+  doors: the leaf opens towards the door's local +Y axis, the hinge side from the operation type LEFT / RIGHT);
+  a closed door in a scan and a double door in an IFC have none: the swing stays the family default and is
+  reported.
 
 ## 8. Stairs, slab openings, ramps
 
@@ -150,8 +156,10 @@ Left out of the model (machine list: `scan2revit/plans/filters.json`; keep both 
 | Text masks behind stamps and labels | white filled rectangles not on a wall | drawing aid |
 | Dimensions, levels (+3.40), areas (m2), symbol labels (EL, Dachfenster) | text patterns (`filters.json` "texts") | annotation, not a room name |
 | Frame, title block, view numbers | long lines, the box with PLAN-NR / DATUM / scale | sheet, not drawing |
+| Small symbols in wall colour outside the building (ticks, markers, a chimney ring) | touching wall pieces together under 1.5 m whose middle lies outside the building outline | not walls; listed in the QA |
 
 A crossed box on a wall is a window, never a cupboard. A white box on a wall is a window symbol.
+A gap with window lines and a swing at one end is a door beside a window (a balcony door): both are placed.
 
 
 ## 10. Coordinates and georeferencing
