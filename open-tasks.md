@@ -16,10 +16,11 @@ Scans (E57, PLY, LAS) to levels, walls, openings, floors, stairs and rooms. Code
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
 | Function | F1 Wall detection on densely partitioned real floors: real project data (details private) | 5 | L | build on the slice route real project data (details private) |
+| Function | F16 External parts of the point cloud (facade and drone scans, points outside the rooms) in the same survey frame. Goal: better walls and wall thicknesses (the outer face of exterior walls measured, not assumed 0.30 m from one side; straighter axes), better slab outlines (the facade line instead of the interior's 10 cm raster) | 5 | M | register exterior and interior scans in one frame; pair inner and outer faces; slab outline from the facade |
 | Function | F3 Room separation lines where the slice route's rooms have no wall, so rooms close in Revit | 4 | M | reuse the passage lines of the plan-extract route |
 | Function | F13 Stairs and ramps in the voids of the slab regions (steps in thin horizontal slices) | 4 | M | – |
 | Function | F12 Slice route: measured opening heights, sloped roofs, one wall from its upper and lower face | 3 | M | a third slice or the top of each gap |
-| Function | F14 Slab outlines with straight, square edges instead of the 10 cm raster (fewer Revit warnings) | 3 | S | – |
+| Function | F14 Slab outlines with straight, square edges instead of the 10 cm raster (fewer Revit warnings) | 3 | S | with F16: the facade line where an exterior scan exists |
 | Gap | Galleries: missed at 3 m section spacing, not built as their own Revit level yet | 3 | M | – |
 | Gap | Doors and windows: few found on real floors | 3 | M | after F1 |
 | Gap | Stairs: straight runs only; curved walls: circular arcs only | 2 | L | stairs with landings: F5 |

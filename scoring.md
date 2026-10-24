@@ -79,6 +79,7 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 | 13 | Stairs and ramps in the voids of the slab regions (steps in thin horizontal slices) | 4 | M | – | stairs 4 to 5 |
 | 14 | Slab outlines: straight, square edges instead of the 10 cm raster | 3 | S | – | fewer Revit warnings |
 | 15 | Modelling guideline, open points: phase "Existing" for every element, a parameter measured / assumed on walls, floors, doors and windows | 3 | S | – | guideline met |
+| 16 | External parts of the point cloud (facade, drone): outer faces of exterior walls, measured thicknesses, slab outlines from the facade | 5 | M | – | walls 4 to 5, slab regions 4 to 5 |
 | 12 | Slice route: opening heights (a third slice or the top of each gap), sloped roofs, one wall from its upper and lower face | 3 | M | – | slice route 4 to 5 |
 
 ## Reading
