@@ -95,11 +95,13 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   the storey below under them), courtyards and atria (over 60 m2). Holes the floor is only hidden in
   (furniture) are not voids.
 - With an external scan the floor outline is the building's outline at the facade (`pointcloud.facade`): the
-  vertical facade points around the storey form a ring (windows and doors closed, up to 1.6 m); inside the outer ring is
+  vertical facade points around the storey form a ring (windows and doors closed, up to 1.6 m; 2.4 and 3.2 m only where the ring stays open); inside the outer ring is
   slab, also where the inside was not scanned; an enclosed space of 30 m2 or more with no scanned floor and its
   own ring of facade points is a courtyard (a void). Flat things in front of the facade (canopies, terrace
   roofs, sills) are not facade; protrusions under 0.8 m (pilasters) are ironed out; edges near the building
-  axes are squared. The edge lies on the outer face of the facade. A ring that does not hold 90 % of the
+  axes are squared. The edge lies on the outer face of the load-bearing walls: the outline is pulled in by the
+  cladding depth, measured as the median distance from the outer face of the walls measured from the external
+  scan to the facade outline (cladding, cornices, sills are not slab). A ring that does not hold 90 % of the
   scanned floor is open (missing points, shop fronts, terrain): the scanned outline stays.
 - Without an external scan the outline is simplified from the 10 cm raster (**open**: straight, square edges,
   Revit warns about sketch lines slightly off axis).
@@ -126,8 +128,10 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   `Room <storey>.<n>`; net area to the wall faces. Cells under 1 m2 are slivers, not rooms.
 - A room must be enclosed (Revit: "bounded"). A passage between two rooms (a gap with no wall and no door)
   gets a room separation line across it, 5 cm into the wall ends (plan-extract passages: done). Where walls
-  are missing (real scans), rooms come from the free space and are placed but not enclosed (**open**: room
-  separation lines along the free-space boundaries where no wall was found).
+  are missing (real scans), rooms come from the free space: at the necks where two such rooms meet (a shared
+  boundary up to 2.5 m, straight within 0.3 m: a doorway with no door seen) a room separation line, 0.2 m into
+  the walls at its ends. Long or bent shared boundaries are missing walls: no line (it would cut through rooms);
+  those rooms are placed but not enclosed (**open**: walls found there, F1).
 - Room stamps of a plan sheet (plans.sheet): every stamp gives a room at its position, also where the walls do
   not close around it (then placed, not enclosed, listed in qa). Name = the stamp's name ("Küche"); the unit
   above it goes to Revit's room parameter "Abteilung" (Department): "Wohnung <n>", "G" = "Allgemein"; number =
@@ -179,6 +183,9 @@ swings to the scanned side; Revit warnings and the failures answered without a t
 ## 13. Working rules
 
 - Never move or edit elements that were not created in this run.
+- Revit errors during a stage: an error that offers a resolution is resolved with Revit's default (walls that
+  cannot stay joined are unjoined) and listed in the stage notes, instead of rolling back the whole stage; a
+  floor whose outline Revit refuses is tried once more with a coarser outline, then left out with a note.
 - Do not create types, levels or coordinates silently in a real project: ask; in test copies the runner does it.
 - Quote accuracy with its source: synthetic results (bench/results.md) are optimistic; real scans carry
   registration error, glass and clutter.
