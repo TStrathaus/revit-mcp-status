@@ -1,6 +1,6 @@
 # Scoring: current functionality and future functions
 
-State 23.10.2026. Section 12 of the research log scores the outside options; this table scores what this
+State 24.10.2026. Section 12 of the research log scores the outside options; this table scores what this
 repository does itself. Update it when a score changes, with the evidence. How the models are built:
 the modelling guideline `scan2revit/skills/modeling/SKILL.md` (https://tstrathaus.github.io/revit-mcp-status/modeling.html).
 
@@ -37,6 +37,7 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 | Convert point clouds | Slice route: walls, doors, windows, rooms, floor from two 20 cm slices (`slice2d`) | 4 | synthetic (bench SL1-SL5): all walls (faces within 1 mm), doors with swing, windows, rooms; example all 18 checks in Revit (0.7, through pyRevit). real project data (details private) | rooms not closed in Revit where walls are missing; opening heights given, not measured; sloped roofs |
 | Convert point clouds | Slabs and levels from vertical sections (`sections`), refined where neighbours differ | 3 | synthetic: floors exact, slab thickness within 2 cm, gallery found, beds and a ramp no level; real project data (details private); floors and slab thickness go into the slice route | a gallery real project data (details private) is missed at 3 m spacing; some slab thicknesses from few pairs; galleries not built as their own Revit level yet |
 | Convert point clouds | Slab regions per floor from horizontal slices: outlines, voids (shafts, stairwells, courtyards), galleries | 4 | synthetic: floor regions, a stairwell void, a hidden floor filled, the gallery; real project data (details private) | outlines from a 10 cm raster (Revit sketch warnings); voids under 5 m2 not cut; stairs in the voids not read |
+| Convert point clouds | External scans (drone, facade) in the survey frame (`facade`): exterior walls seen from inside get their measured thickness, slab outlines from the facade ring, courtyards as voids | 3 | synthetic tests (outer face behind window frames, ring with courtyard and canopy, open ring); real project data (details private) | rings open where the facade is not seen (shop fronts, terrain); the edge lies on the outer facade face; not under a roof or below ground; not yet in Revit |
 | Convert point clouds | Storeys merged in the survey frame, vertical check | 4 | real project data (details private) | – |
 | Convert floor plans | DXF and vector PDF | 4 | plan examples in Revit, all checks | – |
 | Convert floor plans | Several storeys, aligned | 4 | two-storey PDF in Revit, stair and void right | – |
@@ -79,7 +80,6 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 | 13 | Stairs and ramps in the voids of the slab regions (steps in thin horizontal slices) | 4 | M | – | stairs 4 to 5 |
 | 14 | Slab outlines: straight, square edges instead of the 10 cm raster | 3 | S | – | fewer Revit warnings |
 | 15 | Modelling guideline, open points: phase "Existing" for every element, a parameter measured / assumed on walls, floors, doors and windows | 3 | S | – | guideline met |
-| 16 | External parts of the point cloud (facade, drone): outer faces of exterior walls, measured thicknesses, slab outlines from the facade | 5 | M | – | walls 4 to 5, slab regions 4 to 5 |
 | 12 | Slice route: opening heights (a third slice or the top of each gap), sloped roofs, one wall from its upper and lower face | 3 | M | – | slice route 4 to 5 |
 
 ## Reading

@@ -78,7 +78,11 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
 - Corners and junctions: centrelines joined at their crossings; overlapping walls are an error to remove.
 - Room bounding: on (the default) for every wall.
 - A wall seen from one side keeps its seen face; the thickness is assumed (0.30 m unless `--exterior-thickness`)
-  until a door reveal measures it or `--thickness-overrides` sets it.
+  until an external scan (facade or drone, same survey frame: `scan2revit.pointcloud.facade`) shows its outer
+  face, a door reveal measures it or `--thickness-overrides` sets it. The outer face is the dominant face 8 cm to
+  1 m behind the inner one in the storey's height band (0.30-1.60 m); pilaster fronts and window frames are
+  smaller peaks. Then the wall is "paired", thickness source "inner face + exterior scan". Not for a storey under a sloping roof or below
+  ground (`--no-walls`): the band sees eaves and dormers, or terrain.
 - Orientation: with `--align-north` the model is turned so the walls run along the project axes (project
   north); true north keeps the survey bearing (`plan.origin.rotation_deg`).
 
@@ -90,7 +94,14 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
 - Voids are openings cut into the floor (`NewOpening`): shafts and stairwells (5 m2 or more with no ceiling of
   the storey below under them), courtyards and atria (over 60 m2). Holes the floor is only hidden in
   (furniture) are not voids.
-- The floor outline is simplified (one point per 10 cm raster corner today; **open**: straight, square edges,
+- With an external scan the floor outline is the building's outline at the facade (`pointcloud.facade`): the
+  vertical facade points around the storey form a ring (windows and doors closed, up to 1.6 m); inside the outer ring is
+  slab, also where the inside was not scanned; an enclosed space of 30 m2 or more with no scanned floor and its
+  own ring of facade points is a courtyard (a void). Flat things in front of the facade (canopies, terrace
+  roofs, sills) are not facade; protrusions under 0.8 m (pilasters) are ironed out; edges near the building
+  axes are squared. The edge lies on the outer face of the facade. A ring that does not hold 90 % of the
+  scanned floor is open (missing points, shop fronts, terrain): the scanned outline stays.
+- Without an external scan the outline is simplified from the 10 cm raster (**open**: straight, square edges,
   Revit warns about sketch lines slightly off axis).
 
 ## 7. Doors and windows
