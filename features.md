@@ -1,0 +1,200 @@
+# Features and effort
+
+State 25.10.2026 10:45. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
+
+Measured 15.10.2026 to 25.10.2026: 80 requests, the lead 20.4 h active, agents 3.0 h, 14.2 M new tokens (input, cache writes, output) and 781.3 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead. Loops: a checking agent (reviewer, checker) after a building one (developer, builders).
+
+## Pointcloud2Revit
+
+### Built (19)
+
+| Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
+|---|---|---|---|---|---|---|
+| Slice-weighted storeys (walls 0.3-0.7 m, windows 1.1-1.3 m) | Function | 4 | 1.8 h | – | – | 234 k |
+| Slice route: walls, doors, windows, rooms, floor from two 20 cm slices (`slice2d`) | Function | 4 | 1.6 h | – | – | 531 k |
+| Slabs and levels from vertical sections (`sections`), refined where neighbours differ | Function | 3 | 1.3 h | – | – | 173 k |
+| F16 External parts of the point cloud (`pointcloud/facade.py`): exterior walls measured, slab outline from the facade ring (closed stepwise), edge on the walls' outer face, courtyards as voids | Function | 5 | 49 min | – | – | 859 k |
+| Slab regions per floor from horizontal slices: outlines, voids (shafts, stairwells, courtyards), galleries | Function | 4 | 39 min | – | – | 120 k |
+| F14 Slab outlines with straight, square edges instead of the 10 cm raster (fewer Revit warnings) | Function | 3 | 16 min | – | – | 84 k |
+| A4 Scan coverage per storey: share of every wall and of the outline seen, coverage image | Function | 4 | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
+| Curved walls | Function | 4 | – | – | – | – |
+| Door swing and hinge side | Function | 4 | – | – | – | – |
+| Doors and windows from holes in the faces | Function | 4 | – | – | – | – |
+| E57 reader (real scans, in blocks) | Function | 4 | – | – | – | – |
+| External scans (drone, facade) in the survey frame (`facade`): exterior walls seen from inside get their measured thickness, slab outlines from the facade ring, courtyards as voids | Function | 4 | – | – | – | – |
+| Ghost points (glass, mirrors) | Function | 3 | – | – | – | – |
+| Large scans: thinning to 2 cm | Function | 4 | – | – | – | – |
+| Levels and storeys from the scan | Function | 5 | – | – | – | – |
+| Rooms, floor outline | Function | 4 | – | – | – | – |
+| Stairs, slab openings | Function | 4 | – | – | – | – |
+| Storeys merged in the survey frame, vertical check | Function | 4 | – | – | – | – |
+| Straight walls (faces, thickness, squaring, joins) | Function | 4 | – | – | – | – |
+
+### Planned (9)
+
+| Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
+|---|---|---|---|---|---|---|
+| F3 Room separation lines where the slice route's rooms have no wall | Function | 4 | 17 min | – | – | 59 k |
+| Doors and windows: few found on real floors | Gap | 3 | – | – | – | – |
+| F1 Wall detection on densely partitioned real floors: real project data (details private) | Function | 5 | – | – | – | – |
+| F12 Slice route: measured opening heights, sloped roofs, one wall from its upper and lower face | Function | 3 | – | – | – | – |
+| F13 Stairs and ramps in the voids of the slab regions (steps in thin horizontal slices) | Function | 4 | – | – | – | – |
+| Galleries: missed at 3 m section spacing, not built as their own Revit level yet | Gap | 3 | – | – | – | – |
+| Memory: large real storeys still take much memory on the full route real project data (details private) | Gap | 2 | – | – | – | – |
+| Slab voids under 5 m2 are not cut | Gap | 2 | – | – | – | – |
+| Stairs: straight runs only; curved walls: circular arcs only | Gap | 2 | – | – | – | – |
+
+## IFC2Revit
+
+### Built (10)
+
+| Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
+|---|---|---|---|---|---|---|
+| A3 IFC pre-check: what Revit will refuse (degenerate arcs, short pieces, duplicates), fixed where safe, reported | Function | 4 | 26 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 404 k |
+| F7 Slab holes and openings from the IFC | Function | 3 | 26 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 404 k |
+| F10 Door swing from the IFC: single-swing doors from the placement (opens towards local +Y) and the operation type (hinge side) | Function | 2 | 11 min | – | – | 66 k |
+| Revit test of the whole real IFC building through pyRevit (0.7) | Task | 5 | 11 min | – | – | 66 k |
+| All storeys in one model (`merge.py`) | Function | 4 | – | – | – | – |
+| One storey to native Revit (`ifc.py`) | Function | 5 | – | – | – | – |
+| Openings on the right wall piece, panes left out | Function | 4 | – | – | – | – |
+| Pre-check of what Revit refuses (`ifc/precheck.py`), wall pieces at their base offset, slab holes | Function | 4 | – | – | – | – |
+| Rooms without `IfcSpace` (cells between the walls) | Function | 4 | – | – | – | – |
+| Synthetic IFC example and tests | Function | 4 | – | – | – | – |
+
+### Planned (8)
+
+| Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
+|---|---|---|---|---|---|---|
+| Doors on locked (fire-rated) families keep their size real project data (details private) | Gap | 4 | – | – | – | – |
+| F5 Stairs with landings (IFC flights; also for scans) | Function | 3 | – | – | – | – |
+| F6 Wall types by the IFC type name | Function | 3 | – | – | – | – |
+| F8 Columns and beams | Function | 3 | – | – | – | – |
+| F9 Curtain walls with their doors and windows | Function | 3 | – | – | – | – |
+| IFC wall pieces assigned to a storey they do not stand in (base offsets of a whole storey up or down): built at their true height they no longer bound that level's rooms | Gap | 4 | – | – | – | – |
+| IFC: a few walls and their openings Revit refuses ("Wand kann nicht erstellt werden"), doors in curved walls | Gap | 3 | – | – | – | – |
+| Rooms without `IfcSpace`: areas off where walls overlap | Gap | 2 | – | – | – | – |
+
+## Plans2Revit
+
+### Built (14)
+
+| Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
+|---|---|---|---|---|---|---|
+| Raster plans through plan-extract (`fpx.py`) | Function | 4 | 40 min | – | – | 152 k |
+| Plan sheets with several storeys (`plans/sheet.py`): drawings split, storey labels, ordered bottom first, aligned | Function | 5 | 28 min | – | – | 127 k |
+| Room stamps: name, unit as Revit department, number storey.unit.nn, a room at every stamp | Function | 4 | 28 min | – | – | 127 k |
+| Plan sheets: small symbols drawn in wall colour outside the building became wall stubs; a door beside a window in one gap got only the window | Gap | 3 | 11 min | – | – | 66 k |
+| Walls drawn as filled areas, openings where the wall colour is absent, swings from chains of short lines | Function | 4 | 9 min | – | – | 92 k |
+| Clutter filter (built-in units, sanitary, text masks, annotation), list in the guideline and `plans/filters.json` | Function | 4 | 6 min | – | – | 73 k |
+| plan-extract run locally | Function | 1 | 2 min | – | – | 9 k |
+| CAD sheet with several storeys (`sheet.py`): drawings split, storey labels, scale from the title block | Function | 4 | – | – | – | – |
+| Clutter filter: built-in units, sanitary, text masks, annotation; list in the modelling guideline, machine list `plans/filters.json` | Function | 4 | – | – | – | – |
+| DXF and vector PDF | Function | 4 | – | – | – | – |
+| Own raster reader | Function | 0 | – | – | – | – |
+| Rooms with the data of their stamps: name, unit (Revit "Abteilung"), number storey.unit.nn; a room at every stamp | Function | 5 | – | – | – | – |
+| Several storeys, aligned | Function | 4 | – | – | – | – |
+| Walls drawn as filled areas in vector PDFs: wall rectangles, openings where the rendered wall colour is absent, swings from chains of short lines | Function | 4 | – | – | – | – |
+
+### In progress (1)
+
+| Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
+|---|---|---|---|---|---|---|
+| Storey heights from the elevations sheet (levels and heights instead of the assumed storey height) | Function | 4 | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
+
+### Planned (8)
+
+| Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
+|---|---|---|---|---|---|---|
+| Rooms on a real sheet not all closed by walls: real project data (details private) after the corner joins, stub and jog fixes and knee walls (24.10.2026) | Gap | 3 | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
+| plan-extract run locally: blocked, the segmenter model is not public | Gap | 2 | 2 min | – | – | 9 k |
+| F11 Own raster reader instead of plan-extract | Function | 3 | – | – | – | – |
+| F4 Raster PDF (scanned plan) into Revit: **postponed** (22.10.2026) | Function | 4 | – | – | – | – |
+| Handwritten measurements on a scanned plan (other ink) as checks, kept out of the geometry | Function | 3 | – | – | – | – |
+| Knee walls under a sloping roof built as wide as the drawn band (thickness and height flagged assumed) | Gap | 3 | – | – | – | – |
+| Orientation and scale from the sheet: scale from the title block ("1 : 100") done; turning a sheet whose text is not upright not built yet | Function | 5 | – | – | – | – |
+| plan-extract results: one room the walls do not close; never run on a real result | Gap | 2 | – | – | – | – |
+
+Other requests on Plans2Revit (status, documentation, runs, fixes not tied to one feature): 1, 6 min, 419 k tokens.
+
+## Shared: core, Revit side, agent team
+
+### Built (19)
+
+| Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
+|---|---|---|---|---|---|---|
+| Images: a plan per level and a 3D view, JPEG | Function | 4 | 1.9 h | – | – | 405 k |
+| Revit through the pyRevit agent runtime (stages, read back, checks) | Function | 4 | 1.4 h | – | – | 206 k |
+| End-to-end runner (start, calls, checks, report) | Function | 4 | 1.3 h | – | – | 229 k |
+| Unattended runs: failure dialogs answered and logged | Function | 5 | 36 min | – | – | 156 k |
+| Agent team: 9 agents, workflow with gates, phase tool for one model | Function | 3 | 35 min | – / – / 1 (0 min) | – | 963 k |
+| A1 Machine-readable input reports for every route (verdict per item) | Function | 4 | 26 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 404 k |
+| S1 Agent scoreboard: actions, findings, defects found and fixed, gate verdicts and check scores per agent and project, summed up over projects | Function | 5 | 26 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 404 k |
+| V1 Rule ids in the modelling guideline, each rule with its Revit check; R2 table rule -> check | Function | 4 | 26 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 404 k |
+| V2 Comparison with a reference (an IFC of the same building) as a standard checker step, LOA tolerances | Function | 4 | 26 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 404 k |
+| Revit API check (`tools/api_check.py`) | Function | 4 | 22 min | – | – | 22 k |
+| R1 Rule proposals: agents propose guideline changes in their handover, the project manager collects them, the user approves | Function | 4 | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
+| V3 Each Revit run compared with the previous one: checks gained, lost, still failing | Function | 3 | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
+| F15 Modelling guideline: phase "Existing" for every element, a parameter measured / assumed on walls, floors, doors and windows | Function | 3 | 11 min | – | – | 66 k |
+| Agent team bookkeeping: scoreboard, rule ids with checks, rule proposals, run comparison | Function | 3 | – | – | – | – |
+| Comparison with a reference plan per LOA class (`core/compare.py`) | Function | 3 | – | – | – | – |
+| Door and window types for every size | Function | 4 | – | – | – | – |
+| Input reports with verdicts (`core/inputs.py`), scan coverage | Function | 3 | – | – | – | – |
+| Unattended runs: check that the pyRevit agent host answers Revit's failure dialogs like the old add-in | Task | 4 | – | – | – | – |
+| Wall types for every thickness | Function | 4 | – | – | – | – |
+
+### In progress (1)
+
+| Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
+|---|---|---|---|---|---|---|
+| F24 Agent team phases updated for drawings first (phase 2a, alignment 2c, review at gate 1, drawn vs measured in the check) | Task | 4 | – | – | – | – |
+
+### Planned (10)
+
+| Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
+|---|---|---|---|---|---|---|
+| F22 Local LLM helper (`local-llm.md`): text classification, build-up parsing, raster reading; always proposed facts, checked by code | Function | 3 | 20 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 206 k |
+| Agent team: first model built in Revit, phase by phase with its gates | Task | 4 | 15 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 194 k |
+| F17 Facts from drawings: catalogue of 29 information types from plans, sections, elevations, build-up legends, schedules, site plans into `facts.json` per project (`drawings-and-scans.md`) | Function | 5 | 15 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 194 k |
+| GitHub sources: licence and security check before any skill or code is taken; pinned and listed (`github-sources.md`) | Task | 3 | 15 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 194 k |
+| F18 Review page: a person accepts, corrects or rejects every fact at gate 1, crops of the drawing beside each value | Function | 5 | – | – | – | – |
+| F19 Drawings aligned to the scan frame per storey (2D fit of wall axes, person confirms) | Function | 5 | – | – | – | – |
+| F2 A door and a window family with free size in the blank project (the template) | Function | 4 | – | – | – | – |
+| F20 Drawn facts as priors in modelling: levels, thickness of one-sided walls, slab thickness, opening heights, room names on scan rooms, drawn walls as hypotheses for the slice route | Function | 5 | – | – | – | – |
+| F21 Checker: drawn vs measured for every accepted fact, unused facts listed | Function | 4 | – | – | – | – |
+| F23 Build-ups (floor, wall, roof) parsed into layers and thicknesses; slab thickness from them | Function | 4 | – | – | – | – |
+
+Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 29, 3.0 h, 4.6 M tokens.
+
+## Tasks with agents
+
+| Date | Task | Sub-project | Lead | Agent | Role | Time | Tokens | Cache reads |
+|---|---|---|---|---|---|---|---|---|
+| 17.10.2026 | Agent team | shared | 35 min, 913 k | project-manager | input / lead | 0 min | 50 k | 278 k |
+| | | | | 1 agents, 0 loops | | 0 min | 50 k | 278 k |
+| 24.10.2026 | Feature round: developers and reviewers | shared | 6 min, 232 k | dev:agents | building | 19 min | 310 k | 10.1 M |
+|  |  |  |  | dev:inputs | building | 17 min | 271 k | 9.8 M |
+|  |  |  |  | dev:ifc | building | 24 min | 389 k | 21.1 M |
+|  |  |  |  | dev:plans | building | 32 min | 481 k | 26.5 M |
+|  |  |  |  | dev:checker | building | 11 min | 167 k | 3.9 M |
+|  |  |  |  | review:checker | checking | 4 min | 96 k | 1.3 M |
+|  |  |  |  | review:inputs | checking | 4 min | 77 k | 1.2 M |
+|  |  |  |  | review:agents | checking | 4 min | 108 k | 2.0 M |
+|  |  |  |  | review:ifc | checking | 3 min | 80 k | 1.0 M |
+|  |  |  |  | review:plans | checking | 4 min | 98 k | 1.0 M |
+| | | | | 10 agents, 5 loops | | 2.0 h | 2.1 M | 78.0 M |
+| 24.10.2026 | Plans (drawings first, local LLM, GitHub); merge of the feature round; team test | shared | 1.5 h, 584 k | project-manager | input / lead | 1 min | 39 k | 185 k |
+|  |  |  |  | point-cloud-man | input / lead | 6 min | 141 k | 2.9 M |
+|  |  |  |  | project-manager | input / lead | 1 min | 48 k | 147 k |
+|  |  |  |  | structure-man | building | 5 min | 99 k | 1.6 M |
+|  |  |  |  | family-man | building | 2 min | 61 k | 1.1 M |
+|  |  |  |  | loadbearing-man | building | 4 min | 93 k | 1.7 M |
+|  |  |  |  | project-manager | input / lead | 3 min | 80 k | 447 k |
+|  |  |  |  | fit-man | building | 2 min | 75 k | 1.2 M |
+|  |  |  |  | checker | checking | 3 min | 114 k | 1.4 M |
+|  |  |  |  | loadbearing-man | building | 5 min | 85 k | 1.8 M |
+|  |  |  |  | structure-man | building | 8 min | 108 k | 2.6 M |
+|  |  |  |  | family-man | building | 8 min | 137 k | 3.6 M |
+|  |  |  |  | fit-man | building | 6 min | 86 k | 1.8 M |
+|  |  |  |  | checker | checking | 3 min | 110 k | 1.3 M |
+|  |  |  |  | project-manager | input / lead | 1 min | 83 k | 492 k |
+| | | | | 15 agents, 2 loops | | 58 min | 1.4 M | 22.2 M |
