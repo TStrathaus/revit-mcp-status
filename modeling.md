@@ -75,8 +75,10 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
 - **G-4.2** Every element sits on the level of its storey; nothing hangs on a level of another storey.
 - **G-4.3** Elevations: Level 0 at elevation 0 in the local frame; the survey offset carries the height above sea
   (`plan.origin.offset_xyz`). Several storeys from one survey frame (`merge`) keep their measured heights.
-- **G-4.4** Floor heights come from the vertical sections (`scan2revit.pointcloud.sections`) or from the scan's height histogram;
-  storeys with steps are separate levels or reported (`steps_to` in slabs.json).
+- **G-4.4** Floor heights come from the vertical sections (`scan2revit.pointcloud.sections`); the scan's height histogram
+  only where no section can be cut. A slab underside (a ceiling with a floor 0.12-0.9 m above it) is never a floor.
+  Every check made at a floor height (density, registration) uses these floors. Storeys with steps are separate
+  levels or reported (`steps_to` in slabs.json). (Approved by the user 25.10.2026, proposed by the point cloud man.)
 
 ## 5. Walls
 

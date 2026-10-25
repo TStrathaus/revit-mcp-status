@@ -52,6 +52,7 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 | Convert IFC | All storeys in one model (`merge.py`) | 4 | real project data (details private) | doors on locked families |
 | Convert IFC | Openings on the right wall piece, panes left out | 4 | 'cannot cut from wall' 359 -> 36 on the whole building | – |
 | Convert IFC | Rooms without `IfcSpace` (cells between the walls) | 4 | real project data (details private); synthetic house exact | areas off where walls overlap |
+| Convert IFC | Pre-check of what Revit refuses (`ifc/precheck.py`), wall pieces at their base offset, slab holes | 4 | real project data (details private) | walls assigned to the wrong storey |
 | Convert IFC | Synthetic IFC example and tests | 4 | `bench/ifc_synth.py`: 3 tests, 22 of 22 checks in Revit | – |
 | Revit and MCP (all routes) | End-to-end runner (start, calls, checks, report) | 4 | every example, a real IFC building and real scan storeys (0.5 add-in); all nine examples through pyRevit, 218 of 218 checks (0.7, 20.10.2026) | the real IFC building and the scan storeys again through pyRevit |
 | Revit and MCP (all routes) | Unattended runs: failure dialogs answered and logged | 5 | real project data (details private) | – |
@@ -61,6 +62,9 @@ Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or 
 | Revit and MCP (all routes) | Revit through the pyRevit agent runtime (stages, read back, checks) | 4 | all nine examples in Revit 2025 through `pyrevit mcp`, unattended, 218 of 218 checks (20.10.2026); fixed on the way: Room.Name under IronPython, umlauts in results, a Revit chosen by process id; real project data (details private); results too large for the response read from the run | – |
 | Revit and MCP (all routes) | Revit API check (`tools/api_check.py`) | 4 | all 136 API names of the Revit module found in Revit 2025.1 | – |
 | Revit and MCP (all routes) | Agent team: 9 agents, workflow with gates, phase tool for one model | 3 | three examples built phase by phase in the stand-in, every check passes; the family man's types stage makes every type before the builders | first run in Revit |
+| Revit and MCP (all routes) | Agent team bookkeeping: scoreboard, rule ids with checks, rule proposals, run comparison | 3 | first team test (synthetic, 25.10.2026): 10 findings filed, one tool defect fixed at gate 1, one rule approved | the build stage |
+| Revit and MCP (all routes) | Comparison with a reference plan per LOA class (`core/compare.py`) | 3 | real project data (details private) | arcs, stairs, opening heights |
+| Revit and MCP (all routes) | Input reports with verdicts (`core/inputs.py`), scan coverage | 3 | synthetic scan: 12 of 13 ok (coverage needs the plan); floors from the sections (G-4.4) | limits are start values |
 
 ## Future functions
 

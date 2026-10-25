@@ -34,9 +34,10 @@ IFC storeys to native Revit elements, all storeys in one model. Code `scan2revit
 
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
+| Gap | IFC wall pieces assigned to a storey they do not stand in (base offsets of a whole storey up or down): built at their true height they no longer bound that level's rooms | 4 | S | move such pieces to the level they stand on before the build (merge) |
 | Function | A3 IFC pre-check: what Revit will refuse (degenerate arcs, short pieces, duplicates), fixed where safe, reported | 4 | S | done (24.10.2026, `ifc/precheck.py`, in the storey route; pieces stacked by base offset, which the Revit side now applies) real project data (details private); open: a few doors Revit refuses with very narrow jambs, partitions under 40 mm reported only |
-| Task | Revit test of the whole real IFC building through pyRevit (0.7) | 5 | S | done (24.10.2026) real project data (details private) |
-| Gap | IFC: a few walls and their openings Revit refuses ("Wand kann nicht erstellt werden"), doors in curved walls | 3 | M | real project data (details private); read the refused wall's geometry |
+| Task | Revit test of the whole real IFC building through pyRevit (0.7) | 5 | S | done (24.10.2026) real project data (details private) ; 25.10.2026 with pre-check, base offsets, slab holes: real project data (details private) |
+| Gap | IFC: a few walls and their openings Revit refuses ("Wand kann nicht erstellt werden"), doors in curved walls | 3 | M | real project data (details private); doors in curved walls placed since 25.10.2026 |
 | Gap | Doors on locked (fire-rated) families keep their size real project data (details private) | 4 | S | F2 (a door family with free size) |
 | Function | F5 Stairs with landings (IFC flights; also for scans) | 3 | L | – |
 | Function | F6 Wall types by the IFC type name | 3 | M | – |
