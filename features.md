@@ -1,14 +1,14 @@
 # Features and effort
 
-State 25.10.2026 13:03. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
+State 25.10.2026 13:06. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
 
-Measured 15.10.2026 to 25.10.2026: 93 requests, the lead 22.0 h active, agents 3.1 h, 14.7 M new tokens (input, cache writes, output) and 897.2 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
+Measured 15.10.2026 to 25.10.2026: 94 requests, the lead 22.1 h active, agents 3.1 h, 14.7 M new tokens (input, cache writes, output) and 907.0 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
 
 | Overall | Features | Estimate | Measured time | Agents | Loops | Tokens |
 |---|---|---|---|---|---|---|
 | Built | 64 | 38.5 h, 22.0 M | 19.6 h | – | – | 8.2 M |
-| In progress and planned | 43 | 118.0 h, 73.2 M | 1.9 h | – | – | 1.3 M |
-| **All requests measured** | **107** | **156.5 h, 95.2 M** | **25.1 h** (lead 22.0 h, agents 3.1 h) | **26** | **7** | **14.7 M** |
+| In progress and planned | 44 | 124.0 h, 77.2 M | 1.9 h | – | – | 1.3 M |
+| **All requests measured** | **108** | **162.5 h, 99.2 M** | **25.2 h** (lead 22.1 h, agents 3.1 h) | **26** | **7** | **14.7 M** |
 
 ## Pointcloud2Revit
 
@@ -37,12 +37,13 @@ Measured 15.10.2026 to 25.10.2026: 93 requests, the lead 22.0 h active, agents 3
 | Straight walls (faces, thickness, squaring, joins) | Function | 4 | – | – | – | – | – |
 | **Total built (19)** | | | **6.0 h, 3.5 M** | **6.7 h** | **10** | **5** | **2.2 M** |
 
-### Planned (11)
+### Planned (12)
 
 | Feature | Kind | Value | Estimate | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|---|
 | F3 Room separation lines where the slice route's rooms have no wall | Function | 4 | M (~2.5 h, ~1.5 M tokens) | 17 min | – | – | 59 k |
 | F12 Sloped elements: sloped roofs and ceilings, knee walls from the scan; slice route: measured opening heights, one wall from its upper and lower face | Function | 4 | M (~2.5 h, ~1.5 M tokens) | 1 min | – | – | 6 k |
+| Car parks and halls (test 25.10.2026 on a public car park scan, one scan position, 28 M points, 125 x 130 m): the slice route finds wall fragments only (46 pieces, 39 under 1 m), no columns, the room follows the scanner's line of sight; the floor falls 35 cm and comes out as five levels; outer walls 30-40 m from the scanner are thin in points | Gap | 4 | L (~6 h, ~4 M tokens) | – | – | – | – |
 | Doors and windows: few found on real floors | Gap | 3 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | F1 Wall detection on densely partitioned real floors: real project data (details private) | Function | 5 | L (~6 h, ~4 M tokens) | – | – | – | – |
 | F13 Stairs and ramps in the voids of the slab regions (steps in thin horizontal slices) | Function | 4 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
@@ -52,9 +53,9 @@ Measured 15.10.2026 to 25.10.2026: 93 requests, the lead 22.0 h active, agents 3
 | Slab voids under 5 m2 are not cut | Gap | 2 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | Stairs: straight runs only; curved walls: circular arcs only | Gap | 2 | L (~6 h, ~4 M tokens) | – | – | – | – |
 | Two more test scans (a house, one scan station; an office floor, two stations) are Trimble RealWorks projects (`.rwp`, scans `.rwcx`, a closed format): no reader here; needs an E57 export from Trimble RealWorks (Create tzf Scan, then Export E57 structured) | Task | 3 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
-| **Total planned (11)** | | | **30.0 h, 18.5 M** | **18 min** | **0** | **–** | **65 k** |
+| **Total planned (12)** | | | **36.0 h, 22.5 M** | **18 min** | **0** | **–** | **65 k** |
 
-**Pointcloud2Revit: still to do estimated 30.0 h, 18.5 M; measured so far 7.0 h and 2.3 M tokens (features and other requests).**
+**Pointcloud2Revit: still to do estimated 36.0 h, 22.5 M; measured so far 7.0 h and 2.3 M tokens (features and other requests).**
 
 Other requests on Pointcloud2Revit (status, documentation, runs, fixes not tied to one feature): 2, 3 min, 4 k tokens.
 
@@ -199,7 +200,7 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 
 **Shared: still to do estimated 45.5 h, 28.5 M; measured so far 14.2 h and 10.0 M tokens (features and other requests).**
 
-Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 35, 3.4 h, 4.7 M tokens.
+Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 36, 3.5 h, 4.7 M tokens.
 
 ## Tasks with agents
 
