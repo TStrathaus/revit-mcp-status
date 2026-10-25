@@ -1,8 +1,8 @@
 # Features and effort
 
-State 25.10.2026 10:45. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
+State 25.10.2026 10:49. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
 
-Measured 15.10.2026 to 25.10.2026: 80 requests, the lead 20.4 h active, agents 3.0 h, 14.2 M new tokens (input, cache writes, output) and 781.3 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead. Loops: a checking agent (reviewer, checker) after a building one (developer, builders).
+Measured 15.10.2026 to 25.10.2026: 80 requests, the lead 20.5 h active, agents 3.1 h, 14.3 M new tokens (input, cache writes, output) and 785.2 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead. Loops: a checking agent (reviewer, checker) after a building one (developer, builders).
 
 ## Pointcloud2Revit
 
@@ -50,8 +50,8 @@ Measured 15.10.2026 to 25.10.2026: 80 requests, the lead 20.4 h active, agents 3
 
 | Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|
-| A3 IFC pre-check: what Revit will refuse (degenerate arcs, short pieces, duplicates), fixed where safe, reported | Function | 4 | 26 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 404 k |
-| F7 Slab holes and openings from the IFC | Function | 3 | 26 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 404 k |
+| A3 IFC pre-check: what Revit will refuse (degenerate arcs, short pieces, duplicates), fixed where safe, reported | Function | 4 | 27 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 409 k |
+| F7 Slab holes and openings from the IFC | Function | 3 | 27 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 409 k |
 | F10 Door swing from the IFC: single-swing doors from the placement (opens towards local +Y) and the operation type (hinge side) | Function | 2 | 11 min | – | – | 66 k |
 | Revit test of the whole real IFC building through pyRevit (0.7) | Task | 5 | 11 min | – | – | 66 k |
 | All storeys in one model (`merge.py`) | Function | 4 | – | – | – | – |
@@ -127,10 +127,10 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | End-to-end runner (start, calls, checks, report) | Function | 4 | 1.3 h | – | – | 229 k |
 | Unattended runs: failure dialogs answered and logged | Function | 5 | 36 min | – | – | 156 k |
 | Agent team: 9 agents, workflow with gates, phase tool for one model | Function | 3 | 35 min | – / – / 1 (0 min) | – | 963 k |
-| A1 Machine-readable input reports for every route (verdict per item) | Function | 4 | 26 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 404 k |
-| S1 Agent scoreboard: actions, findings, defects found and fixed, gate verdicts and check scores per agent and project, summed up over projects | Function | 5 | 26 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 404 k |
-| V1 Rule ids in the modelling guideline, each rule with its Revit check; R2 table rule -> check | Function | 4 | 26 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 404 k |
-| V2 Comparison with a reference (an IFC of the same building) as a standard checker step, LOA tolerances | Function | 4 | 26 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 404 k |
+| A1 Machine-readable input reports for every route (verdict per item) | Function | 4 | 27 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 409 k |
+| S1 Agent scoreboard: actions, findings, defects found and fixed, gate verdicts and check scores per agent and project, summed up over projects | Function | 5 | 27 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 409 k |
+| V1 Rule ids in the modelling guideline, each rule with its Revit check; R2 table rule -> check | Function | 4 | 27 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 409 k |
+| V2 Comparison with a reference (an IFC of the same building) as a standard checker step, LOA tolerances | Function | 4 | 27 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 409 k |
 | Revit API check (`tools/api_check.py`) | Function | 4 | 22 min | – | – | 22 k |
 | R1 Rule proposals: agents propose guideline changes in their handover, the project manager collects them, the user approves | Function | 4 | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
 | V3 Each Revit run compared with the previous one: checks gained, lost, still failing | Function | 3 | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
@@ -152,10 +152,10 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 
 | Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|
-| F22 Local LLM helper (`local-llm.md`): text classification, build-up parsing, raster reading; always proposed facts, checked by code | Function | 3 | 20 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 206 k |
-| Agent team: first model built in Revit, phase by phase with its gates | Task | 4 | 15 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 194 k |
-| F17 Facts from drawings: catalogue of 29 information types from plans, sections, elevations, build-up legends, schedules, site plans into `facts.json` per project (`drawings-and-scans.md`) | Function | 5 | 15 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 194 k |
-| GitHub sources: licence and security check before any skill or code is taken; pinned and listed (`github-sources.md`) | Task | 3 | 15 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 194 k |
+| F22 Local LLM helper (`local-llm.md`): text classification, build-up parsing, raster reading; always proposed facts, checked by code | Function | 3 | 20 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 210 k |
+| Agent team: first model built in Revit, phase by phase with its gates | Task | 4 | 15 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 199 k |
+| F17 Facts from drawings: catalogue of 29 information types from plans, sections, elevations, build-up legends, schedules, site plans into `facts.json` per project (`drawings-and-scans.md`) | Function | 5 | 15 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 199 k |
+| GitHub sources: licence and security check before any skill or code is taken; pinned and listed (`github-sources.md`) | Task | 3 | 15 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 199 k |
 | F18 Review page: a person accepts, corrects or rejects every fact at gate 1, crops of the drawing beside each value | Function | 5 | – | – | – | – |
 | F19 Drawings aligned to the scan frame per storey (2D fit of wall axes, person confirms) | Function | 5 | – | – | – | – |
 | F2 A door and a window family with free size in the blank project (the template) | Function | 4 | – | – | – | – |
@@ -163,7 +163,7 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | F21 Checker: drawn vs measured for every accepted fact, unused facts listed | Function | 4 | – | – | – | – |
 | F23 Build-ups (floor, wall, roof) parsed into layers and thicknesses; slab thickness from them | Function | 4 | – | – | – | – |
 
-Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 29, 3.0 h, 4.6 M tokens.
+Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 29, 3.1 h, 4.6 M tokens.
 
 ## Tasks with agents
 
@@ -196,5 +196,5 @@ Other requests on Shared (status, documentation, runs, fixes not tied to one fea
 |  |  |  |  | family-man | building | 8 min | 137 k | 3.6 M |
 |  |  |  |  | fit-man | building | 6 min | 86 k | 1.8 M |
 |  |  |  |  | checker | checking | 3 min | 110 k | 1.3 M |
-|  |  |  |  | project-manager | input / lead | 1 min | 83 k | 492 k |
-| | | | | 15 agents, 2 loops | | 58 min | 1.4 M | 22.2 M |
+|  |  |  |  | project-manager | input / lead | 4 min | 126 k | 1.7 M |
+| | | | | 15 agents, 2 loops | | 1.0 h | 1.4 M | 23.4 M |
