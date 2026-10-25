@@ -1,8 +1,8 @@
 # Features and effort
 
-State 25.10.2026 11:09. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
+State 25.10.2026 11:48. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
 
-Measured 15.10.2026 to 25.10.2026: 81 requests, the lead 20.7 h active, agents 3.1 h, 14.3 M new tokens (input, cache writes, output) and 801.1 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead. Loops: a checking agent (reviewer, checker) after a building one (developer, builders).
+Measured 15.10.2026 to 25.10.2026: 82 requests, the lead 20.9 h active, agents 3.1 h, 14.4 M new tokens (input, cache writes, output) and 807.8 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead. Loops: a checking agent (reviewer, checker) after a building one (developer, builders).
 
 ## Pointcloud2Revit
 
@@ -35,9 +35,9 @@ Measured 15.10.2026 to 25.10.2026: 81 requests, the lead 20.7 h active, agents 3
 | Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|
 | F3 Room separation lines where the slice route's rooms have no wall | Function | 4 | 17 min | – | – | 59 k |
+| F12 Sloped elements: sloped roofs and ceilings, knee walls from the scan; slice route: measured opening heights, one wall from its upper and lower face | Function | 4 | 0 min | – | – | 6 k |
 | Doors and windows: few found on real floors | Gap | 3 | – | – | – | – |
 | F1 Wall detection on densely partitioned real floors: real project data (details private) | Function | 5 | – | – | – | – |
-| F12 Slice route: measured opening heights, sloped roofs, one wall from its upper and lower face | Function | 3 | – | – | – | – |
 | F13 Stairs and ramps in the voids of the slab regions (steps in thin horizontal slices) | Function | 4 | – | – | – | – |
 | Galleries: missed at 3 m section spacing, not built as their own Revit level yet | Gap | 3 | – | – | – | – |
 | Memory: large real storeys still take much memory on the full route real project data (details private) | Gap | 2 | – | – | – | – |
@@ -125,7 +125,7 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | Images: a plan per level and a 3D view, JPEG | Function | 4 | 1.9 h | – | – | 405 k |
 | Revit through the pyRevit agent runtime (stages, read back, checks) | Function | 4 | 1.4 h | – | – | 206 k |
 | End-to-end runner (start, calls, checks, report) | Function | 4 | 1.3 h | – | – | 229 k |
-| Unattended runs: failure dialogs answered and logged | Function | 5 | 36 min | – | – | 156 k |
+| Unattended runs: failure dialogs answered and logged | Function | 5 | 54 min | – | – | 224 k |
 | Agent team: 9 agents, workflow with gates, phase tool for one model | Function | 3 | 35 min | – / – / 1 (0 min) | – | 963 k |
 | A1 Machine-readable input reports for every route (verdict per item) | Function | 4 | 27 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 409 k |
 | S1 Agent scoreboard: actions, findings, defects found and fixed, gate verdicts and check scores per agent and project, summed up over projects | Function | 5 | 27 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 409 k |
@@ -148,7 +148,7 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 |---|---|---|---|---|---|---|
 | F24 Agent team phases updated for drawings first (phase 2a, alignment 2c, review at gate 1, drawn vs measured in the check) | Task | 4 | – | – | – | – |
 
-### Planned (10)
+### Planned (14)
 
 | Feature | Kind | Value | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|
@@ -156,6 +156,10 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | Agent team: first model built in Revit, phase by phase with its gates | Task | 4 | 15 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 199 k |
 | F17 Facts from drawings: catalogue of 29 information types from plans, sections, elevations, build-up legends, schedules, site plans into `facts.json` per project (`drawings-and-scans.md`) | Function | 5 | 15 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 199 k |
 | GitHub sources: licence and security check before any skill or code is taken; pinned and listed (`github-sources.md`) | Task | 3 | 15 min | 8 (4 min) / 2 (1 min) / 5 (1 min) | 2 | 199 k |
+| F25 Deviation analysis: the built model against the scan, per element (signed median, 95 %, LOA share, coverage, verdict pass / fail / not verifiable), missed-element candidates, bias per class, coloured images per storey (`deviation-and-review.md` 1) | Function | 5 | 0 min | – | – | 6 k |
+| F26 Review and correction as one loop: flagged items shown with scan and deviation, a person accepts, moves, changes, deletes or adds, the plan is edited, the stages and checks run again, every decision on the scoreboard (`deviation-and-review.md` 2); planned agent: review man | Function | 5 | 0 min | – | – | 6 k |
+| F27 Browser viewer with That Open Company libraries (ifc.js: `@thatopen/components`, `web-ifc`): model, scan slices and deviation colours on localhost, for the review loop and the fact review | Function | 4 | 0 min | – | – | 6 k |
+| F28 Meshing: not in the modelling routes (research 25.10.2026, `deviation-and-review.md` 3); possibly for the viewer and as reference surface of non-planar elements | Task | 2 | 0 min | – | – | 6 k |
 | F18 Review page: a person accepts, corrects or rejects every fact at gate 1, crops of the drawing beside each value | Function | 5 | – | – | – | – |
 | F19 Drawings aligned to the scan frame per storey (2D fit of wall axes, person confirms) | Function | 5 | – | – | – | – |
 | F2 A door and a window family with free size in the blank project (the template) | Function | 4 | – | – | – | – |
@@ -163,7 +167,7 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | F21 Checker: drawn vs measured for every accepted fact, unused facts listed | Function | 4 | – | – | – | – |
 | F23 Build-ups (floor, wall, roof) parsed into layers and thicknesses; slab thickness from them | Function | 4 | – | – | – | – |
 
-Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 30, 3.3 h, 4.7 M tokens.
+Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 29, 3.2 h, 4.7 M tokens.
 
 ## Tasks with agents
 

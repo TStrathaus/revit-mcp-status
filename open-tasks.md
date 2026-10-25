@@ -20,7 +20,7 @@ Scans (E57, PLY, LAS) to levels, walls, openings, floors, stairs and rooms. Code
 | Function | F16 External parts of the point cloud (`pointcloud/facade.py`): exterior walls measured, slab outline from the facade ring (closed stepwise), edge on the walls' outer face, courtyards as voids | 5 | M | done (24.10.2026), in Revit with the stacked storeys; open: rings where no facade is seen, storeys under the roof and below ground |
 | Function | F3 Room separation lines where the slice route's rooms have no wall | 4 | M | at the necks done (short straight shared boundaries); in Revit the rooms still do not close where walls are missing real project data (details private): needs F1 |
 | Function | F13 Stairs and ramps in the voids of the slab regions (steps in thin horizontal slices) | 4 | M | – |
-| Function | F12 Slice route: measured opening heights, sloped roofs, one wall from its upper and lower face | 3 | M | a third slice or the top of each gap |
+| Function | F12 Sloped elements: sloped roofs and ceilings, knee walls from the scan; slice route: measured opening heights, one wall from its upper and lower face | 4 | M | a third slice or the top of each gap; sloped surfaces from the vertical sections |
 | Function | F14 Slab outlines with straight, square edges instead of the 10 cm raster (fewer Revit warnings) | 3 | S | done with F16 where an external scan closes the ring; without one still the 10 cm raster |
 | Gap | Galleries: missed at 3 m section spacing, not built as their own Revit level yet | 3 | M | – |
 | Gap | Doors and windows: few found on real floors | 3 | M | after F1 |
@@ -75,6 +75,10 @@ agent team. Code `scan2revit/core/`, `tools/`, `.claude/`.
 
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
+| Function | F25 Deviation analysis: the built model against the scan, per element (signed median, 95 %, LOA share, coverage, verdict pass / fail / not verifiable), missed-element candidates, bias per class, coloured images per storey (`deviation-and-review.md` 1) | 5 | L | first: which points to verify against (held-out bands, independent scans, element surface only with normals, clutter out, even thinning, minimum evidence, visible face only, noise baseline) |
+| Function | F26 Review and correction as one loop: flagged items shown with scan and deviation, a person accepts, moves, changes, deletes or adds, the plan is edited, the stages and checks run again, every decision on the scoreboard (`deviation-and-review.md` 2); planned agent: review man | 5 | L | after F25 and the review page F18 |
+| Function | F27 Browser viewer with That Open Company libraries (ifc.js: `@thatopen/components`, `web-ifc`): model, scan slices and deviation colours on localhost, for the review loop and the fact review | 4 | M | licence and security check, pinned versions (`github-sources.md`) |
+| Task | F28 Meshing: not in the modelling routes (research 25.10.2026, `deviation-and-review.md` 3); possibly for the viewer and as reference surface of non-planar elements | 2 | S | decision D-24 |
 | Function | F17 Facts from drawings: catalogue of 29 information types from plans, sections, elevations, build-up legends, schedules, site plans into `facts.json` per project (`drawings-and-scans.md`) | 5 | L | the types half built first (scale, storeys, levels, walls, openings, swings, stamps), then sections and labels |
 | Function | F18 Review page: a person accepts, corrects or rejects every fact at gate 1, crops of the drawing beside each value | 5 | M | after F17; decision D-15 (local server) |
 | Function | F19 Drawings aligned to the scan frame per storey (2D fit of wall axes, person confirms) | 5 | M | needs drawings and a scan of the same building from the user; D-14 |
