@@ -150,10 +150,13 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   `Room <storey>.<n>`; net area to the wall faces. Cells under 1 m2 are slivers, not rooms.
 - **G-9.2** A room must be enclosed (Revit: "bounded"). A passage between two rooms (a gap with no wall and no door)
   gets a room separation line across it, 5 cm into the wall ends (plan-extract passages: done). Where walls
-  are missing (real scans), rooms come from the free space: at the necks where two such rooms meet (a shared
-  boundary up to 2.5 m, straight within 0.3 m: a doorway with no door seen) a room separation line, 0.2 m into
-  the walls at its ends. Long or bent shared boundaries are missing walls: no line (it would cut through rooms);
-  those rooms are placed but not enclosed (**open**: walls found there, F1).
+  are missing (real scans), rooms come from the free space, and room separation lines close them where no wall
+  stands: the rooms grow into the walls until they meet, their outlines are straightened together (a shared edge
+  stays one line) and every edge outside a wall's body becomes a line, 0.2 m into the wall it meets; the floor
+  outline closes them where no outer wall was found (glass fronts, balconies). Each room's area is then the face
+  the walls and lines close, as Revit bounds it. (25.10.2026: an apartment 11 of 11 rooms enclosed, a real
+  storey 63 of 64, before about 1 per storey.) Where a face still holds two rooms, the line between them is
+  missing: the rooms keep their free-space shape and are listed (**open**: walls found there, F1).
 - **G-9.3** Room stamps of a plan sheet (plans.sheet): every stamp gives a room at its position, also where the walls do
   not close around it (then placed, not enclosed, listed in qa). Name = the stamp's name ("Küche"); the unit
   above it goes to Revit's room parameter "Abteilung" (Department): "Wohnung <n>", "G" = "Allgemein"; number =
