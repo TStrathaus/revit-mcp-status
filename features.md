@@ -1,14 +1,14 @@
 # Features and effort
 
-State 25.10.2026 12:46. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
+State 25.10.2026 12:48. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
 
-Measured 15.10.2026 to 25.10.2026: 87 requests, the lead 21.8 h active, agents 3.1 h, 14.7 M new tokens (input, cache writes, output) and 883.3 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
+Measured 15.10.2026 to 25.10.2026: 88 requests, the lead 21.8 h active, agents 3.1 h, 14.7 M new tokens (input, cache writes, output) and 886.2 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
 
 | Overall | Features | Estimate | Measured time | Agents | Loops | Tokens |
 |---|---|---|---|---|---|---|
 | Built | 64 | 38.5 h, 22.0 M | 19.6 h | – | – | 8.2 M |
 | In progress and planned | 42 | 117.0 h, 72.8 M | 1.9 h | – | – | 1.3 M |
-| **All requests measured** | **106** | **155.5 h, 94.8 M** | **24.8 h** (lead 21.8 h, agents 3.1 h) | **26** | **7** | **14.7 M** |
+| **All requests measured** | **106** | **155.5 h, 94.8 M** | **24.9 h** (lead 21.8 h, agents 3.1 h) | **26** | **7** | **14.7 M** |
 
 ## Pointcloud2Revit
 
@@ -89,9 +89,9 @@ Other requests on Pointcloud2Revit (status, documentation, runs, fixes not tied 
 | Rooms without `IfcSpace`: areas off where walls overlap | Gap | 2 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | **Total planned (8)** | | | **24.0 h, 15.0 M** | **–** | **0** | **–** | **–** |
 
-**IFC2Revit: still to do estimated 24.0 h, 15.0 M; measured so far 1.3 h and 957 k tokens (features and other requests).**
+**IFC2Revit: still to do estimated 24.0 h, 15.0 M; measured so far 1.3 h and 959 k tokens (features and other requests).**
 
-Other requests on IFC2Revit (status, documentation, runs, fixes not tied to one feature): 1, 3 min, 8 k tokens.
+Other requests on IFC2Revit (status, documentation, runs, fixes not tied to one feature): 1, 4 min, 11 k tokens.
 
 ## Plans2Revit
 
@@ -198,7 +198,7 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 
 **Shared: still to do estimated 45.5 h, 28.5 M; measured so far 13.9 h and 9.9 M tokens (features and other requests).**
 
-Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 29, 3.2 h, 4.7 M tokens.
+Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 30, 3.2 h, 4.7 M tokens.
 
 ## Tasks with agents
 
