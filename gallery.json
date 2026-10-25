@@ -48,6 +48,15 @@
   "text": "Every wall, floor, door and window carries the parameter 'scan2revit source', and every element is in the existing phase. Here the slice-route example in Revit 2025 with a view filter on it: orange = thickness assumed (outer walls seen from inside only), grey = measured, blue = sill and head assumed (the slices see no opening heights). All checks pass (24.10.2026)."
  },
  {
+  "file": "images/viewer-measured-assumed.jpeg",
+  "title": "Browser viewer (F27)",
+  "text": "A plan, its scan and a reference IFC in one 3D view in the browser, served on this machine only (three.js, web-ifc from That Open Company). Here the synthetic two-storey project coloured measured / assumed, with a scan slice 0.3-1.3 m above each level; click an element to see its record (25.10.2026).",
+  "tags": [
+   "",
+   "Browser, this machine only"
+  ]
+ },
+ {
   "file": "images/plan-pdf-floor-plan.jpeg",
   "title": "2D plan (vector PDF) to Revit",
   "text": "Floor plan of the ground floor rebuilt from a vector PDF at 1:100: walls from paired face lines, doors from swing arcs, windows from glass lines, the stair from its tread lines.",

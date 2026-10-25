@@ -216,7 +216,10 @@ footer {{ color:var(--muted); font-size:13px; margin-top:40px; }}
 Open functions and tasks per sub-project: <a href="open.html">open items</a>. How the models are built:
 <a href="modeling.html">modelling guideline</a>. What the agent team did and found:
 <a href="agents.html">agent scoreboard</a>. Features built, in progress and planned, with the time and tokens
-spent: <a href="features.html">features and effort</a>.</p>
+spent: <a href="features.html">features and effort</a>. Plans and decisions:
+<a href="agent-team.html">agent team</a>, <a href="decisions.html">decisions</a>,
+<a href="drawings-and-scans.html">drawings and scans</a>, <a href="deviation-and-review.html">deviation and review</a>,
+<a href="local-llm.html">local LLM</a>, <a href="github-sources.html">GitHub sources</a>.</p>
 <div class="cards">
   <div class="card"><b>{len(scores)}</b>functions scored</div>
   <div class="card"><b>{sum(1 for s in scores if s >= 4)}</b>pass in a real Revit (score 4 or 5)</div>
@@ -283,6 +286,9 @@ a {{ color:var(--accent); overflow-wrap:anywhere; }}
         md_page(style, "agent-scoreboard.md", "agents.html", "Agent scoreboard",
                 "What the agents of the Revit-MCP modelling team did and found, per agent and project.",
                 "documentation/agent-scoreboard.md")
+    for src, (out, title, desc) in DOCS.items():               # the plans and team documents of the repository
+        if (HERE / src).exists():
+            md_page(style, src, out, title, desc, "documentation/" + src[len("doc-"):])
     if (HERE / "features.md").exists():
         md_page(style, "features.md", "features.html", "Features and effort",
                 "Revit-MCP features built, in progress and planned per sub-project, with the time, agents, "
@@ -356,6 +362,18 @@ main p {{ max-width:820px; }} a {{ color:var(--accent); overflow-wrap:anywhere; 
     print(f"open.html: {len(secs)} sections")
 
 
+
+
+DOCS = {
+    "doc-agent-team.md": ("agent-team.html", "Agent team", "The agents of the modelling team: roles, phases, gates, findings."),
+    "doc-decisions.md": ("decisions.html", "Decisions", "Decided and open development decisions."),
+    "doc-drawings-and-scans.md": ("drawings-and-scans.html", "Drawings and scans",
+                                  "2D drawings as the prior for modelling from scans: the facts catalogue and the review."),
+    "doc-deviation-and-review.md": ("deviation-and-review.html", "Deviation and review",
+                                    "Deviation analysis against the scan, review and correction loop, meshing, browser viewer."),
+    "doc-local-llm.md": ("local-llm.html", "Local LLM", "Where a local language model can help, and how it is built in."),
+    "doc-github-sources.md": ("github-sources.html", "GitHub sources", "Using skills and code from GitHub projects."),
+}
 
 
 def md_page(style, src, out, title, desc, origin):
