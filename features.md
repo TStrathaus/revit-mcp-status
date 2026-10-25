@@ -1,8 +1,8 @@
 # Features and effort
 
-State 25.10.2026 10:49. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
+State 25.10.2026 11:09. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
 
-Measured 15.10.2026 to 25.10.2026: 80 requests, the lead 20.5 h active, agents 3.1 h, 14.3 M new tokens (input, cache writes, output) and 785.2 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead. Loops: a checking agent (reviewer, checker) after a building one (developer, builders).
+Measured 15.10.2026 to 25.10.2026: 81 requests, the lead 20.7 h active, agents 3.1 h, 14.3 M new tokens (input, cache writes, output) and 801.1 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead. Loops: a checking agent (reviewer, checker) after a building one (developer, builders).
 
 ## Pointcloud2Revit
 
@@ -163,7 +163,7 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | F21 Checker: drawn vs measured for every accepted fact, unused facts listed | Function | 4 | – | – | – | – |
 | F23 Build-ups (floor, wall, roof) parsed into layers and thicknesses; slab thickness from them | Function | 4 | – | – | – | – |
 
-Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 29, 3.1 h, 4.6 M tokens.
+Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 30, 3.3 h, 4.7 M tokens.
 
 ## Tasks with agents
 
