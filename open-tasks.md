@@ -18,6 +18,7 @@ Scans (E57, PLY, LAS) to levels, walls, openings, floors, stairs and rooms. Code
 
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
+| Function | LAS / LAZ scans: `laspy[lazrs]` installed, a chunked reader with the 2 cm voxel thinning (as for E57), input report and slice route on LAS; first test file the Kladno station (6.5 GB, CC BY, `test-data-sources.md`) | 3 | S (~1 h, ~0.5 M tokens) | **postponed** by the user (25.10.2026): LAS ignored for the moment |
 | Task | Two more test scans (a house, one scan station; an office floor, two stations) are Trimble RealWorks projects (`.rwp`, scans `.rwcx`, a closed format): no reader here; needs an E57 export from Trimble RealWorks (Create tzf Scan, then Export E57 structured) | 3 | S (~1 h, ~0.5 M tokens) | **postponed** by the user (25.10.2026) |
 | Function | A4 Scan coverage per storey: share of every wall and of the outline seen, coverage image | 4 | M (~2.5 h, ~1.5 M tokens) | done (24.10.2026, `pointcloud/coverage.py`) real project data (details private); open: external scans not counted, arc walls not checked, write the share back into plan.json |
 | Function | F1 Wall detection on densely partitioned real floors: real project data (details private) | 5 | L (~6 h, ~4 M tokens) | build on the slice route real project data (details private) |
