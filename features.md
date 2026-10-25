@@ -1,14 +1,14 @@
 # Features and effort
 
-State 25.10.2026 13:22. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
+State 25.10.2026 14:41. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
 
-Measured 15.10.2026 to 25.10.2026: 97 requests, the lead 22.3 h active, agents 3.1 h, 14.8 M new tokens (input, cache writes, output) and 927.4 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
+Measured 15.10.2026 to 25.10.2026: 98 requests, the lead 22.6 h active, agents 3.1 h, 15.6 M new tokens (input, cache writes, output) and 948.7 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
 
 | Overall | Features | Estimate | Measured time | Agents | Loops | Tokens |
 |---|---|---|---|---|---|---|
 | Built | 64 | 38.5 h, 22.0 M | 19.6 h | – | – | 8.2 M |
 | In progress and planned | 45 | 126.5 h, 78.8 M | 1.9 h | – | – | 1.3 M |
-| **All requests measured** | **109** | **165.0 h, 100.8 M** | **25.4 h** (lead 22.3 h, agents 3.1 h) | **26** | **7** | **14.8 M** |
+| **All requests measured** | **109** | **165.0 h, 100.8 M** | **25.7 h** (lead 22.6 h, agents 3.1 h) | **26** | **7** | **15.6 M** |
 
 ## Pointcloud2Revit
 
@@ -199,9 +199,9 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | Point clouds from Autodesk ReCap (RCP / RCS): link into the Revit copy, read the slices with point cloud filters through pyRevit, on into the slice route | Function | 3 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | **Total planned (14)** | | | **44.5 h, 28.0 M** | **1.2 h** | **60** | **8** | **826 k** |
 
-**Shared: still to do estimated 45.5 h, 28.5 M; measured so far 14.5 h and 10.0 M tokens (features and other requests).**
+**Shared: still to do estimated 45.5 h, 28.5 M; measured so far 14.7 h and 10.9 M tokens (features and other requests).**
 
-Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 39, 3.7 h, 4.8 M tokens.
+Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 40, 4.0 h, 5.6 M tokens.
 
 ## Tasks with agents
 

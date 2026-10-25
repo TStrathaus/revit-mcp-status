@@ -25,7 +25,9 @@ the load-bearing man.
    folder; writes `status.md`.
 2. **Input check** (point cloud man, IFC man, plans man; in parallel, only those with data): an input report
    each and the storey plans. **Gate 1** (project manager, the user decides): data quality, coordinates,
-   storey names and heights.
+   storey names and heights, and the **modelling decisions** (rule G-0.2): from the data found, the level of
+   detail per element class, recorded in status.md (e.g. slabs as one element of their full thickness, split into
+   structural slab and floor build-up only where sections or documentation give the build-up).
 3. **Structure** (structure man): `plan.json` of all storeys, levels and plan views in Revit. **Gate 2**:
    levels at the planned heights, against the reference where there is one.
 4. **Families** (family man): every type the plan needs, before anything is placed.

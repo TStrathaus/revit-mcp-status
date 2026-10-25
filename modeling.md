@@ -11,6 +11,15 @@ yet (marked **open**). The workflow (running the pipeline, mapping types, sendin
 execution plan (BAP, SIA 2051) or the client's modelling rules, those come first; this guideline fills what
 they leave open.
 
+**G-0.2** Data first, then the modelling decision. Before anything is modelled, the available data is analysed
+(input reports of the scans, IFC and plans; drawings such as sections and build-up legends; documentation), and
+the level of detail per element class is decided from it and recorded (the project manager at gate 1, in
+status.md: "Modelling decisions"). The simple form is the default: a slab is **one element of its full
+thickness** (finished floor to soffit), a wall one element face to face. A slab is split into the structural slab
+and its floor build-up, or a wall into its layers, only where sections, build-up legends or documentation give
+that build-up (accepted facts, `documentation/drawings-and-scans.md`), never because a template or a habit offers
+it. (User, 25.10.2026.)
+
 Every rule has a stable id (G-1.1, G-2.1, ...: section and number, in bold before the rule). Checks, findings and rule proposals
 name the rule by its id; which check tests which rule: section 14. A rule changes only when the user approved
 the change (proposals: `documentation/agent-team.md`); a new rule takes the next free number of its section,
@@ -221,6 +230,7 @@ without Revit in `tests/`, or belong to the input side).
 | Rule | Check |
 |---|---|
 | G-0.1 | not checked (the project's BAP) |
+| G-0.2 | not checked (gate 1: the modelling decisions in status.md) |
 | G-1.1 | walls and floors generic (one layer, no material) |
 | G-1.2 | scan2revit wall and floor types not edited into a build-up (also the unused ones) |
 | G-1.3 | not checked (door and window families with fire ratings in the template: open) |

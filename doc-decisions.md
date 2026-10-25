@@ -22,7 +22,7 @@ linked documents.
 | # | Question | Options | Recommendation |
 |---|---|---|---|
 | D-4 | A third value "drawn" in `scan2revit source` | (a) measured / drawn / assumed; (b) drawn counts as assumed | (a): a verified drawing is better than a default, but not a measurement |
-| D-5 | Floor and wall build-ups from drawings in Revit | (a) keep generic one-layer types, build-up as type data (text parameter); (b) layered types from accepted build-ups; (c) both, layered only on request | (a) now: D-2 holds, nothing claimed that nobody measured; (b) later per project |
+| D-5 (decided 25.10.2026, rule G-0.2: one element by default, split only where the data gives the build-up) | Floor and wall build-ups from drawings in Revit | (a) keep generic one-layer types, build-up as type data (text parameter); (b) layered types from accepted build-ups; (c) both, layered only on request | (a) now: D-2 holds, nothing claimed that nobody measured; (b) later per project |
 | D-6 | Conflict tolerances drawn vs measured | the start values in `drawings-and-scans.md` 3, or per LOA class | start values, tuned on the first real project with drawings and scan |
 | D-7 | Local LLM: go / no go per task | after the measurement and pilot (`local-llm.md` 3) | decide per task on measured precision |
 | D-14 | Alignment of drawings to the scan | (a) automatic 2D fit of wall axes, person confirms; (b) person picks 3 points | (a) with (b) as fallback |
