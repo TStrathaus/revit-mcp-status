@@ -59,9 +59,27 @@ h3 { font-size:16px; margin:24px 0 8px; }
 .fill.s0 { background:var(--s0); } .fill.s1 { background:var(--s1); } .fill.s2 { background:var(--s2); }
 .fill.s3 { background:var(--s3); } .fill.s4 { background:var(--s4); } .fill.s5 { background:var(--s5); }
 footer { color:var(--muted); font-size:13px; margin-top:40px; }
+
+nav.top { position:sticky; top:0; z-index:10; background:var(--card); border-bottom:1px solid var(--line); }
+nav.top .in { max-width:1680px; margin:0 auto; padding:0 24px; display:flex; flex-wrap:wrap; align-items:stretch; }
+nav.top .brand { font-weight:700; padding:12px 18px 12px 0; margin-right:6px; border-right:1px solid var(--line);
+  color:var(--fg); text-decoration:none; }
+nav.top a.i { padding:12px 12px; color:var(--muted); text-decoration:none; font-size:14px; border-bottom:2px solid transparent; }
+nav.top a.i:hover { color:var(--fg); }
+nav.top a.i.on { color:var(--fg); border-bottom-color:var(--accent); font-weight:600; }
+main { max-width:1680px !important; padding:28px 24px 64px !important; }
+main p, main li { max-width:1100px; }
+.gallery { grid-template-columns:repeat(auto-fill,minmax(680px,1fr)) !important; }
+@media (max-width:760px) {
+  nav.top .in { padding:0 8px; overflow-x:auto; flex-wrap:nowrap; }
+  nav.top .brand { display:none; } nav.top a.i { white-space:nowrap; padding:10px 8px; }
+  main { padding:18px 16px 48px !important; }
+  .gallery { grid-template-columns:1fr !important; }
+}
 </style>
 </head>
 <body>
+<nav class="top"><div class="in"><a class="brand" href="index.html">Revit-MCP</a><a class="i on" href="index.html">Status</a><a class="i" href="open.html">Open items</a><a class="i" href="features.html">Features and effort</a><a class="i" href="agents.html">Agent scoreboard</a><a class="i" href="agent-team.html">Agent team</a><a class="i" href="modeling.html">Modelling guideline</a><a class="i" href="decisions.html">Decisions</a><a class="i" href="drawings-and-scans.html">Drawings and scans</a><a class="i" href="deviation-and-review.html">Deviation and review</a><a class="i" href="local-llm.html">Local LLM</a><a class="i" href="github-sources.html">GitHub sources</a></div></nav>
 <main>
 <h1>Revit-MCP status</h1>
 <p class="sub">Point clouds, 2D plans and IFC storeys to native Revit elements through the pyRevit agent runtime. State 24.10.2026.

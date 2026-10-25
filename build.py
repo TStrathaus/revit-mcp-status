@@ -403,5 +403,47 @@ main p, main li {{ max-width:820px; }} main h2 {{ border-top:1px solid var(--lin
     print(f"{out}: {title.lower()}")
 
 
+# every page: one flat navigation bar on top, the full width of a PC screen, a single column on a phone
+NAV = [("index.html", "Status"), ("open.html", "Open items"), ("features.html", "Features and effort"),
+       ("agents.html", "Agent scoreboard"), ("agent-team.html", "Agent team"), ("modeling.html", "Modelling guideline"),
+       ("decisions.html", "Decisions"), ("drawings-and-scans.html", "Drawings and scans"),
+       ("deviation-and-review.html", "Deviation and review"), ("local-llm.html", "Local LLM"),
+       ("github-sources.html", "GitHub sources")]
+NAV_CSS = """
+nav.top { position:sticky; top:0; z-index:10; background:var(--card); border-bottom:1px solid var(--line); }
+nav.top .in { max-width:1680px; margin:0 auto; padding:0 24px; display:flex; flex-wrap:wrap; align-items:stretch; }
+nav.top .brand { font-weight:700; padding:12px 18px 12px 0; margin-right:6px; border-right:1px solid var(--line);
+  color:var(--fg); text-decoration:none; }
+nav.top a.i { padding:12px 12px; color:var(--muted); text-decoration:none; font-size:14px; border-bottom:2px solid transparent; }
+nav.top a.i:hover { color:var(--fg); }
+nav.top a.i.on { color:var(--fg); border-bottom-color:var(--accent); font-weight:600; }
+main { max-width:1680px !important; padding:28px 24px 64px !important; }
+main p, main li { max-width:1100px; }
+.gallery { grid-template-columns:repeat(auto-fill,minmax(680px,1fr)) !important; }
+@media (max-width:760px) {
+  nav.top .in { padding:0 8px; overflow-x:auto; flex-wrap:nowrap; }
+  nav.top .brand { display:none; } nav.top a.i { white-space:nowrap; padding:10px 8px; }
+  main { padding:18px 16px 48px !important; }
+  .gallery { grid-template-columns:1fr !important; }
+}
+"""
+BACK = '<p class="sub"><a href="index.html">&larr; Revit-MCP status</a></p>'
+
+
+def finish_pages():
+    """The navigation bar and the wide layout on every page that exists."""
+    have = [(f, t) for f, t in NAV if (HERE / f).exists()]
+    for f, _ in have:
+        page = (HERE / f).read_text(encoding="utf-8")
+        if 'nav class="top"' in page:
+            continue
+        links = "".join(f'<a class="i{" on" if g == f else ""}" href="{g}">{html.escape(t)}</a>' for g, t in have)
+        bar = f'<nav class="top"><div class="in"><a class="brand" href="index.html">Revit-MCP</a>{links}</div></nav>'
+        page = page.replace("</style>", NAV_CSS + "</style>", 1).replace("<body>", "<body>\n" + bar, 1).replace(BACK, "")
+        (HERE / f).write_text(page, encoding="utf-8")
+    print(f"navigation: {len(have)} pages")
+
+
 if __name__ == "__main__":
     main()
+    finish_pages()

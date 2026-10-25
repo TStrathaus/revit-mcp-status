@@ -150,6 +150,12 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   above it goes to Revit's room parameter "Abteilung" (Department): "Wohnung <n>", "G" = "Allgemein"; number =
   storey.unit.nn ("EG.1.03", counted per storey and unit). On sheets with filled walls every gap in a wall is
   an opening: a door (swing), a window (frame lines) or, without a symbol, a passage with a room separation line.
+- **G-9.6** Rooms are shown in every floor plan of their level: a room tag (Raumstempel) at the room's point, of a
+  type that shows at least the area (a template type whose name says area / Fläche, else the first loaded), and
+  the rooms' interior fill ("Innenfüllung") visible, which Revit draws pale blue on screen (set on the plans' view
+  template where they have one, so it holds for every plan of it; Revit leaves it out of prints and image exports,
+  and its colour is Revit's own). Room data of the input go into the room: name, number, unit (department), use
+  (occupancy) and finishes where the input carries them. (25.10.2026, asked by the user.)
 
 ## Not modelled: what a plan carries that is not building
 
@@ -247,6 +253,7 @@ without Revit in `tests/`, or belong to the input side).
 | G-9.1 | per level: room areas within 3 % |
 | G-9.2 | per level: rooms bounded |
 | G-9.3 | per level: room departments (units) |
+| G-9.6 | per level: every room tagged in the floor plans |
 | G-9.4 | not checked (input side: plans filters) |
 | G-9.5 | not checked (input side: plans sheet) |
 | G-10.1 | not checked (survey point and true north are set by hand) |

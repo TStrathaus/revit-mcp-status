@@ -21,6 +21,7 @@ State 25.10.2026. What the agents of the modelling team did and found, over all 
 | loadbearing-man | 1 | 4 | 7 | 0 | 1 | 1 | 0 | 100 % |
 | fit-man | 1 | 6 | 9 | 0 | 0 | 1 | 0 | 100 % |
 | checker | 1 | 4 | 11 | 3 | 0 | 0 | 0 | 100 % |
+| **All agents** | | **28** | **60** | **5** | **2** | **18** | **0** | **100 %** |
 
 ## Findings flow (synthetic projects)
 

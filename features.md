@@ -1,8 +1,14 @@
 # Features and effort
 
-State 25.10.2026 12:08. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
+State 25.10.2026 12:46. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
 
-Measured 15.10.2026 to 25.10.2026: 83 requests, the lead 21.1 h active, agents 3.1 h, 14.5 M new tokens (input, cache writes, output) and 834.7 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead. Loops: a checking agent (reviewer, checker) after a building one (developer, builders).
+Measured 15.10.2026 to 25.10.2026: 87 requests, the lead 21.8 h active, agents 3.1 h, 14.7 M new tokens (input, cache writes, output) and 883.3 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
+
+| Overall | Features | Estimate | Measured time | Agents | Loops | Tokens |
+|---|---|---|---|---|---|---|
+| Built | 64 | 38.5 h, 22.0 M | 19.6 h | – | – | 8.2 M |
+| In progress and planned | 42 | 117.0 h, 72.8 M | 1.9 h | – | – | 1.3 M |
+| **All requests measured** | **106** | **155.5 h, 94.8 M** | **24.8 h** (lead 21.8 h, agents 3.1 h) | **26** | **7** | **14.7 M** |
 
 ## Pointcloud2Revit
 
@@ -29,8 +35,9 @@ Measured 15.10.2026 to 25.10.2026: 83 requests, the lead 21.1 h active, agents 3
 | Stairs, slab openings | Function | 4 | – | – | – | – | – |
 | Storeys merged in the survey frame, vertical check | Function | 4 | – | – | – | – | – |
 | Straight walls (faces, thickness, squaring, joins) | Function | 4 | – | – | – | – | – |
+| **Total built (19)** | | | **6.0 h, 3.5 M** | **6.7 h** | **10** | **5** | **2.2 M** |
 
-### Planned (9)
+### Planned (10)
 
 | Feature | Kind | Value | Estimate | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|---|
@@ -43,6 +50,12 @@ Measured 15.10.2026 to 25.10.2026: 83 requests, the lead 21.1 h active, agents 3
 | Memory: large real storeys still take much memory on the full route real project data (details private) | Gap | 2 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | Slab voids under 5 m2 are not cut | Gap | 2 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | Stairs: straight runs only; curved walls: circular arcs only | Gap | 2 | L (~6 h, ~4 M tokens) | – | – | – | – |
+| Two more test scans (a house, one scan station; an office floor, two stations) are Trimble RealWorks projects (`.rwp`, scans `.rwcx`, a closed format): no reader here; needs an E57 export from Trimble RealWorks (Create tzf Scan, then Export E57 structured) | Task | 3 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
+| **Total planned (10)** | | | **29.0 h, 18.0 M** | **18 min** | **0** | **–** | **65 k** |
+
+**Pointcloud2Revit: still to do estimated 29.0 h, 18.0 M; measured so far 7.0 h and 2.3 M tokens (features and other requests).**
+
+Other requests on Pointcloud2Revit (status, documentation, runs, fixes not tied to one feature): 2, 3 min, 4 k tokens.
 
 ## IFC2Revit
 
@@ -60,6 +73,7 @@ Measured 15.10.2026 to 25.10.2026: 83 requests, the lead 21.1 h active, agents 3
 | Pre-check of what Revit refuses (`ifc/precheck.py`), wall pieces at their base offset, slab holes | Function | 4 | – | – | – | – | – |
 | Rooms without `IfcSpace` (cells between the walls) | Function | 4 | – | – | – | – | – |
 | Synthetic IFC example and tests | Function | 4 | – | – | – | – | – |
+| **Total built (10)** | | | **5.5 h, 3.0 M** | **1.3 h** | **50** | **14** | **948 k** |
 
 ### Planned (8)
 
@@ -73,6 +87,11 @@ Measured 15.10.2026 to 25.10.2026: 83 requests, the lead 21.1 h active, agents 3
 | IFC wall pieces assigned to a storey they do not stand in (base offsets of a whole storey up or down): built at their true height they no longer bound that level's rooms | Gap | 4 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | IFC: a few walls and their openings Revit refuses ("Wand kann nicht erstellt werden"), doors in curved walls | Gap | 3 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | Rooms without `IfcSpace`: areas off where walls overlap | Gap | 2 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
+| **Total planned (8)** | | | **24.0 h, 15.0 M** | **–** | **0** | **–** | **–** |
+
+**IFC2Revit: still to do estimated 24.0 h, 15.0 M; measured so far 1.3 h and 957 k tokens (features and other requests).**
+
+Other requests on IFC2Revit (status, documentation, runs, fixes not tied to one feature): 1, 3 min, 8 k tokens.
 
 ## Plans2Revit
 
@@ -94,12 +113,14 @@ Measured 15.10.2026 to 25.10.2026: 83 requests, the lead 21.1 h active, agents 3
 | Rooms with the data of their stamps: name, unit (Revit "Abteilung"), number storey.unit.nn; a room at every stamp | Function | 5 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | Several storeys, aligned | Function | 4 | – | – | – | – | – |
 | Walls drawn as filled areas in vector PDFs: wall rectangles, openings where the rendered wall colour is absent, swings from chains of short lines | Function | 4 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
+| **Total built (14)** | | | **9.5 h, 5.5 M** | **2.1 h** | **0** | **–** | **647 k** |
 
 ### In progress (1)
 
 | Feature | Kind | Value | Estimate | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|---|
 | Storey heights from the elevations sheet (levels and heights instead of the assumed storey height) | Function | 4 | M (~2.5 h, ~1.5 M tokens) | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
+| **Total in progress (1)** | | | **2.5 h, 1.5 M** | **12 min** | **10** | **5** | **210 k** |
 
 ### Planned (8)
 
@@ -113,16 +134,19 @@ Measured 15.10.2026 to 25.10.2026: 83 requests, the lead 21.1 h active, agents 3
 | Knee walls under a sloping roof built as wide as the drawn band (thickness and height flagged assumed) | Gap | 3 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | Orientation and scale from the sheet: scale from the title block ("1 : 100") done; turning a sheet whose text is not upright not built yet | Function | 5 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | plan-extract results: one room the walls do not close; never run on a real result | Gap | 2 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
+| **Total planned (8)** | | | **16.0 h, 9.8 M** | **13 min** | **10** | **5** | **219 k** |
+
+**Plans2Revit: still to do estimated 18.5 h, 11.2 M; measured so far 2.6 h and 1.5 M tokens (features and other requests).**
 
 Other requests on Plans2Revit (status, documentation, runs, fixes not tied to one feature): 1, 6 min, 419 k tokens.
 
 ## Shared: core, Revit side, agent team
 
-### Built (20)
+### Built (21)
 
 | Feature | Kind | Value | Estimate | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|---|
-| Images: a plan per level and a 3D view, JPEG | Function | 4 | – | 1.9 h | – | – | 405 k |
+| Images: a plan per level and a 3D view, JPEG | Function | 4 | – | 2.1 h | – | – | 473 k |
 | Revit through the pyRevit agent runtime (stages, read back, checks) | Function | 4 | – | 1.4 h | – | – | 206 k |
 | End-to-end runner (start, calls, checks, report) | Function | 4 | – | 1.3 h | – | – | 229 k |
 | Unattended runs: failure dialogs answered and logged | Function | 5 | – | 54 min | – | – | 224 k |
@@ -132,24 +156,27 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | V1 Rule ids in the modelling guideline, each rule with its Revit check; R2 table rule -> check | Function | 4 | M (~2.5 h, ~1.5 M tokens) | 27 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 409 k |
 | V2 Comparison with a reference (an IFC of the same building) as a standard checker step, LOA tolerances | Function | 4 | M (~2.5 h, ~1.5 M tokens) | 27 min | 13 (13 min) / 7 (2 min) / 5 (1 min) | 7 | 409 k |
 | Revit API check (`tools/api_check.py`) | Function | 4 | – | 22 min | – | – | 22 k |
+| Room tags (Raumstempel) with the area in every floor plan of a room's level, room data of the input (name, number, unit, use, finishes), the rooms' interior fill shown in the floor plans (rule G-9.6) | Function | 4 | S (~1 h, ~0.5 M tokens) | 14 min | – | – | 68 k |
 | R1 Rule proposals: agents propose guideline changes in their handover, the project manager collects them, the user approves | Function | 4 | S (~1 h, ~0.5 M tokens) | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
 | V3 Each Revit run compared with the previous one: checks gained, lost, still failing | Function | 3 | S (~1 h, ~0.5 M tokens) | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
 | F15 Modelling guideline: phase "Existing" for every element, a parameter measured / assumed on walls, floors, doors and windows | Function | 3 | S (~1 h, ~0.5 M tokens) | 11 min | – | – | 66 k |
-| F27 Browser viewer with That Open Company libraries (ifc.js: `@thatopen/components`, `web-ifc`): model, scan slices and deviation colours on localhost, for the review loop and the fact review | Function | 4 | M (~2.5 h, ~1.5 M tokens) | 7 min | – | – | 71 k |
-| Agent team bookkeeping: scoreboard, rule ids with checks, rule proposals, run comparison | Function | 3 | – | 5 min | – | – | 64 k |
+| F27 Browser viewer with That Open Company libraries (ifc.js: `@thatopen/components`, `web-ifc`): model, scan slices and deviation colours on localhost, for the review loop and the fact review | Function | 4 | M (~2.5 h, ~1.5 M tokens) | 8 min | – | – | 72 k |
+| Agent team bookkeeping: scoreboard, rule ids with checks, rule proposals, run comparison | Function | 3 | – | 7 min | – | – | 66 k |
 | Comparison with a reference plan per LOA class (`core/compare.py`) | Function | 3 | – | – | – | – | – |
 | Door and window types for every size | Function | 4 | – | – | – | – | – |
 | Input reports with verdicts (`core/inputs.py`), scan coverage | Function | 3 | – | – | – | – | – |
 | Unattended runs: check that the pyRevit agent host answers Revit's failure dialogs like the old add-in | Task | 4 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | Wall types for every thickness | Function | 4 | – | – | – | – | – |
+| **Total built (21)** | | | **17.5 h, 10.0 M** | **9.6 h** | **121** | **38** | **4.4 M** |
 
 ### In progress (1)
 
 | Feature | Kind | Value | Estimate | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|---|
 | F24 Agent team phases updated for drawings first (phase 2a, alignment 2c, review at gate 1, drawn vs measured in the check) | Task | 4 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
+| **Total in progress (1)** | | | **1.0 h, 500 k** | **–** | **0** | **–** | **–** |
 
-### Planned (13)
+### Planned (14)
 
 | Feature | Kind | Value | Estimate | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|---|
@@ -166,6 +193,10 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | F20 Drawn facts as priors in modelling: levels, thickness of one-sided walls, slab thickness, opening heights, room names on scan rooms, drawn walls as hypotheses for the slice route | Function | 5 | L (~6 h, ~4 M tokens) | – | – | – | – |
 | F21 Checker: drawn vs measured for every accepted fact, unused facts listed | Function | 4 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | F23 Build-ups (floor, wall, roof) parsed into layers and thicknesses; slab thickness from them | Function | 4 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
+| Point clouds from Autodesk ReCap (RCP / RCS): link into the Revit copy, read the slices with point cloud filters through pyRevit, on into the slice route | Function | 3 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
+| **Total planned (14)** | | | **44.5 h, 28.0 M** | **1.2 h** | **60** | **8** | **826 k** |
+
+**Shared: still to do estimated 45.5 h, 28.5 M; measured so far 13.9 h and 9.9 M tokens (features and other requests).**
 
 Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 29, 3.2 h, 4.7 M tokens.
 
@@ -174,7 +205,7 @@ Other requests on Shared (status, documentation, runs, fixes not tied to one fea
 | Date | Task | Sub-project | Lead | Agent | Role | Time | Tokens | Cache reads |
 |---|---|---|---|---|---|---|---|---|
 | 17.10.2026 | Agent team | shared | 35 min, 913 k | project-manager | input / lead | 0 min | 50 k | 278 k |
-| | | | | 1 agents, 0 loops | | 0 min | 50 k | 278 k |
+| | | | | **1 agents, 0 loops** | | **0 min** | **50 k** | **278 k** |
 | 24.10.2026 | Feature round: developers and reviewers | shared | 6 min, 232 k | dev:agents | building | 19 min | 310 k | 10.1 M |
 |  |  |  |  | dev:inputs | building | 17 min | 271 k | 9.8 M |
 |  |  |  |  | dev:ifc | building | 24 min | 389 k | 21.1 M |
@@ -185,7 +216,7 @@ Other requests on Shared (status, documentation, runs, fixes not tied to one fea
 |  |  |  |  | review:agents | checking | 4 min | 108 k | 2.0 M |
 |  |  |  |  | review:ifc | checking | 3 min | 80 k | 1.0 M |
 |  |  |  |  | review:plans | checking | 4 min | 98 k | 1.0 M |
-| | | | | 10 agents, 5 loops | | 2.0 h | 2.1 M | 78.0 M |
+| | | | | **10 agents, 5 loops** | | **2.0 h** | **2.1 M** | **78.0 M** |
 | 24.10.2026 | Plans (drawings first, local LLM, GitHub); merge of the feature round; team test | shared | 1.5 h, 584 k | project-manager | input / lead | 1 min | 39 k | 185 k |
 |  |  |  |  | point-cloud-man | input / lead | 6 min | 141 k | 2.9 M |
 |  |  |  |  | project-manager | input / lead | 1 min | 48 k | 147 k |
@@ -201,4 +232,4 @@ Other requests on Shared (status, documentation, runs, fixes not tied to one fea
 |  |  |  |  | fit-man | building | 6 min | 86 k | 1.8 M |
 |  |  |  |  | checker | checking | 3 min | 110 k | 1.3 M |
 |  |  |  |  | project-manager | input / lead | 4 min | 126 k | 1.7 M |
-| | | | | 15 agents, 2 loops | | 1.0 h | 1.4 M | 23.4 M |
+| | | | | **15 agents, 2 loops** | | **1.0 h** | **1.4 M** | **23.4 M** |
