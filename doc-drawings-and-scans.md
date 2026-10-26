@@ -6,6 +6,19 @@ on what a scan cannot see. Every extracted piece of information is a **fact** in
 person verifies the facts on a **review page** at gate 1 before the builders use them. Decisions:
 `decisions.md`; the local LLM's part: `local-llm.md`; the feature list: `open-tasks.md` (F17 to F24).
 
+## 0. What the analysis looks for first (user, 26.10.2026)
+
+The analysis of drawings and documents looks first for the **construction**: the materials, the structure
+(load-bearing or not, concrete, masonry, timber, steel), and the **thicknesses and layers of slabs and walls**
+(build-up legends, section details, wall types in a legend, specifications). Geometry the scan measures better
+comes second.
+
+**Independent sources only verify each other.** Drawings made from the scan (or from a model built from the scan)
+carry the scan's own values: they are not a second source. Each source in `facts.json` records where it comes
+from (`origin`: design, construction, as-built survey, derived from the scan); facts of a source derived from the
+scan are not used as a check against the scan. (26.10.2026: a test house's plan set had been drawn from the model
+of its point cloud, so its storey heights and walls could not verify the scan.)
+
 ## 1. Why
 
 A scan sees surfaces: wall faces, floor tops, ceiling undersides, openings where they are open. It does not see
@@ -144,12 +157,16 @@ replaces a measured one without a conflict decision.
 ## 7. Development order
 
 1. F17 fact store and catalogue readers for the types already half built (rows 1, 3, 6, 11, 13, 15, 17), then
-   sections (6, 7, 8) and labels (14, 16, 19).
+   sections (6, 7, 8) and labels (14, 16, 19). Built 26.10.2026; next by priority (section 0): construction:
+   build-up legends, wall types, materials and structure (F23 moved up).
 2. F18 review page.
 3. F19 alignment of drawings to the scan frame.
 4. F20 priors in modelling: levels, one-sided wall thickness, slab thickness, opening heights, room names.
 5. F21 drawn vs measured in the checker.
 6. F23 build-up parsing, with the local LLM where the rules give no answer (F22, `local-llm.md`).
 
-Test data: the user's real sheets (plans, elevations) of a building that also has a scan are needed for steps
-3 to 5; until then the A60 / A61 sheets serve for steps 1 and 2 (no generated test sheets).
+Test data: a building with **construction drawings that do not come from its scan** (design or execution
+drawings with sections, build-ups, wall types) and a point cloud (inside and outside) is needed for steps 3 to 6.
+The sheets used so far were drawn from the model of the scan: fine for reading (steps 1 and 2), useless for
+verification. Candidate: the Schependomlaan data set (design model in ArchiCAD and IFC, point clouds, drone;
+`test-data-sources.md`), download after the user's go.

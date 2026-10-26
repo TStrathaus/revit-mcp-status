@@ -18,7 +18,13 @@ status.md: "Modelling decisions"). The simple form is the default: a slab is **o
 thickness** (finished floor to soffit), a wall one element face to face. A slab is split into the structural slab
 and its floor build-up, or a wall into its layers, only where sections, build-up legends or documentation give
 that build-up (accepted facts, `documentation/drawings-and-scans.md`), never because a template or a habit offers
-it. (User, 25.10.2026.)
+it. (User, 25.10.2026.) The analysis looks first for the construction: materials, structure, thicknesses and
+layers of slabs and walls (user, 26.10.2026).
+
+**G-0.3** (proposed 26.10.2026, awaiting approval) Sources derived from each other are one source. Drawings or
+models made from the scan carry the scan's values: they are used as information (names, units) but never to
+verify the scan. Every source of a project says where it comes from (design, construction, as-built survey,
+derived from the scan); the checker compares only independent sources.
 
 Every rule has a stable id (G-1.1, G-2.1, ...: section and number, in bold before the rule). Checks, findings and rule proposals
 name the rule by its id; which check tests which rule: section 14. A rule changes only when the user approved
@@ -254,6 +260,7 @@ without Revit in `tests/`, or belong to the input side).
 |---|---|
 | G-0.1 | not checked (the project's BAP) |
 | G-0.2 | not checked (gate 1: the modelling decisions in status.md) |
+| G-0.3 | not checked yet (**open**: the origin of each source in facts.json) |
 | G-1.1 | walls and floors generic (one layer, no material) |
 | G-1.2 | scan2revit wall and floor types not edited into a build-up (also the unused ones) |
 | G-1.3 | not checked (door and window families with fire ratings in the template: open) |

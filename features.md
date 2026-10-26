@@ -1,14 +1,14 @@
 # Features and effort
 
-State 26.10.2026 12:47. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
+State 26.10.2026 15:17. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
 
-Measured 15.10.2026 to 26.10.2026: 105 requests, the lead 25.5 h active, agents 5.7 h, 20.1 M new tokens (input, cache writes, output) and 1157.8 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
+Measured 15.10.2026 to 26.10.2026: 106 requests, the lead 25.8 h active, agents 5.7 h, 20.5 M new tokens (input, cache writes, output) and 1169.2 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
 
 | Overall | Features | Estimate | Measured time | Agents | Loops | Tokens |
 |---|---|---|---|---|---|---|
 | Built | 65 | 41.0 h, 23.5 M | 20.8 h | – | – | 10.2 M |
-| In progress and planned | 51 | 137.0 h, 84.8 M | 6.4 h | – | – | 4.7 M |
-| **All requests measured** | **116** | **178.0 h, 108.2 M** | **31.2 h** (lead 25.5 h, agents 5.7 h) | **35** | **11** | **20.1 M** |
+| In progress and planned | 52 | 138.0 h, 85.2 M | 6.4 h | – | – | 4.7 M |
+| **All requests measured** | **117** | **179.0 h, 108.8 M** | **31.5 h** (lead 25.8 h, agents 5.7 h) | **35** | **11** | **20.5 M** |
 
 ## Pointcloud2Revit
 
@@ -195,7 +195,7 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | F24 Agent team phases updated for drawings first (phase 2a, alignment 2c, review at gate 1, drawn vs measured in the check) | Task | 4 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | **Total in progress (4)** | | | **12.0 h, 7.5 M** | **2.9 h** | **57** | **16** | **1.7 M** |
 
-### Planned (11)
+### Planned (12)
 
 | Feature | Kind | Value | Estimate | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|---|
@@ -209,12 +209,13 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | F2 A door and a window family with free size in the blank project (the template) | Function | 4 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | F20 Drawn facts as priors in modelling: levels, thickness of one-sided walls, slab thickness, opening heights, room names on scan rooms, drawn walls as hypotheses for the slice route | Function | 5 | L (~6 h, ~4 M tokens) | – | – | – | – |
 | F21 Checker: drawn vs measured for every accepted fact, unused facts listed | Function | 4 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
-| F23 Build-ups (floor, wall, roof) parsed into layers and thicknesses; slab thickness from them | Function | 4 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
-| **Total planned (11)** | | | **33.5 h, 21.0 M** | **1.2 h** | **39** | **8** | **831 k** |
+| F23 Build-ups (floor, wall, roof) parsed into layers and thicknesses; slab thickness from them; materials and structure (the analysis looks for construction first, user 26.10.2026) | Function | 5 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
+| Test building with construction drawings that do not come from its scan (design or execution drawings: sections, build-ups, wall types, materials) and a point cloud inside and outside: the plan sets used so far were drawn from the scan's model and cannot verify it (user, 26.10.2026) | Task | 5 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
+| **Total planned (12)** | | | **34.5 h, 21.5 M** | **1.2 h** | **39** | **8** | **831 k** |
 
-**Shared: still to do estimated 45.5 h, 28.5 M; measured so far 17.4 h and 11.8 M tokens (features and other requests).**
+**Shared: still to do estimated 46.5 h, 29.0 M; measured so far 17.7 h and 12.2 M tokens (features and other requests).**
 
-Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 37, 3.6 h, 4.8 M tokens.
+Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 38, 3.9 h, 5.2 M tokens.
 
 ## Tasks with agents
 

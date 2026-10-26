@@ -8,6 +8,8 @@ rejected ones are taken out, with the reason in `documentation/decisions.md`.
 
 | Rule | State | What it says | Why |
 |---|---|---|---|
+| G-0.2 addition | **set by the user** 26.10.2026 | The analysis of drawings and documents looks first for the construction: materials, structure, thicknesses and layers of slabs and walls. | Asked by the user. |
+| G-0.3 Independent sources | proposed | Sources derived from each other are one source: drawings or models made from the scan are information (names, units), never a check of the scan. Every source says where it comes from (design, construction, survey, derived from the scan). | The test house's plan set was drawn from the model of its point cloud: it cannot verify the scan. |
 | G-9.2 Room separation lines | **set by the user** 26.10.2026; wording to confirm | Walls with their doors and openings bound a room. A separation line only (1) where a room does not close otherwise: one short line across the gap (passage, wide opening, a wall piece the scan did not see); (2) where the input divides a space without a wall (a foyer drawn as "Entrance" and "Foyer"). Never along whole room outlines, never where a wall stands, never more lines than it takes. A room that still does not close is listed for the person. | The rule of 25.10.2026 drew a line along every room edge outside a wall: 1240 lines on a four-storey house, most of them useless. The code still follows the old rule: it is rebuilt to the new one once the rule is confirmed. |
 | G-6.5 Slab inside the building | proposed | A slab never reaches beyond the building. A scan holding inside and outside together is split by the exterior walls; the outside points are used as the external scan (G-6.3: outline at the facade). Floor points outside the exterior walls (terrace, terrain) are not slab; a balcony or terrace slab is its own element and is listed. | The house build's slabs ran out over terrace and garden in ragged shapes. |
 | G-8.3 Columns | proposed | Free-standing columns found in the scan become column elements (structural families first, else architectural) of their shape, rectangular or round, at their place and rotation, from their level to the storey height; a column's faces are not also walls. | Columns from scans are built now (F8); the checks use this rule. |
@@ -32,6 +34,7 @@ rejected ones are taken out, with the reason in `documentation/decisions.md`.
 
 | Decision | Options | Proposal |
 |---|---|---|
+| Test building with independent construction drawings and a point cloud | (a) download Schependomlaan (about 3 GB: design model ArchiCAD / IFC, point clouds, drone); (b) a building of the user's with execution drawings and a scan; (c) both | (c): (a) now for development, (b) when available |
 | Column family for the columns stage | (a) the user loads a rectangular and a round column family into `blank.rvt`; (b) the stage makes its own simple family from Revit's family template | (a) now, (b) later |
 | Separation lines in the scan route | rebuild the slice route's room closing to G-9.2 (gap lines only) before the next build | after G-9.2 is confirmed |
 | Slab outline from one combined cloud | build the inside / outside split (G-6.5) and run the facade step on it | after G-6.5 is approved |
