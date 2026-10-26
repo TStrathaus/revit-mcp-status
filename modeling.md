@@ -126,6 +126,12 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
 - **G-6.4** Without an external scan the outline is simplified from the 10 cm raster (**open**: straight, square edges,
   Revit warns about sketch lines slightly off axis).
 
+- **G-6.5** (proposed 26.10.2026, awaiting approval) A slab never reaches beyond the building: one scan that holds
+  inside and outside together (a registered cloud with the facade, terrace and garden) is split into inside and
+  outside points by the exterior walls first, and the outside points are the external scan of G-6.3. Floor
+  points outside the exterior walls (terrace, terrain, a neighbour's yard at the same height) are not slab; a
+  balcony or terrace slab is its own element and is listed, not merged into the storey's floor.
+
 ## 7. Doors and windows
 
 - **G-7.1** Hosted in their wall, one generic type per size, named `scan2revit <w> x <h>` (a copy of the nearest type
@@ -151,15 +157,17 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
 
 - **G-9.1** One room per enclosed area, placed at a point inside it; name and number from the plan or the IFC, else
   `Room <storey>.<n>`; net area to the wall faces. Cells under 1 m2 are slivers, not rooms.
-- **G-9.2** A room must be enclosed (Revit: "bounded"). A passage between two rooms (a gap with no wall and no door)
-  gets a room separation line across it, 5 cm into the wall ends (plan-extract passages: done). Where walls
-  are missing (real scans), rooms come from the free space, and room separation lines close them where no wall
-  stands: the rooms grow into the walls until they meet, their outlines are straightened together (a shared edge
-  stays one line) and every edge outside a wall's body becomes a line, 0.2 m into the wall it meets; the floor
-  outline closes them where no outer wall was found (glass fronts, balconies). Each room's area is then the face
-  the walls and lines close, as Revit bounds it. (25.10.2026: an apartment 11 of 11 rooms enclosed, a real
-  storey 63 of 64, before about 1 per storey.) Where a face still holds two rooms, the line between them is
-  missing: the rooms keep their free-space shape and are listed (**open**: walls found there, F1).
+- **G-9.2** A room must be enclosed (Revit: "bounded"), and walls (with their doors and openings) bound it.
+  Room separation lines are used only in two cases (decided by the user, 26.10.2026):
+  1. **A room does not close otherwise**: a gap with no wall and no door (a passage, a wide opening, a wall piece
+     the scan did not see) gets one short line across the gap, 5 cm into the wall ends (0.2 m where a scan's wall
+     ends are uncertain); where no outer wall was found (glass fronts, balconies), the building outline closes it.
+  2. **The input divides a space without a wall**: the floor plan, IFC or room list has two rooms where no wall
+     stands (a large foyer drawn as "Entrance" and "Foyer"): one line where the input divides them.
+  Never along whole room outlines, never where a wall stands, never more lines than it takes to close the room.
+  A room the walls and these lines still do not close is listed for the person (**open**: walls found there,
+  F1). (26.10.2026: replaces the rule of 25.10.2026 that drew a line along every room edge outside a wall body:
+  a real house got 1240 lines, most of them useless.)
 - **G-9.3** Room stamps of a plan sheet (plans.sheet): every stamp gives a room at its position, also where the walls do
   not close around it (then placed, not enclosed, listed in qa). Name = the stamp's name ("Küche"); the unit
   above it goes to Revit's room parameter "Abteilung" (Department): "Wohnung <n>", "G" = "Allgemein"; number =
@@ -210,6 +218,8 @@ A gap with window lines and a swing at one end is a door beside a window (a balc
 | **G-11.6** | Element ids in plan.json | walls `W<storey>-<nn>`, curved walls `A..`, openings `O..`, stairs `S..`, slab openings `V..` |
 | **G-11.7** (proposed 26.10.2026) | Column type | `scan2revit column <w> x <d> mm`, `scan2revit column round <d> mm` (to 10 mm) |
 
+| **G-11.8** (proposed 26.10.2026) | Model file | `<project>_v<setup>_<info>.rvt`: project folder name, setup id (scan2revit version and git commit, `+dev` with uncommitted changes), a few words on the build (`scan-only`, `drawings-first`, `e2e`) |
+
 ## 12. Checks a model must pass (tools/revit_e2e.py)
 
 **G-12.1** Levels at the planned elevations; walls (straight and curved) per level and their thicknesses; walls and floors
@@ -227,6 +237,12 @@ Each check names the rule it tests by its id; the whole list, and the rules no c
 - **G-13.3** Do not create types, levels or coordinates silently in a real project: ask; in test copies the runner does it.
 - **G-13.4** Quote accuracy with its source: synthetic results (bench/results.md) are optimistic; real scans carry
   registration error, glass and clutter.
+
+- **G-13.5** (proposed 26.10.2026, awaiting approval) Every build is recorded with its setup in the build register
+  (`scan2revit.core.builds`, the site's Builds page): model file, project, inputs, setup id, Revit, pyRevit,
+  template and its hash, the phases and the check result. A build is never overwritten by a later setup: a
+  rebuild (`revit_project.py open --rebuild`) gets a new file next to the old one, the old one's log and check
+  are kept in `builds/`. Test models (tools/revit_e2e.py) are kept the same way.
 
 ## 14. Rule -> check
 
@@ -262,6 +278,7 @@ without Revit in `tests/`, or belong to the input side).
 | G-6.2 | slab openings cut |
 | G-6.3 | not checked (input side: facade) |
 | G-6.4 | not checked |
+| G-6.5 | not checked yet (**open**: no slab area outside the exterior walls) |
 | G-7.1 | per level: doors and windows hosted; in curved walls |
 | G-7.2 | per level: doors and windows within 50 mm of their size; window sills |
 | G-7.3 | door swings: facing points to the scanned swing side |
@@ -283,11 +300,13 @@ without Revit in `tests/`, or belong to the input side).
 | G-11.5 | not checked (room names and numbers) |
 | G-11.6 | not checked (plan.json) |
 | G-11.7 | column types named by their size (proposed rule) |
+| G-11.8 | not checked (the tools name the file) |
 | G-12.1 | every check of this table |
 | G-13.1 | not checked in Revit (every stage deletes only its own elements: unit test) |
 | G-13.2 | every stage committed without error; Revit failures and dialogs handled (no error) |
 | G-13.3 | not checked |
 | G-13.4 | not checked |
+| G-13.5 | not checked (the tools record every build) |
 
 Two checks name no rule: "every planned element was built" and "Revit warnings" (reported, never failed).
 

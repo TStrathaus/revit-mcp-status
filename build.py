@@ -307,7 +307,7 @@ def open_page(style):
     legend = "\n\n".join(p for p in intro.split("\n\n") if p.strip() and not p.strip().startswith("State"))  # not the sources note
     t = tables(rest)
     secs = [b for b in rest.split("\n## ") if b.strip()]
-    kinds = ("Function", "Gap", "Task")
+    kinds = ("Function", "Gap", "Questionable", "Task")
     cards, body = [], []
     for b in secs:
         b = b[3:] if b.startswith("## ") else b
@@ -342,6 +342,7 @@ main p {{ max-width:820px; }} a {{ color:var(--accent); overflow-wrap:anywhere; 
 .kind {{ display:inline-block; font-size:12px; font-weight:600; padding:1px 7px; border-radius:10px; white-space:nowrap; margin:2px 4px 0 0; }}
 .kfunction {{ background:color-mix(in srgb,var(--accent) 18%,transparent); color:var(--accent); }}
 .kgap {{ background:color-mix(in srgb,var(--s1) 25%,transparent); color:color-mix(in srgb,var(--s1) 70%,var(--fg)); }}
+.kquestionable {{ background:color-mix(in srgb,var(--s2) 25%,transparent); color:color-mix(in srgb,var(--s2) 70%,var(--fg)); }}
 .ktask {{ background:color-mix(in srgb,var(--s4) 22%,transparent); color:color-mix(in srgb,var(--s4) 75%,var(--fg)); }}
 </style>
 </head>
@@ -373,6 +374,9 @@ DOCS = {
                                     "Deviation analysis against the scan, review and correction loop, meshing, browser viewer."),
     "doc-local-llm.md": ("local-llm.html", "Local LLM", "Where a local language model can help, and how it is built in."),
     "doc-github-sources.md": ("github-sources.html", "GitHub sources", "Using skills and code from GitHub projects."),
+    "doc-builds.md": ("builds.html", "Builds", "Every model built, with the setup version it was built with."),
+    "doc-versions.md": ("versions.html", "Versions", "The versions of the setup and what changed for the models."),
+    "doc-for-approval.md": ("for-approval.html", "For approval", "Rules and setup changes waiting for the user's approval."),
 }
 
 
@@ -408,7 +412,7 @@ NAV = [("index.html", "Status"), ("open.html", "Open items"), ("features.html", 
        ("agents.html", "Agent scoreboard"), ("agent-team.html", "Agent team"), ("modeling.html", "Modelling guideline"),
        ("decisions.html", "Decisions"), ("drawings-and-scans.html", "Drawings and scans"),
        ("deviation-and-review.html", "Deviation and review"), ("local-llm.html", "Local LLM"),
-       ("github-sources.html", "GitHub sources")]
+       ("github-sources.html", "GitHub sources"), ("builds.html", "Builds"), ("versions.html", "Versions"), ("for-approval.html", "For approval")]
 NAV_CSS = """
 nav.top { position:sticky; top:0; z-index:10; background:var(--card); border-bottom:1px solid var(--line); }
 nav.top .in { max-width:1680px; margin:0 auto; padding:0 24px; display:flex; flex-wrap:wrap; align-items:stretch; }
