@@ -60,6 +60,7 @@ IFC storeys to native Revit elements, all storeys in one model. Code `scan2revit
 
 | Kind | Item | Value | Effort | Next step |
 |---|---|---|---|---|
+| Gap | DXF plans: a drawing exported as one block is now read (26.10.2026), dimension and annotation layers left out, every passage gets a room separation line (G-9.2), corners closed and facing ends bridged on every plan; a vendor's construction DXF still gives no rooms (walls drawn as many short parallel pieces) | 3 | M (~2.5 h, ~1.5 M tokens) | wall pairing for single-line drawings with short pieces |
 | Gap | Knee walls under a sloping roof built as wide as the drawn band (thickness and height flagged assumed) | 3 | S (~1 h, ~0.5 M tokens) | decision D-18 |
 | Function | Plan sheets with several storeys (`plans/sheet.py`): drawings split, storey labels, ordered bottom first, aligned | 5 | M (~2.5 h, ~1.5 M tokens) | done on one real CAD sheet (four storeys); a test needs example sheets from the user |
 | Function | Orientation and scale from the sheet: scale from the title block ("1 : 100") done; turning a sheet whose text is not upright not built yet | 5 | S (~1 h, ~0.5 M tokens) | a turned sheet as example |

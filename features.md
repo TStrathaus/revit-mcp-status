@@ -1,14 +1,14 @@
 # Features and effort
 
-State 25.10.2026 19:15. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
+State 26.10.2026 10:33. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
 
-Measured 15.10.2026 to 25.10.2026: 99 requests, the lead 23.1 h active, agents 3.1 h, 16.5 M new tokens (input, cache writes, output) and 982.7 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
+Measured 15.10.2026 to 26.10.2026: 101 requests, the lead 23.4 h active, agents 3.1 h, 17.5 M new tokens (input, cache writes, output) and 1012.0 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 15.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
 
 | Overall | Features | Estimate | Measured time | Agents | Loops | Tokens |
 |---|---|---|---|---|---|---|
-| Built | 65 | 41.0 h, 23.5 M | 20.3 h | – | – | 9.2 M |
-| In progress and planned | 44 | 124.0 h, 77.2 M | 2.2 h | – | – | 2.2 M |
-| **All requests measured** | **109** | **165.0 h, 100.8 M** | **26.2 h** (lead 23.1 h, agents 3.1 h) | **26** | **7** | **16.5 M** |
+| Built | 65 | 41.0 h, 23.5 M | 20.4 h | – | – | 9.2 M |
+| In progress and planned | 45 | 126.5 h, 78.8 M | 2.2 h | – | – | 2.2 M |
+| **All requests measured** | **110** | **167.5 h, 102.2 M** | **26.5 h** (lead 23.4 h, agents 3.1 h) | **26** | **7** | **17.5 M** |
 
 ## Pointcloud2Revit
 
@@ -20,7 +20,7 @@ Measured 15.10.2026 to 25.10.2026: 99 requests, the lead 23.1 h active, agents 3
 | Slice route: walls, doors, windows, rooms, floor from two 20 cm slices (`slice2d`) | Function | 4 | – | 1.6 h | – | – | 531 k |
 | Slabs and levels from vertical sections (`sections`), refined where neighbours differ | Function | 3 | – | 1.3 h | – | – | 173 k |
 | F16 External parts of the point cloud (`pointcloud/facade.py`): exterior walls measured, slab outline from the facade ring (closed stepwise), edge on the walls' outer face, courtyards as voids | Function | 5 | M (~2.5 h, ~1.5 M tokens) | 49 min | – | – | 859 k |
-| F3 Room separation lines where the slice route's rooms have no wall | Function | 4 | M (~2.5 h, ~1.5 M tokens) | 43 min | – | – | 970 k |
+| F3 Room separation lines where the slice route's rooms have no wall | Function | 4 | M (~2.5 h, ~1.5 M tokens) | 49 min | – | – | 973 k |
 | Slab regions per floor from horizontal slices: outlines, voids (shafts, stairwells, courtyards), galleries | Function | 4 | – | 39 min | – | – | 120 k |
 | F14 Slab outlines with straight, square edges instead of the 10 cm raster (fewer Revit warnings) | Function | 3 | S (~1 h, ~0.5 M tokens) | 16 min | – | – | 84 k |
 | A4 Scan coverage per storey: share of every wall and of the outline seen, coverage image | Function | 4 | M (~2.5 h, ~1.5 M tokens) | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
@@ -36,7 +36,7 @@ Measured 15.10.2026 to 25.10.2026: 99 requests, the lead 23.1 h active, agents 3
 | Stairs, slab openings | Function | 4 | – | – | – | – | – |
 | Storeys merged in the survey frame, vertical check | Function | 4 | – | – | – | – | – |
 | Straight walls (faces, thickness, squaring, joins) | Function | 4 | – | – | – | – | – |
-| **Total built (20)** | | | **8.5 h, 5.0 M** | **7.4 h** | **10** | **5** | **3.2 M** |
+| **Total built (20)** | | | **8.5 h, 5.0 M** | **7.5 h** | **10** | **5** | **3.2 M** |
 
 ### Planned (12)
 
@@ -56,7 +56,7 @@ Measured 15.10.2026 to 25.10.2026: 99 requests, the lead 23.1 h active, agents 3
 | Two more test scans (a house, one scan station; an office floor, two stations) are Trimble RealWorks projects (`.rwp`, scans `.rwcx`, a closed format): no reader here; needs an E57 export from Trimble RealWorks (Create tzf Scan, then Export E57 structured) | Task | 3 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | **Total planned (12)** | | | **36.0 h, 22.5 M** | **34 min** | **0** | **–** | **910 k** |
 
-**Pointcloud2Revit: still to do estimated 36.0 h, 22.5 M; measured so far 8.1 h and 4.1 M tokens (features and other requests).**
+**Pointcloud2Revit: still to do estimated 36.0 h, 22.5 M; measured so far 8.2 h and 4.1 M tokens (features and other requests).**
 
 Other requests on Pointcloud2Revit (status, documentation, runs, fixes not tied to one feature): 4, 9 min, 8 k tokens.
 
@@ -125,21 +125,22 @@ Other requests on IFC2Revit (status, documentation, runs, fixes not tied to one 
 | Storey heights from the elevations sheet (levels and heights instead of the assumed storey height) | Function | 4 | M (~2.5 h, ~1.5 M tokens) | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
 | **Total in progress (1)** | | | **2.5 h, 1.5 M** | **12 min** | **10** | **5** | **210 k** |
 
-### Planned (8)
+### Planned (9)
 
 | Feature | Kind | Value | Estimate | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|---|
 | Rooms on a real sheet not all closed by walls: real project data (details private) after the corner joins, stub and jog fixes and knee walls (24.10.2026) | Gap | 3 | S (~1 h, ~0.5 M tokens) | 12 min | 5 (9 min) / 5 (2 min) / – | 5 | 210 k |
 | plan-extract run locally: blocked, the segmenter model is not public | Gap | 2 | – | 2 min | – | – | 9 k |
+| DXF plans: a drawing exported as one block is now read (26.10.2026), dimension and annotation layers left out, every passage gets a room separation line (G-9.2), corners closed and facing ends bridged on every plan; a vendor's construction DXF still gives no rooms (walls drawn as many short parallel pieces) | Gap | 3 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | F11 Own raster reader instead of plan-extract | Function | 3 | L (~6 h, ~4 M tokens) | – | – | – | – |
 | F4 Raster PDF (scanned plan) into Revit: **postponed** (22.10.2026) | Function | 4 | S to L (1-6 h, 0.5-4 M tokens) | – | – | – | – |
 | Handwritten measurements on a scanned plan (other ink) as checks, kept out of the geometry | Function | 3 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | Knee walls under a sloping roof built as wide as the drawn band (thickness and height flagged assumed) | Gap | 3 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | Orientation and scale from the sheet: scale from the title block ("1 : 100") done; turning a sheet whose text is not upright not built yet | Function | 5 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | plan-extract results: one room the walls do not close; never run on a real result | Gap | 2 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
-| **Total planned (8)** | | | **16.0 h, 9.8 M** | **13 min** | **10** | **5** | **219 k** |
+| **Total planned (9)** | | | **18.5 h, 11.2 M** | **13 min** | **10** | **5** | **219 k** |
 
-**Plans2Revit: still to do estimated 18.5 h, 11.2 M; measured so far 2.6 h and 1.5 M tokens (features and other requests).**
+**Plans2Revit: still to do estimated 21.0 h, 12.8 M; measured so far 2.6 h and 1.5 M tokens (features and other requests).**
 
 Other requests on Plans2Revit (status, documentation, runs, fixes not tied to one feature): 1, 6 min, 419 k tokens.
 
@@ -199,9 +200,9 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | Point clouds from Autodesk ReCap (RCP / RCS): link into the Revit copy, read the slices with point cloud filters through pyRevit, on into the slice route | Function | 3 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | **Total planned (14)** | | | **44.5 h, 28.0 M** | **1.2 h** | **60** | **8** | **826 k** |
 
-**Shared: still to do estimated 45.5 h, 28.5 M; measured so far 14.2 h and 10.0 M tokens (features and other requests).**
+**Shared: still to do estimated 45.5 h, 28.5 M; measured so far 14.4 h and 10.9 M tokens (features and other requests).**
 
-Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 34, 3.4 h, 4.7 M tokens.
+Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 36, 3.6 h, 5.6 M tokens.
 
 ## Tasks with agents
 
