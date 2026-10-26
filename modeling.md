@@ -143,6 +143,9 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   the run, from the lower level to the upper. **Open**: landings, winders, spiral stairs; stairs in the voids
   found by the sections.
 - **G-8.2** Ramps and sloped roofs are reported, not built.
+- **G-8.3** (proposed 26.10.2026, awaiting approval) Columns: free-standing columns found in the scan become column
+  instances (structural column families first, else architectural) of their shape, rectangular or round, at their
+  place and rotation, from their level to the storey height; a column's faces are not also walls.
 
 ## 9. Rooms
 
@@ -205,6 +208,7 @@ A gap with window lines and a swing at one end is a door beside a window (a balc
 | **G-11.4** | Door / window type | `scan2revit <w> x <h>` (copy of the nearest family type, size set) |
 | **G-11.5** | Room | name from the plan or IFC, else `Room <storey>.<n>`; number `<storey><nn>` |
 | **G-11.6** | Element ids in plan.json | walls `W<storey>-<nn>`, curved walls `A..`, openings `O..`, stairs `S..`, slab openings `V..` |
+| **G-11.7** (proposed 26.10.2026) | Column type | `scan2revit column <w> x <d> mm`, `scan2revit column round <d> mm` (to 10 mm) |
 
 ## 12. Checks a model must pass (tools/revit_e2e.py)
 
@@ -263,6 +267,7 @@ without Revit in `tests/`, or belong to the input side).
 | G-7.3 | door swings: facing points to the scanned swing side |
 | G-8.1 | stair: risers, base and top level |
 | G-8.2 | not checked |
+| G-8.3 | columns per level by shape; place, size, rotation and height (proposed rule) |
 | G-9.1 | per level: room areas within 3 % |
 | G-9.2 | per level: rooms bounded |
 | G-9.3 | per level: room departments (units) |
@@ -277,6 +282,7 @@ without Revit in `tests/`, or belong to the input side).
 | G-11.4 | not checked (a loaded type within 50 mm keeps its own name) |
 | G-11.5 | not checked (room names and numbers) |
 | G-11.6 | not checked (plan.json) |
+| G-11.7 | column types named by their size (proposed rule) |
 | G-12.1 | every check of this table |
 | G-13.1 | not checked in Revit (every stage deletes only its own elements: unit test) |
 | G-13.2 | every stage committed without error; Revit failures and dialogs handled (no error) |

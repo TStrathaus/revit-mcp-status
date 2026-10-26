@@ -1,6 +1,6 @@
 # Drawings and scans together: 2D information as the prior for modelling
 
-State 24.10.2026, plan; nothing of it is built yet. Decided by the user on 24.10.2026: the 2D drawings are
+State 26.10.2026: the facts reader (`scan2revit/plans/facts.py`, F17) and the review page (F18) are built; alignment, conflicts and drawn facts as priors (F19, F20) are not. Decided by the user on 24.10.2026: the 2D drawings are
 analysed **first** and act as the prior; the scan measures the geometry and wins on geometry; the drawings win
 on what a scan cannot see. Every extracted piece of information is a **fact** in `facts.json` per project; a
 person verifies the facts on a **review page** at gate 1 before the builders use them. Decisions:
@@ -67,7 +67,7 @@ the review page.
 | 28 | Fire ratings (EI30 doors, fire walls) | plan labels, door schedule | V-text | `opening.fire`, `wall.fire` | later: type parameters | yes |
 | 29 | Notes that are not building (furniture, dimensions, annotation) | all | filters (built: `plans/filters.json`) | none (listed in qa) | – | no |
 
-Rows 3, 11, 13, 15, 17 and parts of 1, 6 and 19 exist today in `scan2revit/plans/`; the rest is to build.
+`scan2revit/plans/facts.py` (26.10.2026) writes facts.json with a crop per fact: scale, storey drawings, walls with written thickness, openings, swings, room stamps with area, dimension chains, storey heights and slabs from section height chains, level marks, labels (build-ups, opening sizes, roof pitch). Build-up legends, schedules and level marks are tested on hand-written input only; sheet.meta, site plan, grid axes, sill and head from raster elevations are still to build.
 
 ## 3. Facts: what is stored, and how
 
@@ -105,7 +105,7 @@ One file per project: `scan2revit/data/projects/<project>/project/facts.json` (g
 
 ## 4. Verification by a person: the review page
 
-A local tool (`scan2revit/tools/facts_review.py`, to build) serves a review page on localhost for one project:
+A local tool (`scan2revit/tools/facts_review.py`, built 26.10.2026; `--gate` prints the open facts and holds the build phases) serves a review page on localhost for one project:
 
 - one card per fact: the crop of the drawing where it was read, the value, the method and confidence, and for a
   conflict the measured value next to it;
