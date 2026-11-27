@@ -1,0 +1,162 @@
+{
+  "title": "Vom Laserscan zum Revit-Modell",
+  "lead": "Ein Team aus KI-Agenten liest die Punktwolke, versteht die Bauteile und baut ein natives Revit-Modell: nach einer verbindlichen Modellierungsrichtlinie, mit unabhängiger Prüfung, jedes Bauteil als gemessen oder angenommen gekennzeichnet.",
+  "hero": {
+    "image": "images/craslab-revit-3d.jpeg",
+    "fallback": "images/scan-two-storeys.jpeg",
+    "caption": "Ein Geschoss aus einem offenen Scan-Datensatz (CRAS Labs, Porto), nativ in Revit 2027 gebaut, ohne Decke"
+  },
+  "chips": [
+    "Punktwolke (E57, PLY, LAS)",
+    "Revit 2025 / 2027",
+    "pyRevit-Agentenlaufzeit",
+    "läuft lokal, Daten bleiben im Haus"
+  ],
+  "problem": {
+    "title": "Bestand modellieren kostet Zeit und Geld",
+    "text": "Für Umbau, Betrieb und Unterhalt braucht es ein Modell des Bestands. Heute zeichnet jemand die Punktwolke Wand für Wand in Revit nach. Das ist teuer, langsam, und Fehler fallen erst spät auf.",
+    "stats": [
+      {
+        "big": "200 – 300 h",
+        "small": "Modellieren eines Bürogebäudes von 5'000 m² in LOD 300, nur Architektur und Tragwerk",
+        "src": "https://www.enginyring.com/en/blog/scan-to-bim-costs-in-2025-a-complete-pricing-breakdown-for-developers",
+        "srcname": "Marktangabe"
+      },
+      {
+        "big": "4 – 45 €/m²",
+        "small": "nur für das Modellieren, zusätzlich zum Scan, je nach Detaillierung",
+        "src": "https://www.enginyring.com/en/blog/scan-to-bim-costs-in-2025-a-complete-pricing-breakdown-for-developers",
+        "srcname": "Marktangabe"
+      },
+      {
+        "big": "Handarbeit",
+        "small": "Wand für Wand nachzeichnen; das Wissen, was gemessen und was geraten ist, geht verloren",
+        "src": "",
+        "srcname": ""
+      }
+    ]
+  },
+  "steps": {
+    "title": "Umsetzung in drei Schritten",
+    "items": [
+      {
+        "n": "1",
+        "head": "Analysieren",
+        "text": "Senkrechte Schnitte finden Geschosse und Decken. Acht waagrechte Lagen vom Boden bis unter die Decke zeigen, was wo steht. Ein Geschoss in rund 20 Sekunden.",
+        "image": "images/craslab-slices.jpeg",
+        "fallback": "images/scan-slicing-sections.jpeg"
+      },
+      {
+        "n": "2",
+        "head": "Verstehen",
+        "text": "Eine Wand reicht vom Boden bis unter die Decke, ein Möbel hört darunter auf. So trennt die Maschine Schränke, Tische und Geräte von den Wänden, findet Wände hinter Einbauschränken und Fenster in Fassadennischen.",
+        "image": "images/craslab-classified.jpeg",
+        "fallback": "images/scan-slicing-horizontal.jpeg"
+      },
+      {
+        "n": "3",
+        "head": "Modellieren",
+        "text": "Die Agenten bauen in Revit nacheinander: Geschosse, Typen, Wände und Decken, Türen, Fenster, Räume. Native Elemente, keine Netze, kein Import.",
+        "image": "images/craslab-revit-plan.jpeg",
+        "fallback": "images/scan-two-storeys.jpeg"
+      }
+    ]
+  },
+  "qa": {
+    "title": "Qualitätssicherung",
+    "items": [
+      {
+        "big": "58",
+        "head": "Regeln der Modellierungsrichtlinie",
+        "text": "Jede Regel hat eine Nummer und, wo möglich, eine automatische Prüfung in Revit."
+      },
+      {
+        "big": "unabhängig",
+        "head": "Prüfer-Agent",
+        "text": "Liest das fertige Modell aus Revit zurück und misst es gegen den Plan. Er baut nichts selbst."
+      },
+      {
+        "big": "gemessen / angenommen",
+        "head": "Herkunft je Bauteil",
+        "text": "Jede Wand trägt, ob ihre Stärke und Höhe gemessen oder angenommen ist."
+      },
+      {
+        "big": "285",
+        "head": "automatische Tests",
+        "text": "Synthetische Testgebäude mit bekannter Wahrheit, bevor echte Daten drankommen."
+      }
+    ],
+    "image": "images/source-measured-assumed.jpeg"
+  },
+  "agents": {
+    "title": "Das Agententeam",
+    "text": "Organisiert wie ein Planungsteam: eine Leitung mit Freigaben, Spezialisten je Gewerk, ein unabhängiger Prüfer. Immer nur einer arbeitet in Revit.",
+    "items": [
+      {
+        "role": "Leitung",
+        "job": "plant, gibt frei, fragt den Menschen"
+      },
+      {
+        "role": "Scan",
+        "job": "liest die Punktwolke: Schnitte, Lagen, Fassade"
+      },
+      {
+        "role": "Struktur",
+        "job": "Geschosse und Höhen"
+      },
+      {
+        "role": "Familien",
+        "job": "Typen für Wände, Decken, Türen"
+      },
+      {
+        "role": "Tragwerk",
+        "job": "Wände, Decken, Öffnungen"
+      },
+      {
+        "role": "Ausbau",
+        "job": "Türen, Fenster, Räume, Möbel"
+      },
+      {
+        "role": "Prüfer",
+        "job": "misst jede Regel, nur lesend"
+      }
+    ]
+  },
+  "results": {
+    "title": "Ergebnisse",
+    "text": "Gemessen an einem offenen Datensatz mit Referenzmodell: CRAS Labs der Universität Porto, ein Geschoss mit Büros, Werkstatt, Labor und Flur (585 Mio. Punkte). Vor den acht Lagen fand die Route 67 % der Wände, 66 % davon richtig. Zahlen aus echten Projekten bleiben privat.",
+    "stats": [
+      {
+        "big": "75 % · 82 %",
+        "small": "der Wandlänge gefunden · der Scanwände an der richtigen Stelle"
+      },
+      {
+        "big": "25 von 44",
+        "small": "Fenster gefunden, Brüstung und Sturz gemessen (Median ±10 cm)"
+      },
+      {
+        "big": "7 cm",
+        "small": "Abweichung der Wanddicke (Median)"
+      },
+      {
+        "big": "33 von 40",
+        "small": "Prüfungen im fertigen Revit-Modell bestanden"
+      }
+    ],
+    "images": [
+      {
+        "image": "images/craslab-revit-plan.jpeg",
+        "caption": "Nativer Revit-Grundriss, nur aus dem Scan"
+      },
+      {
+        "image": "images/craslab-vs-reference.jpeg",
+        "caption": "Scan (dunkel) gegen das Referenzmodell (blau)"
+      }
+    ],
+    "link": {
+      "href": "status.html",
+      "text": "Alle Funktionen mit Reifegrad und Vorher-Nachher-Bildern"
+    }
+  },
+  "credit": "Punktwolke und IFC der Beispielbilder: CRAS Labs, FEUP Porto; Abreu, Souza, Pinto, Matos, Pires (2023), Labelled Indoor Point Cloud Dataset for BIM Related Applications, Data 8(6) 101, <a href=\"https://zenodo.org/records/7948116\">zenodo.org/records/7948116</a>, CC BY 4.0. Bilder bearbeitet (Schnitte, Klassifizierung, Revit-Modell)."
+}

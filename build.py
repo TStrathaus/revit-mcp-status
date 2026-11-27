@@ -250,8 +250,9 @@ By sub-project, with the gaps and the tasks: <a href="open.html">open items</a>.
 </body>
 </html>
 """
-    (HERE / "index.html").write_text(page, encoding="utf-8")
-    print(f"index.html: {len(scores)} functions, {len(fut) - 1} future functions")
+    (HERE / "status.html").write_text(page, encoding="utf-8")
+    print(f"status.html: {len(scores)} functions, {len(fut) - 1} future functions")
+    start_page(page.split("<style>", 1)[1].split("</style>", 1)[0])
     if (HERE / "modeling.md").exists():
         gm = (HERE / "modeling.md").read_text(encoding="utf-8")
         gm = re.sub(r"\A---\n.*?\n---\n", "", gm, flags=re.S)          # the skill's front matter
@@ -408,7 +409,7 @@ main p, main li {{ max-width:820px; }} main h2 {{ border-top:1px solid var(--lin
 
 
 # every page: one flat navigation bar on top, the full width of a PC screen, a single column on a phone
-NAV = [("index.html", "Status"), ("open.html", "Open items"), ("features.html", "Features and effort"),
+NAV = [("index.html", "Start"), ("status.html", "Status"), ("open.html", "Open items"), ("features.html", "Features and effort"),
        ("agents.html", "Agent scoreboard"), ("agent-team.html", "Agent team"), ("modeling.html", "Modelling guideline"),
        ("decisions.html", "Decisions"), ("drawings-and-scans.html", "Drawings and scans"),
        ("deviation-and-review.html", "Deviation and review"), ("local-llm.html", "Local LLM"),
@@ -446,6 +447,117 @@ def finish_pages():
         page = page.replace("</style>", NAV_CSS + "</style>", 1).replace("<body>", "<body>\n" + bar, 1).replace(BACK, "")
         (HERE / f).write_text(page, encoding="utf-8")
     print(f"navigation: {len(have)} pages")
+
+
+def _img(d):
+    """The image of a start page item: its own if it is there, else the fallback."""
+    for k in ("image", "fallback"):
+        if d.get(k) and (HERE / d[k]).exists():
+            return d[k]
+    return ""
+
+
+START_CSS = """
+.land { max-width:1180px; margin:0 auto; }
+.hero { display:grid; grid-template-columns:1.05fr 1fr; gap:36px; align-items:center; padding:28px 0 12px; }
+.hero h1 { font-size:clamp(32px,4.6vw,56px); line-height:1.05; letter-spacing:-.02em; margin:0 0 16px; }
+.hero .lead { font-size:18px; color:var(--muted); margin:0 0 20px; max-width:560px; }
+.chip { display:inline-block; font-size:13px; padding:4px 10px; margin:0 6px 6px 0; border:1px solid var(--line);
+  border-radius:999px; background:var(--card); }
+.hero figure { margin:0; } .hero img { width:100%; border-radius:14px; border:1px solid var(--line); background:#fff; display:block; }
+.hero figcaption, .res figcaption { font-size:12px; color:var(--muted); margin-top:6px; }
+.land section { padding:40px 0 8px; border-top:1px solid var(--line); margin-top:32px; }
+.land h2 { font-size:26px; margin:0 0 6px; letter-spacing:-.01em; }
+.kick { font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 6px; }
+.intro { color:var(--muted); max-width:760px; margin:0 0 20px; font-size:16px; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
+.stat { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px; }
+.stat b { display:block; font-size:34px; line-height:1.1; color:var(--accent); margin-bottom:6px; letter-spacing:-.01em; }
+.stat span { display:block; color:var(--fg); font-size:14px; }
+.stat .src { font-size:12px; color:var(--muted); display:inline-block; margin-top:8px; }
+.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.step { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; display:flex; flex-direction:column; }
+.step .sn { width:34px; height:34px; border-radius:50%; background:var(--accent); color:var(--card); display:grid;
+  place-items:center; font-weight:700; margin-bottom:10px; }
+.step h3, .qa h3 { margin:0 0 6px; font-size:17px; } .step p, .qa p { margin:0 0 12px; color:var(--muted); font-size:14px; }
+.step img { margin-top:auto; width:100%; border-radius:8px; border:1px solid var(--line); background:#fff; }
+.qagrid { display:grid; grid-template-columns:1.2fr 1fr; gap:20px; align-items:start; }
+.qas { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.qa { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+.qa b { display:block; font-size:24px; color:var(--accent); margin-bottom:4px; }
+.qagrid img { width:100%; border-radius:12px; border:1px solid var(--line); background:#fff; }
+.team { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; }
+.ag { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; }
+.ag.key { border-color:var(--accent); }
+.ag .ai { font-size:12px; color:var(--muted); display:block; } .ag b { display:block; font-size:16px; margin:2px 0 4px; }
+.ag .aj { font-size:13px; color:var(--muted); }
+.res { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:16px; margin-top:16px; }
+.res figure { margin:0; } .res img { width:100%; border-radius:12px; border:1px solid var(--line); background:#fff; }
+.more { display:inline-block; margin-top:18px; font-weight:600; color:var(--accent); }
+.credit { font-size:12px; color:var(--muted); border-top:1px solid var(--line); margin-top:40px; padding-top:14px; }
+.credit a { color:var(--muted); }
+@media (max-width:900px) { .hero, .qagrid { grid-template-columns:1fr; } .steps { grid-template-columns:1fr; }
+  .team { grid-template-columns:repeat(2,1fr); } .qas { grid-template-columns:1fr; } }
+"""
+
+
+def start_page(style):
+    """index.html: the short overview (problem, implementation, QA, agents, results) from start.json."""
+    S = json.loads((HERE / "start.json").read_text(encoding="utf-8"))
+    e = html.escape
+    chips = "".join(f'<span class="chip">{e(c)}</span>' for c in S["chips"])
+    hero = _img(S["hero"])
+    hero_fig = (f'<figure><img src="{e(hero)}" alt="{e(S["hero"]["caption"])}">'
+                f'<figcaption>{e(S["hero"]["caption"])}</figcaption></figure>') if hero else ""
+    pr = S["problem"]
+    stats = "".join(
+        f'<div class="stat"><b>{e(s["big"])}</b><span>{e(s["small"])}</span>'
+        + (f'<a class="src" href="{e(s["src"])}">{e(s["srcname"])}</a>' if s.get("src") else "") + "</div>"
+        for s in pr["stats"])
+    steps = "".join(
+        f'<article class="step"><div class="sn">{e(s["n"])}</div><h3>{e(s["head"])}</h3><p>{e(s["text"])}</p>'
+        + (f'<img src="{e(_img(s))}" alt="{e(s["head"])}" loading="lazy">' if _img(s) else "") + "</article>"
+        for s in S["steps"]["items"])
+    qa = "".join(f'<div class="qa"><b>{e(q["big"])}</b><h3>{e(q["head"])}</h3><p>{e(q["text"])}</p></div>'
+                 for q in S["qa"]["items"])
+    qimg = S["qa"].get("image", "")
+    qimg = f'<img src="{e(qimg)}" alt="Gemessen und angenommen je Bauteil" loading="lazy">' if qimg and (HERE / qimg).exists() else ""
+    agents = "".join(f'<div class="ag{" key" if a["role"] in ("Leitung", "Prüfer") else ""}"><span class="ai">{k + 1}</span>'
+                     f'<b>{e(a["role"])}</b><span class="aj">{e(a["job"])}</span></div>'
+                     for k, a in enumerate(S["agents"]["items"]))
+    rs = S["results"]
+    rstats = "".join(f'<div class="stat"><b>{e(s["big"])}</b><span>{e(s["small"])}</span></div>' for s in rs["stats"])
+    rimgs = "".join(f'<figure><img src="{e(i["image"])}" alt="{e(i["caption"])}" loading="lazy">'
+                    f'<figcaption>{e(i["caption"])}</figcaption></figure>'
+                    for i in rs.get("images", []) if (HERE / i["image"]).exists())
+    rstats = f'<div class="stats">{rstats}</div>' if rstats else ""
+    rimgs = f'<div class="res">{rimgs}</div>' if rimgs else ""
+    page = f"""<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revit-MCP</title>
+<meta name="description" content="{e(S["lead"])}">
+<style>{style}{START_CSS}</style>
+</head>
+<body>
+<main><div class="land">
+<header class="hero"><div><p class="kick">Revit-MCP</p><h1>{e(S["title"])}</h1><p class="lead">{e(S["lead"])}</p>{chips}</div>
+{hero_fig}</header>
+<section><p class="kick">Problem</p><h2>{e(pr["title"])}</h2><p class="intro">{e(pr["text"])}</p><div class="stats">{stats}</div></section>
+<section><p class="kick">Umsetzung</p><h2>{e(S["steps"]["title"])}</h2><div class="steps">{steps}</div></section>
+<section><p class="kick">QS</p><h2>{e(S["qa"]["title"])}</h2><div class="qagrid"><div class="qas">{qa}</div>{qimg}</div></section>
+<section><p class="kick">Agenten</p><h2>{e(S["agents"]["title"])}</h2><p class="intro">{e(S["agents"]["text"])}</p><div class="team">{agents}</div></section>
+<section><p class="kick">Ergebnisse</p><h2>{e(rs["title"])}</h2><p class="intro">{e(rs["text"])}</p>{rstats}{rimgs}
+<a class="more" href="{e(rs["link"]["href"])}">{e(rs["link"]["text"])} &rarr;</a></section>
+<p class="credit">{S["credit"]}</p>
+</div></main>
+</body>
+</html>
+"""
+    (HERE / "index.html").write_text(page, encoding="utf-8")
+    print("index.html: start page")
 
 
 if __name__ == "__main__":
