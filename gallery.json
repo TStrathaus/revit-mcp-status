@@ -1,0 +1,80 @@
+[
+ {
+  "file": "images/scan-slicing-sections.jpeg",
+  "before": "images/scan-slicing-horizontal.jpeg",
+  "tags": [
+   "Horizontal slices per storey",
+   "Vertical sections"
+  ],
+  "title": "Slicing the scan",
+  "text": "How a large scan is read. Left: per storey the floor band and two 20 cm slices, one at 0.30-0.70 m (walls and doors) and one at 1.10-1.30 m (windows), pulled apart; each slice is read like a 2D plan. Right: three vertical sections per direction, each 20 cm thick, through the whole building; they find the levels and the slab thickness before the storeys are cut. Synthetic two-storey scan with a stair."
+ },
+ {
+  "file": "images/scan-two-storeys.jpeg",
+  "title": "Point cloud to Revit, two storeys",
+  "text": "Synthetic scan of a two-storey house: levels, walls, doors with swing side, windows, floors and rooms, created natively in Revit 2025 through pyRevit. All checks pass.",
+  "before": "images/scan-two-storeys-before.jpeg",
+  "before_label": "synthetic scan, 1.3 M points"
+ },
+ {
+  "file": "images/scan-curved-walls.jpeg",
+  "title": "Curved walls with openings",
+  "text": "A curved bay found in the scan by a circle fit: radius exact in Revit, a door and a window placed in the curved wall.",
+  "before": "images/scan-curved-walls-before.jpeg",
+  "before_label": "synthetic scan, 0.6 M points"
+ },
+ {
+  "file": "images/scan-stairs-voids.jpeg",
+  "title": "Stairs and slab openings",
+  "text": "A straight stair from rising tread patches and the slab void above it, cut into the upper floor.",
+  "before": "images/scan-stairs-voids-before.jpeg",
+  "before_label": "synthetic scan, 1.3 M points"
+ },
+ {
+  "file": "images/scan-slices-3d.jpeg",
+  "title": "Point cloud slices to Revit",
+  "text": "The synthetic storey reduced to two 20 cm slices (0.4-0.6 m and 1.1-1.3 m) and thin floor and ceiling bands, a quarter of the points: walls, doors with their swing from the open leaf, windows from the upper slice, rooms and floor, natively in Revit 2025 through pyRevit. All 18 checks pass.",
+  "before": "images/scan-slices-3d-before.jpeg",
+  "before_label": "two 20 cm slices and the floor band"
+ },
+ {
+  "file": "images/source-measured-assumed.jpeg",
+  "before": "images/source-measured-assumed-before.jpeg",
+  "tags": [
+   "Plan: coloured by measured / assumed",
+   "3D: the same filter"
+  ],
+  "title": "Measured or assumed, in Revit",
+  "text": "Every wall, floor, door and window carries the parameter 'scan2revit source', and every element is in the existing phase. Here the slice-route example in Revit 2025 with a view filter on it: orange = thickness assumed (outer walls seen from inside only), grey = measured, blue = sill and head assumed (the slices see no opening heights). All checks pass (24.10.2026)."
+ },
+ {
+  "file": "images/viewer-measured-assumed.jpeg",
+  "title": "Browser viewer (F27)",
+  "text": "A plan, its scan and a reference IFC in one 3D view in the browser, served on this machine only (three.js, web-ifc from That Open Company). Here the synthetic two-storey project coloured measured / assumed, with a scan slice 0.3-1.3 m above each level; click an element to see its record (25.10.2026).",
+  "tags": [
+   "",
+   "Browser, this machine only"
+  ]
+ },
+ {
+  "file": "images/plan-pdf-floor-plan.jpeg",
+  "title": "2D plan (vector PDF) to Revit",
+  "text": "Floor plan of the ground floor rebuilt from a vector PDF at 1:100: walls from paired face lines, doors from swing arcs, windows from glass lines, the stair from its tread lines.",
+  "before": "images/plan-pdf-floor-plan-before.jpeg",
+  "before_label": "vector PDF, 1:100"
+ },
+ {
+  "file": "images/plan-extract-3d.jpeg",
+  "title": "plan-extract result to Revit",
+  "text": "Two storeys from plan-extract results (an open-source reader for raster plans): wall centre lines with thickness, openings on their host walls, the void over the stair.",
+  "before": "images/plan-extract-3d-before.jpeg",
+  "before_label": "plan-extract results, two storeys"
+ },
+ {
+  "file": "images/ifc-house-3d.jpeg",
+  "title": "IFC to Revit",
+  "text": "A synthetic IFC4 house written like a Revit export (walls with axis and Qto width, a window without fill relation, no IfcSpace): walls, doors, window, floor and the rooms from the walls, natively in Revit. 22 of 22 checks.",
+  "before": "images/ifc-house-3d-before.jpeg",
+  "before_label": "IFC4, storey 00"
+ }
+]

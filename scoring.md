@@ -1,0 +1,95 @@
+# Scoring: current functionality and future functions
+
+State 25.11.2026 (results up to 26.10.2026). Section 12 of the research log scores the outside options; this table scores what this
+repository does itself. Update it when a score changes, with the evidence. How the models are built:
+the modelling guideline `scan2revit/skills/modeling/SKILL.md` (https://tstrathaus.github.io/revit-mcp-status/modeling.html).
+
+## Scale
+
+Maturity 0 to 5:
+
+| Score | Meaning |
+|---|---|
+| 0 | not started |
+| 1 | designed only |
+| 2 | code exists, not verified |
+| 3 | passes the synthetic tests and the benchmark, or runs on real data without Revit |
+| 4 | passes in a real Revit (`scan2revit/tools/revit_e2e.py`) |
+| 5 | proven on real project data in Revit, measured against a reference |
+
+Future functions: value 1 to 5 (5 = most useful), effort S (hours), M (a day or two), L (more).
+
+## Current functionality
+
+| Topic | Function | Score | Evidence | Gap |
+|---|---|---|---|---|
+| Convert point clouds | Levels and storeys from the scan | 5 | real project data (details private) | – |
+| Convert point clouds | Straight walls (faces, thickness, squaring, joins) | 4 | all scan examples in Revit; real project data (details private) | densely partitioned real floors: real project data (details private) |
+| Convert point clouds | Curved walls | 4 | `curved_bay`: radius exact in Revit | circular arcs only |
+| Convert point clouds | Doors and windows from holes in the faces | 4 | scan examples in Revit: all hosted, sills to the millimetre | few found on real floors |
+| Convert point clouds | Door swing and hinge side | 4 | door facing checks pass in Revit | – |
+| Convert point clouds | Ghost points (glass, mirrors) | 3 | benchmark S9: 97 % removed | – |
+| Convert point clouds | Stairs, slab openings | 4 | three stair examples in Revit, 16 risers, tread right; stairs from the treads of a scan (`stairs.py`): straight, L, U, winders; an L stair with landing built in Revit (26.10.2026); labelled site scans: 8 of 13 stair parts, none false; real project data (details private) | spiral stairs; treads above scanner height; a winder stair of a house not found |
+| Convert point clouds | Columns from scans (`columns.py`), rectangular and round | 3 | labelled site scans (Rohbau3D, CC BY 4.0): 106 of 261 column instances found, 31 of 137 found columns not labelled column; wall figures unchanged | Revit: the template has no column family (decision open); beams |
+| Convert point clouds | Rooms, floor outline | 4 | scan examples: rooms bounded, areas within 3 %; slivers under 1 m2 left out | – |
+| Convert point clouds | E57 reader (real scans, in blocks) | 4 | real project data (details private) | – |
+| Convert point clouds | Large scans: thinning to 2 cm | 4 | real project data (details private) | – |
+| Convert point clouds | Slice-weighted storeys (walls 0.3-0.7 m, windows 1.1-1.3 m) | 4 | real project data (details private) | real project data (details private) |
+| Convert point clouds | Slice route: walls, doors, windows, rooms, floor from two 20 cm slices (`slice2d`) | 4 | synthetic (bench SL1-SL5): all walls (faces within 1 mm), doors with swing, windows, rooms; example all 18 checks in Revit (0.7, through pyRevit). real project data (details private) | rooms not closed in Revit where walls are missing; opening heights given, not measured; sloped roofs |
+| Convert point clouds | Slabs and levels from vertical sections (`sections`), refined where neighbours differ | 3 | synthetic: floors exact, slab thickness within 2 cm, gallery found, beds and a ramp no level; real project data (details private); floors and slab thickness go into the slice route | a gallery real project data (details private) is missed at 3 m spacing; some slab thicknesses from few pairs; galleries not built as their own Revit level yet |
+| Convert point clouds | Slab regions per floor from horizontal slices: outlines, voids (shafts, stairwells, courtyards), galleries | 4 | synthetic: floor regions, a stairwell void, a hidden floor filled, the gallery; real project data (details private) | outlines from a 10 cm raster (Revit sketch warnings); voids under 5 m2 not cut; stairs in the voids not read |
+| Convert point clouds | External scans (drone, facade) in the survey frame (`facade`): exterior walls seen from inside get their measured thickness, slab outlines from the facade ring, courtyards as voids | 4 | synthetic tests (outer face behind window frames, ring with courtyard and canopy, open ring); real project data (details private) ; real project data (details private); rings closed stepwise (gaps up to 1.6, 2.4, 3.2 m), slab edge on the walls' outer face | not under a roof or below ground; rings still open where no facade is seen |
+| Convert point clouds | Storeys merged in the survey frame, vertical check | 4 | real project data (details private) | – |
+| Convert floor plans | DXF and vector PDF | 4 | plan examples in Revit, all checks | – |
+| Convert floor plans | Several storeys, aligned | 4 | two-storey PDF in Revit, stair and void right | – |
+| Convert floor plans | CAD sheet with several storeys (`sheet.py`): drawings split, storey labels, scale from the title block | 4 | real project data (details private) | sheets with turned text; no test yet (example sheets from the user) |
+| Convert floor plans | Walls drawn as filled areas, openings where the wall colour is absent, swings from chains of short lines | 4 | real project data (details private) | corner joins of short stubs; knee walls under a sloping roof drawn as roof bands |
+| Convert floor plans | Room stamps: name, unit as Revit department, number storey.unit.nn, a room at every stamp | 4 | real project data (details private) | rooms the walls do not close are placed, not enclosed |
+| Convert floor plans | Clutter filter (built-in units, sanitary, text masks, annotation), list in the guideline and `plans/filters.json` | 4 | real sheet: crossed boxes, circles and masks left out, windows drawn as crossed boxes kept | furniture only implicitly |
+| Convert floor plans | Raster plans through plan-extract (`fpx.py`) | 4 | plan-extract examples in Revit | one room the walls do not close; never on a real result |
+| Convert floor plans | plan-extract run locally | 1 | repository cloned | blocked: the segmenter model is not public |
+| Convert floor plans | Own raster reader | 0 | – | not built |
+| Convert IFC | One storey to native Revit (`ifc.py`) | 5 | real project data (details private) | stairs with landings |
+| Convert IFC | All storeys in one model (`merge.py`) | 4 | real project data (details private) | doors on locked families; 5 walls refused |
+| Convert IFC | Openings on the right wall piece, panes left out | 4 | 'cannot cut from wall' 359 -> 36 on the whole building | – |
+| Convert IFC | Rooms without `IfcSpace` (cells between the walls) | 4 | real project data (details private); synthetic house exact | areas off where walls overlap |
+| Convert IFC | Pre-check of what Revit refuses (`ifc/precheck.py`), wall pieces at their base offset, slab holes | 4 | real project data (details private) | walls assigned to the wrong storey |
+| Convert IFC | Synthetic IFC example and tests | 4 | `bench/ifc_synth.py`: 3 tests, 22 of 22 checks in Revit | – |
+| Revit and MCP (all routes) | End-to-end runner (start, calls, checks, report) | 4 | all nine examples through pyRevit, 312 of 312 checks (25.10.2026); the real IFC building and scanned storeys through pyRevit; built models kept and recorded in the build register (0.8) | – |
+| Revit and MCP (all routes) | Unattended runs: failure dialogs answered and logged | 5 | real project data (details private) | – |
+| Revit and MCP (all routes) | Wall types for every thickness | 4 | real project data (details private); every thickness of the nine examples through pyRevit (0.7) | – |
+| Revit and MCP (all routes) | Door and window types for every size | 4 | every size of the nine examples made in Revit 2025, through the add-in and through pyRevit (Swiss families through the masonry opening; passage families without a leaf never used for a door); size check in every run | fire-rated door families lock their size |
+| Revit and MCP (all routes) | Images: a plan per level and a 3D view, JPEG | 4 | every example and the real models (0.5 add-in); every example through pyRevit: a fresh plan per level without the template's view template, cropped, fine detail (0.7) | – |
+| Revit and MCP (all routes) | Revit through the pyRevit agent runtime (stages, read back, checks) | 4 | all nine examples in Revit 2025 through `pyrevit mcp`, unattended, 218 of 218 checks (20.10.2026), 312 of 312 with room tags (25.10.2026); fixed on the way: Room.Name under IronPython, umlauts in results, a Revit chosen by process id; real project data (details private); results too large for the response read from the run | – |
+| Revit and MCP (all routes) | Revit API check (`tools/api_check.py`) | 4 | all 136 API names of the Revit module found in Revit 2025.1 | – |
+| Revit and MCP (all routes) | Agent team: 9 agents, workflow with gates, phase tool for one model | 4 | three examples built phase by phase in the stand-in; real project data (details private) | slab outlines and room separation lines questionable (open tasks) |
+| Revit and MCP (all routes) | Agent team bookkeeping: scoreboard, rule ids with checks, rule proposals, run comparison | 3 | first team test (synthetic, 25.10.2026): 10 findings filed, one tool defect fixed at gate 1, one rule approved | the build stage |
+| Revit and MCP (all routes) | Comparison with a reference plan per LOA class (`core/compare.py`) | 3 | real project data (details private) | arcs, stairs, opening heights |
+| Convert floor plans | Facts from drawings (`facts.py`) and the review page at gate 1 (`facts_review.py`) | 3 | real project data (details private); review page with decisions into facts.json and the scoreboard | build-ups and level marks only on hand-written input; no independent test building yet |
+| Revit and MCP (all routes) | Input reports with verdicts (`core/inputs.py`), scan coverage | 3 | synthetic scan: 12 of 13 ok (coverage needs the plan); floors from the sections (G-4.4) | limits are start values |
+
+## Future functions
+
+| # | Function | Value | Effort | Depends on | Raises |
+|---|---|---|---|---|---|
+| 1 | Wall detection on densely partitioned real floors | 5 | L | – | scan walls 4 to 5 |
+| 2 | A door and a window family with free size in the blank project | 4 | S | template (you) | door sizes 3 to 4 |
+| 3 | Room separation lines where the slice route's rooms have no wall (rooms closed in Revit) | 4 | M | – | slice route rooms |
+| 4 | Raster PDF into Revit | 4 | S to L | decision: segmenter model, own reader or web app | raster plans 1 to 4 |
+| 5 | Stairs with landings (IFC flights, scans) | 3 | L | – | stairs |
+| 6 | IFC: wall types by the IFC type name | 3 | M | – | type quality |
+| 7 | IFC: slab holes and openings | 3 | M | – | floors |
+| 8 | IFC: columns and beams | 3 | M | – | new element classes |
+| 9 | IFC: curtain walls with their doors and windows | 3 | L | – | new element class |
+| 10 | Door swing from the IFC (done 24.10.2026) | 2 | S | – | – |
+| 11 | Own raster reader (instead of plan-extract) | 3 | L | decision in 4 | raster plans 0 to 3 |
+| 13 | Stairs and ramps in the voids of the slab regions (steps in thin horizontal slices) | 4 | M | – | stairs 4 to 5 |
+| 14 | Slab outlines: straight, square edges instead of the 10 cm raster | 3 | S | – | fewer Revit warnings |
+| 15 | Modelling guideline, open points: phase "Existing" for every element, a parameter measured / assumed on walls, floors, doors and windows (done 24.10.2026) | 3 | S | – | guideline met |
+| 12 | Slice route: opening heights (a third slice or the top of each gap), sloped roofs, one wall from its upper and lower face | 3 | M | – | slice route 4 to 5 |
+
+## Reading
+
+Every route reaches Revit natively and passes in a real Revit, since 20.10.2026 through pyRevit (all nine
+examples, 312 of 312 checks since 25.10.2026). real project data (details private) Closing the rooms of the slice route
+in Revit (3) and finding the rest of the walls on densely partitioned floors (1) are the main open items.
