@@ -123,6 +123,14 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   a cupboard) and is left out (`slice2d.objects_on_walls`).
 - **G-5.6** Orientation: with `--align-north` the model is turned so the walls run along the project axes (project
   north); true north keeps the survey bearing (`plan.origin.rotation_deg`).
+- **G-5.8** (user, 28.11.2026) Wall tops by area when no storey above is scanned: each wall reaches the ceiling
+  measured beside it (0.15 to 1.2 m from its faces, the higher side), snapped to the storey's area ceilings (the peaks
+  of the flat ceiling heights, within 8 cm); never above the storey's ceiling. A ceiling seen 0.25 m or more below the
+  storey's ceiling is a suspended ceiling: reported, not built; a wall that sees only it takes the ceiling of the walls
+  within 3 m (`slice2d.local_ceilings`, `qa.local_ceilings`).
+- **G-5.9** (user, 28.11.2026) A wall measured from both faces keeps its measured thickness, even a thin one (a facade
+  of 58 mm: lining or glazing); no assumed facade is added behind it, and the report names it. G-5.7 still applies
+  where a thin piece stands in front of another wall.
 
 ## 6. Floors (slabs) and voids
 
@@ -172,6 +180,9 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   doors: the leaf opens towards the door's local +Y axis, the hinge side from the operation type LEFT / RIGHT);
   a closed door in a scan and a double door in an IFC have none: the swing stays the family default and is
   reported.
+- **G-7.4** (user, 28.11.2026) Openings found in a wall's elevation with a measured sill and head (clerestories,
+  narrow openings high in the wall from 0.40 m wide) are built as windows of their measured size, not left out as
+  ribs or vents; inner ones take the fixed-glazing family where the template has it (`family_hint`).
 
 ## 8. Stairs, slab openings, ramps
 
@@ -287,6 +298,11 @@ Each check names the rule it tests by its id; the whole list, and the rules no c
   template and its hash, the phases and the check result. A build is never overwritten by a later setup: a
   rebuild (`revit_project.py open --rebuild`) gets a new file next to the old one, the old one's log and check
   are kept in `builds/`. Test models (tools/revit_e2e.py) are kept the same way.
+- **G-13.6** (user, 28.11.2026) Missing component families are flagged in the analysis before Revit (gate 1), not
+  found in the build: the template's families (`tools/template_families.py`, `<template>.families.json`) against what
+  the plan asks for (rectangular and round columns, doors, windows, the families named by `family_hint`); the
+  analysis page and `quality.md` list what the template lacks, the family man loads it or the element is left out and
+  reported, as the user decides at gate 1.
 
 ## 14. Rule -> check
 
@@ -320,6 +336,8 @@ without Revit in `tests/`, or belong to the input side).
 | G-5.5 | not checked (input side) |
 | G-5.6 | not checked |
 | G-5.7 | not checked (the input side merges and lists) |
+| G-5.8 | not checked in Revit (`qa.local_ceilings`; unit test) |
+| G-5.9 | per level: wall thicknesses (the measured thickness is built) |
 | G-6.1 | per level: floors; floor thicknesses |
 | G-6.2 | slab openings cut |
 | G-6.3 | not checked (input side: facade) |
@@ -328,6 +346,7 @@ without Revit in `tests/`, or belong to the input side).
 | G-7.1 | per level: doors and windows hosted; in curved walls |
 | G-7.2 | per level: doors and windows within 50 mm of their size; window sills |
 | G-7.3 | door swings: facing points to the scanned swing side |
+| G-7.4 | per level: windows hosted; window sills |
 | G-8.1 | stair: risers, base and top level |
 | G-8.2 | not checked |
 | G-8.3 | columns per level by shape; place, size, rotation and height (proposed rule) |
@@ -354,6 +373,7 @@ without Revit in `tests/`, or belong to the input side).
 | G-13.3 | not checked |
 | G-13.4 | not checked |
 | G-13.5 | not checked (the tools record every build) |
+| G-13.6 | not checked in Revit (analysis page: `quality.md` families; unit test) |
 
 Two checks name no rule: "every planned element was built" and "Revit warnings" (reported, never failed).
 

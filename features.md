@@ -1,14 +1,14 @@
 # Features and effort
 
-State 28.11.2026 10:38. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
+State 28.11.2026 11:59. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
 
-Measured 17.10.2026 to 28.11.2026: 157 requests, the lead 29.0 h active, agents 9.1 h, 25.9 M new tokens (input, cache writes, output) and 1696.3 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 17.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
+Measured 17.10.2026 to 28.11.2026: 158 requests, the lead 29.5 h active, agents 9.2 h, 26.2 M new tokens (input, cache writes, output) and 1709.8 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 17.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
 
 | Overall | Features | Estimate | Measured time | Agents | Loops | Tokens |
 |---|---|---|---|---|---|---|
 | Built | 67 | 41.0 h, 23.5 M | 10.1 h | – | – | 7.3 M |
 | In progress and planned | 57 | 149.5 h, 92.2 M | 6.8 h | – | – | 5.1 M |
-| **All requests measured** | **124** | **190.5 h, 115.8 M** | **38.1 h** (lead 29.0 h, agents 9.1 h) | **141** | **11** | **25.9 M** |
+| **All requests measured** | **124** | **190.5 h, 115.8 M** | **38.7 h** (lead 29.5 h, agents 9.2 h) | **144** | **11** | **26.2 M** |
 
 ## Pointcloud2Revit
 
@@ -220,9 +220,9 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | Walls end under the slab above (G-5.2) for every route (`core/merge.cap_walls`, in `combine`): a wall reaching the slab gets the top constraint "up to level" (the level above) with minus the slab as top offset, not a fixed height (user); a wall running into the floor of the next level is cut at its underside and the part above becomes a wall of the next storey unless one stands there; no cut where no floor lies above (double-height rooms) or below an opening's head (25.11.2026: a real IFC building, 2743 walls tied to the level above, 896 capped, 41 split) | Function | 4 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | **Total planned (15)** | | | **39.0 h, 24.0 M** | **1.4 h** | **39** | **8** | **1.0 M** |
 
-**Shared: still to do estimated 51.0 h, 31.5 M; measured so far 30.2 h and 18.7 M tokens (features and other requests).**
+**Shared: still to do estimated 51.0 h, 31.5 M; measured so far 30.8 h and 19.1 M tokens (features and other requests).**
 
-Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 123, 21.0 h, 13.0 M tokens.
+Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 124, 21.6 h, 13.3 M tokens.
 
 ## Tasks with agents
 
