@@ -18,6 +18,14 @@ rejected ones are taken out, with the reason in `documentation/decisions.md`.
 | G-5.9 Thin measured wall | **set by the user** 28.11.2026 (gate 1) | A wall measured from both faces keeps its thickness, even when thin; no assumed facade behind it. | The east facade of CRAS Labs measures 58 mm. |
 | G-7.4 Clerestories | **set by the user** 28.11.2026 (gate 1) | Openings from the wall elevation with measured sill and head are built as windows of their size, narrow ones included. | 14 narrow openings high in two facade walls of CRAS Labs. |
 | G-13.6 Families flagged at gate 1 | **set by the user** 28.11.2026 | The analysis before Revit lists the component families the template lacks; the user decides at gate 1. | The missing column family showed only in the build. |
+| G-0.4 Scan quality first | **set by the user** 28.11.2026 (research) | Registration errors (double faces 1-3 cm), ghost points, coverage per room ("not verifiable") checked before modelling. | Valero et al. 2022 (CC BY 4.0), rules 3, 5, 9, 10. |
+| G-0.5 Tolerance at gate 1 | **set by the user** 28.11.2026 (research) | LOA class or 60/30/15 mm agreed and recorded; the scan compared with it; default LOA20. | USIBD LOA, Bonduel 2017, ISPRS 2019, Tandem guidance. |
+| G-1.5 / G-1.6 Categories, doors as one | **set by the user** 28.11.2026 (research) | No Generic Model or DirectShape for building elements; a door or window is one element. | Autodesk Tandem guidance. |
+| G-2.4 Deviation per element | **set by the user** 28.11.2026 (research) | After F25: parameter `scan2revit deviation` per element. | Bonduel 2017. |
+| G-4.5 Elements across levels | **set by the user** 28.11.2026 (research) | Base on the lower level, top tied to the upper one, listed once. | Autodesk Tandem guidance. |
+| G-7.5 Curtains are not walls | **set by the user** 28.11.2026 (research) | A surface just inside a window is dropped; the window reported as doubtful. | Valero 2022, rule 4. |
+| G-10.3 Control points | **set by the user** 28.11.2026 (research) | Control points and the national frame recorded; survey point set from them. | Autodesk Tandem guidance. |
+| G-13.7 to G-13.11 Working in Revit | **set by the user** 28.11.2026 (research) | Document checked before every stage; "not verified" never a pass; warnings are findings; no overlaps of walls, floors, columns; the delivery list. | rvt-mcp (Apache-2.0), Autodesk Revit MCP docs, Tandem guidance. |
 | G-11.8 Model file name | proposed | `<project>_v<setup>_<info>.rvt`, e.g. `house_v0.8.0-9459e42_scan-only.rvt`. | Asked by the user: project, version and short info in the file name. |
 | G-13.5 Build register | proposed | Every build is recorded with its setup (Builds page). A later setup never overwrites a build: a rebuild gets a new file next to the old one; test models are kept the same way. | Asked by the user: builds listed with the setup version they were built with. |
 

@@ -26,6 +26,19 @@ models made from the scan carry the scan's values: they are used as information 
 verify the scan. Every source of a project says where it comes from (design, construction, as-built survey,
 derived from the scan); the checker compares only independent sources.
 
+**G-0.4** (user, 28.11.2026, from the research of open guidelines) The scan's quality is checked before anything is modelled (Valero et al. 2022, rules 3, 5, 9, 10):
+(a) registration: where scans overlap, a wall seen as two parallel faces 1 to 3 cm apart is a registration error,
+reported with its place, never modelled as two walls or a thick wall; (b) ghost points behind mirrors, glass and
+polished surfaces and points of moving people are removed or reported before extraction; (c) coverage per room: the
+share of its wall length and floor the scan sees; what is not seen is "not verifiable", not "wrong". The input
+report and the analysis page show all three.
+
+**G-0.5** (user, 28.11.2026, from the research of open guidelines) The tolerance is agreed at gate 1 and recorded in status.md: a USIBD LOA class (LOA20 15-50 mm, LOA30
+5-15 mm, LOA40 1-5 mm, measured and represented apart) or a class of 60 / 30 / 15 mm (Bonduel et al. 2017). The
+input report compares the scan with it (point spacing, 3D position; a typical specification for building scans is
+point spacing up to 5 mm and 3D position up to 7 mm, Autodesk Tandem guidance v4.2). Without an agreement the
+default is LOA20 for the model (represented), and the report says so.
+
 Every rule has a stable id (G-1.1, G-2.1, ...: section and number, in bold before the rule). Checks, findings and rule proposals
 name the rule by its id; which check tests which rule: section 14. A rule changes only when the user approved
 the change (proposals: `documentation/agent-team.md`); a new rule takes the next free number of its section,
@@ -60,6 +73,11 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   e.g. "TU Durchgang": it draws no swing in plan), even where its stock size fits best; a passage of the plan
   gets no element but a room separation line (section 9). The template's door families still carry fire ratings
   in some types (**open**: generic door and window families without them in `blank.rvt`).
+- **G-1.5** (user, 28.11.2026, from the research of open guidelines) Building elements are never Generic Models or DirectShapes: every wall, floor, column, stair, door
+  and window is an element of its own Revit category and type (Autodesk Tandem guidance). DirectShapes only for
+  what helps to look at the scan (the scan layers `Scan Lage n`), in Generic Models and named so.
+- **G-1.6** (user, 28.11.2026, from the research of open guidelines) A door or a window is one element: frame, leaf and glass together (Autodesk Tandem guidance; with
+  G-1.3).
 
 ## 2. Measured or assumed: say which
 
@@ -73,6 +91,11 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   `assumed: head`, `assumed: sill and head`). The last build stage (`existing`) adds it through a shared
   parameter file in the temp folder and restores the user's own shared parameter file setting. The flags stay
   in `plan.json` and `report.md` as well.
+
+- **G-2.4** (user, 28.11.2026, from the research of open guidelines) Once the deviation analysis exists (F25): every wall, floor, column, door and window carries its
+  deviation from the scan as an instance parameter `scan2revit deviation` (`within <class>`, `outside <class>: <mm>`,
+  `not verifiable`), so the model shows where it may be trusted (Bonduel et al. 2017: non-compliant elements flagged
+  in the model).
 
 ## 3. Existing elements only
 
@@ -94,6 +117,8 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   only where no section can be cut. A slab underside (a ceiling with a floor 0.12-0.9 m above it) is never a floor.
   Every check made at a floor height (density, registration) uses these floors. Storeys with steps are separate
   levels or reported (`steps_to` in slabs.json). (Approved by the user 25.10.2026, proposed by the point cloud man.)
+- **G-4.5** (user, 28.11.2026, from the research of open guidelines) An element spanning levels (stair, shaft, a wall of a double-height room) has its base on the lower
+  level and its top tied to the upper one; it is listed once, on its base level (Autodesk Tandem guidance).
 
 ## 5. Walls
 
@@ -180,6 +205,9 @@ coordinates). No published Swiss modelling guideline for as-built models from sc
   doors: the leaf opens towards the door's local +Y axis, the hinge side from the operation type LEFT / RIGHT);
   a closed door in a scan and a double door in an IFC have none: the swing stays the family default and is
   reported.
+- **G-7.5** (user, 28.11.2026, from the research of open guidelines) A curtain, blind or screen in front of a window is not a wall: a flat surface within 0.3 m inside a
+  facade wall, parallel to it and no wider than the opening behind, is dropped; the window behind it is reported as
+  doubtful (Valero et al. 2022, rule 4).
 - **G-7.4** (user, 28.11.2026) Openings found in a wall's elevation with a measured sill and head (clerestories,
   narrow openings high in the wall from 0.40 m wide) are built as windows of their measured size, not left out as
   ribs or vents; inner ones take the fixed-glazing family where the template has it (`family_hint`).
@@ -260,6 +288,9 @@ A gap with window lines and a swing at one end is a door beside a window (a balc
   model. Set them in Revit (or tell the user to); never move elements to "fix" coordinates.
 - **G-10.2** One coordinate source for all storeys and disciplines (the survey); acquire or publish shared coordinates
   once, link by shared coordinates, check with a control point.
+- **G-10.3** (user, 28.11.2026, from the research of open guidelines) Survey control points (three to seven, spread over the building; Autodesk Tandem guidance) and the
+  national frame (LV95, LN02 or LHN95) are recorded in status.md when the survey gives them; the structure man sets the
+  survey point from them and the report names the control point the check used.
 
 ## 11. Naming
 
@@ -303,6 +334,17 @@ Each check names the rule it tests by its id; the whole list, and the rules no c
   the plan asks for (rectangular and round columns, doors, windows, the families named by `family_hint`); the
   analysis page and `quality.md` list what the template lacks, the family man loads it or the element is left out and
   reported, as the user decides at gate 1.
+- **G-13.7** (user, 28.11.2026, from the research of open guidelines) Before every stage the tool checks that the same Revit session and the same document are open as
+  at the start; otherwise the stage is not run and the run stops (rvt-mcp: target checked before every write).
+- **G-13.8** (user, 28.11.2026, from the research of open guidelines) A check that could not run is "not verified", never a pass, and does not count as passed (rvt-mcp
+  pre-issue check).
+- **G-13.9** (user, 28.11.2026, from the research of open guidelines) Revit warnings are findings: a build passes only when every warning is explained (today: the rooms
+  the plan knows to be open); the others go to the agent of the stage (rvt-mcp: warnings roll back by default).
+- **G-13.10** (user, 28.11.2026, from the research of open guidelines) No two elements of one category overlap: walls along a straight run (G-5.3), floors over each
+  other on one level, columns inside each other or inside a wall (rvt-mcp audit tools).
+- **G-13.11** (user, 28.11.2026, from the research of open guidelines) A delivery holds: the raw scan (as received), the storey clouds used, the Revit model, the check
+  report, the analysis page with the user's decisions (`review.json`), status.md with the gate decisions (Autodesk
+  Tandem guidance, adapted).
 
 ## 14. Rule -> check
 
@@ -336,6 +378,14 @@ without Revit in `tests/`, or belong to the input side).
 | G-5.5 | not checked (input side) |
 | G-5.6 | not checked |
 | G-5.7 | not checked (the input side merges and lists) |
+| G-0.4 | not checked in Revit (input report, analysis page) |
+| G-0.5 | not checked (gate 1: status.md) |
+| G-1.5 | not checked yet (planned: no Generic Model or DirectShape besides the scan layers) |
+| G-1.6 | not checked |
+| G-2.4 | not checked yet (after F25) |
+| G-4.5 | not checked yet |
+| G-7.5 | not checked yet |
+| G-10.3 | not checked |
 | G-5.8 | not checked in Revit (`qa.local_ceilings`; unit test) |
 | G-5.9 | per level: wall thicknesses (the measured thickness is built) |
 | G-6.1 | per level: floors; floor thicknesses |
@@ -374,6 +424,11 @@ without Revit in `tests/`, or belong to the input side).
 | G-13.4 | not checked |
 | G-13.5 | not checked (the tools record every build) |
 | G-13.6 | not checked in Revit (analysis page: `quality.md` families; unit test) |
+| G-13.7 | not checked in Revit (the runner stops a stage; unit test) |
+| G-13.8 | every check: 'not verified' is not a pass |
+| G-13.9 | no Revit warnings beyond the known open rooms |
+| G-13.10 | walls do not overlap along a straight run (floors and columns: planned) |
+| G-13.11 | not checked (the project manager's report) |
 
 Two checks name no rule: "every planned element was built" and "Revit warnings" (reported, never failed).
 
@@ -389,4 +444,11 @@ Two checks name no rule: "every planned element was built" and "Revit warnings" 
 - bimaterial Modellierleitfaden (single-layer components where the build-up is not given): https://NachhaltigWirtschaften.at/resources/sdz_pdf/bimaterial_modellierleitfaden.pdf
 - BLB NRW, Modellanforderungen (every element on its storey's level): https://www.blb.nrw.de/fileadmin/Home/Service/Service_fuer_Auftragnehmer/Standards_Erlasse_Regelungen/BIM/bim-modellanforderungen.pdf
 - Autodesk Revit help: wall properties (constraints, room bounding): https://help.autodesk.com/cloudhelp/2023/ENU/Revit-ArchDesign/files/GUID-ED2045E5-90BF-418F-AAD6-3BB1544F34F5.htm; wall location line: https://help.autodesk.com/cloudhelp/2019/ENU/Revit-Model/files/GUID-F26DB6DA-A0EC-424D-B656-3BDF47607F4F.htm; coordinates: https://help.autodesk.com/cloudhelp/2023/ENU/Revit-Model/files/GUID-E67ED082-2556-475B-84A7-4605329F612F.htm
+- Valero, Bosché, Bueno (2022), Laser scanning for BIM, ITcon 27, 486-495, CC BY 4.0 (ten rules for point clouds for
+  BIM): https://itcon.org/paper/2022/23
+- Bonduel et al. (2017), deviation analysis and tolerance classes 60 / 30 / 15 mm: https://isprs-archives.copernicus.org/articles/XLII-2-W8/45/2017/
+- Agreed tolerance at the start of a project (heritage BIM, ISPRS 2019): https://isprs-archives.copernicus.org/articles/XLII-2-W9/455/2019/isprs-archives-XLII-2-W9-455-2019.pdf
+- Autodesk Tandem, Essential Guidance for Scan to BIM v4.2 (guidance only, no licence stated; used as a reference): https://intandem.autodesk.com/app/uploads/2025/12/15680-Tandem-Scan-to-BIM-v4.2.pdf
+- Autodesk Revit Public MCP Server (Technical Preview, Revit 2027): https://help.autodesk.com/cloudhelp/ENU/ADSKMCP-RevitMcp/files/revitmcp_tools.html
+- bimwright/rvt-mcp (Apache-2.0; target checks, warning rollback, "not verified"): https://github.com/bimwright/rvt-mcp; mcp-server-for-revit-python (MIT): https://github.com/mcp-servers-for-revit/mcp-server-for-revit-python
 - Project north and true north: https://novedge.com/blogs/design-news/revit-tip-revit-north-alignment-project-north-vs-true-north-best-practices; shared coordinates: https://resources.imaginit.com/building/shared-coordinate-best-practice-part-1; LV95: https://llv.li/en/national-administration/civil-engineering-and-geoinformation-office/official-survey-av-/change-of-reference-frame-to-lv95
