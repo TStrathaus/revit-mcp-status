@@ -378,13 +378,13 @@ without Revit in `tests/`, or belong to the input side).
 | G-5.5 | not checked (input side) |
 | G-5.6 | not checked |
 | G-5.7 | not checked (the input side merges and lists) |
-| G-0.4 | not checked in Revit (input report, analysis page) |
-| G-0.5 | not checked (gate 1: status.md) |
-| G-1.5 | not checked yet (planned: no Generic Model or DirectShape besides the scan layers) |
+| G-0.4 | not checked in Revit (input report items `registration.double faces`, `ghosts.outside`, `ghosts.mirrors`; analysis page: scan quality and coverage per room; unit tests) |
+| G-0.5 | not checked in Revit (input report items `tolerance.*` against the class of `--tolerance`; the class in status.md at gate 1) |
+| G-1.5 | no building element as Generic Model or DirectShape |
 | G-1.6 | not checked |
 | G-2.4 | not checked yet (after F25) |
-| G-4.5 | not checked yet |
-| G-7.5 | not checked yet |
+| G-4.5 | elements across levels on the lower level, tied to the upper one |
+| G-7.5 | not checked in Revit (slice route: `qa.curtains`, the window `doubtful`; unit test) |
 | G-10.3 | not checked |
 | G-5.8 | not checked in Revit (`qa.local_ceilings`; unit test) |
 | G-5.9 | per level: wall thicknesses (the measured thickness is built) |
@@ -427,7 +427,7 @@ without Revit in `tests/`, or belong to the input side).
 | G-13.7 | not checked in Revit (the runner stops a stage; unit test) |
 | G-13.8 | every check: 'not verified' is not a pass |
 | G-13.9 | no Revit warnings beyond the known open rooms |
-| G-13.10 | walls do not overlap along a straight run (floors and columns: planned) |
+| G-13.10 | walls do not overlap along a straight run; no floors over each other on one level; no columns inside each other or inside a wall |
 | G-13.11 | not checked (the project manager's report) |
 
 Two checks name no rule: "every planned element was built" and "Revit warnings" (reported, never failed).
