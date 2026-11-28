@@ -28,6 +28,12 @@ the load-bearing man.
    storey names and heights, and the **modelling decisions** (rule G-0.2): from the data found, the level of
    detail per element class, recorded in status.md (e.g. slabs as one element of their full thickness, split into
    structural slab and floor build-up only where sections or documentation give the build-up).
+   With a point cloud the user also works through the **analysis page** of every storey (`scan2revit/tools/analysis_page.py`,
+   user, 28.11.2026): three horizontal cuts (slab, wall and door height, window height) and vertical sections, the
+   proposed walls as lines only (green, orange, red by where the low cuts show them), a check whether the cuts and
+   sections suffice in number and quality (`quality.md`); the user confirms or rejects lines, draws missing walls and
+   comments tiles (`review.json`). At the start of the build stage the point cloud man rebuilds the storey plans with
+   these decisions (`slice2d --review`).
 3. **Structure** (structure man): `plan.json` of all storeys, levels and plan views in Revit. **Gate 2**:
    levels at the planned heights, against the reference where there is one.
 4. **Families** (family man): every type the plan needs, before anything is placed.

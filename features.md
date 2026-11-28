@@ -1,14 +1,14 @@
 # Features and effort
 
-State 27.11.2026 10:26. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
+State 28.11.2026 10:38. Written by `tools/effort.py` from `documentation/open-tasks.md`, `documentation/scoring.md` and the Claude Code session records; do not edit by hand.
 
-Measured 17.10.2026 to 27.11.2026: 146 requests, the lead 24.9 h active, agents 9.1 h, 24.7 M new tokens (input, cache writes, output) and 1504.1 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 17.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
+Measured 17.10.2026 to 28.11.2026: 157 requests, the lead 29.0 h active, agents 9.1 h, 25.9 M new tokens (input, cache writes, output) and 1696.3 M tokens read from the cache; the tables show new tokens. Active time counts every pause as at most 5 minutes. Built features from before 17.10.2026 have no figures. Agents started by hand, outside a workflow, count under the lead; an agent that worked on several features counts in each of their rows, the bold totals count it once. Loops: a checking agent (reviewer, checker) after a building one (developer, builders). Estimates: S about 1 h and 0.5 M tokens, M about 2.5 h and 1.5 M, L about 6 h and 4 M (`open-tasks.md`).
 
 | Overall | Features | Estimate | Measured time | Agents | Loops | Tokens |
 |---|---|---|---|---|---|---|
 | Built | 67 | 41.0 h, 23.5 M | 10.1 h | – | – | 7.3 M |
-| In progress and planned | 56 | 147.0 h, 90.8 M | 6.8 h | – | – | 5.1 M |
-| **All requests measured** | **123** | **188.0 h, 114.2 M** | **34.0 h** (lead 24.9 h, agents 9.1 h) | **141** | **11** | **24.7 M** |
+| In progress and planned | 57 | 149.5 h, 92.2 M | 6.8 h | – | – | 5.1 M |
+| **All requests measured** | **124** | **190.5 h, 115.8 M** | **38.1 h** (lead 29.0 h, agents 9.1 h) | **141** | **11** | **25.9 M** |
 
 ## Pointcloud2Revit
 
@@ -199,7 +199,7 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | F24 Agent team phases updated for drawings first (phase 2a, alignment 2c, review at gate 1, drawn vs measured in the check) | Task | 4 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | **Total in progress (4)** | | | **12.0 h, 7.5 M** | **3.1 h** | **57** | **16** | **1.9 M** |
 
-### Planned (14)
+### Planned (15)
 
 | Feature | Kind | Value | Estimate | Time | Agents (building / checking / other) | Loops | Tokens |
 |---|---|---|---|---|---|---|---|
@@ -210,6 +210,7 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | F25 Deviation analysis: the built model against the scan, per element (signed median, 95 %, LOA share, coverage, verdict pass / fail / not verifiable), missed-element candidates, bias per class, coloured images per storey (`deviation-and-review.md` 1) | Function | 5 | L (~6 h, ~4 M tokens) | 1 min | – | – | 6 k |
 | F26 Review and correction as one loop: flagged items shown with scan and deviation, a person accepts, moves, changes, deletes or adds, the plan is edited, the stages and checks run again, every decision on the scoreboard (`deviation-and-review.md` 2); planned agent: review man | Function | 5 | L (~6 h, ~4 M tokens) | 1 min | – | – | 6 k |
 | F28 Meshing: not in the modelling routes (research 25.10.2026, `deviation-and-review.md` 3); possibly for the viewer and as reference surface of non-planar elements | Task | 2 | S (~1 h, ~0.5 M tokens) | 1 min | – | – | 6 k |
+| Analysis page before Revit (part of F26): three cuts of the storey's point cloud (through the slab, wall and door height 0.95-1.15 m, window height 1.45-1.65 m) with tiles to click and the proposed walls as lines only, green / orange / red by where the low cuts show them; per line 'stimmt' or 'keine Wand', missing walls drawn as lines, a comment per tile; the slice route takes the decisions (`--review`) | Function | 5 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | Effort records: Claude Code deletes session records after 30 days, so `tools/effort.py` lost the requests before 25.11.2026 (the page kept its state of 26.10.2026); the tool now keeps a ledger and never writes a page with fewer requests | Task | 3 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | F19 Drawings aligned to the scan frame per storey (2D fit of wall axes, person confirms) | Function | 5 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | F2 A door and a window family with free size in the blank project (the template) | Function | 4 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
@@ -217,11 +218,11 @@ Other requests on Plans2Revit (status, documentation, runs, fixes not tied to on
 | F21 Checker: drawn vs measured for every accepted fact, unused facts listed | Function | 4 | M (~2.5 h, ~1.5 M tokens) | – | – | – | – |
 | Test building with construction drawings that do not come from its scan (design or execution drawings: sections, build-ups, wall types, materials) and a point cloud inside and outside: the plan sets used so far were drawn from the scan's model and cannot verify it (user, 26.10.2026) | Task | 5 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
 | Walls end under the slab above (G-5.2) for every route (`core/merge.cap_walls`, in `combine`): a wall reaching the slab gets the top constraint "up to level" (the level above) with minus the slab as top offset, not a fixed height (user); a wall running into the floor of the next level is cut at its underside and the part above becomes a wall of the next storey unless one stands there; no cut where no floor lies above (double-height rooms) or below an opening's head (25.11.2026: a real IFC building, 2743 walls tied to the level above, 896 capped, 41 split) | Function | 4 | S (~1 h, ~0.5 M tokens) | – | – | – | – |
-| **Total planned (14)** | | | **36.5 h, 22.5 M** | **1.4 h** | **39** | **8** | **1.0 M** |
+| **Total planned (15)** | | | **39.0 h, 24.0 M** | **1.4 h** | **39** | **8** | **1.0 M** |
 
-**Shared: still to do estimated 48.5 h, 30.0 M; measured so far 26.1 h and 17.5 M tokens (features and other requests).**
+**Shared: still to do estimated 51.0 h, 31.5 M; measured so far 30.2 h and 18.7 M tokens (features and other requests).**
 
-Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 112, 16.8 h, 11.8 M tokens.
+Other requests on Shared (status, documentation, runs, fixes not tied to one feature): 123, 21.0 h, 13.0 M tokens.
 
 ## Tasks with agents
 

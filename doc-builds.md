@@ -6,10 +6,14 @@ gets better, a project is built again and gets a new file next to the old one; t
 described on the Versions page. Real projects are anonymous: an alias and the storey instead of their names
 and files; their check figures are not on the public site.
 
-13 builds, 2 projects, 11 setups.
+17 builds, 3 projects, 15 setups.
 
 | Built | Project | Model file | Setup | Template | Revit / pyRevit | Inputs | Phases | Checks |
 |---|---|---|---|---|---|---|---|---|
+| 2026-11-27 14:27 | Projekt (privat) | Projekt (privat) | 0.8.0-cefbd53+dev | blank_2027.rvt (566e86fe) | 2027 / - | Bauplan (plan.json) | e2e | real project data (details private) |
+| 2026-11-27 14:18 | Projekt (privat) | Projekt (privat) | 0.8.0-8f0e47e+dev | blank_2027.rvt (566e86fe) | 2027 / - | Bauplan (plan.json) | e2e | real project data (details private) |
+| 2026-11-27 13:47 | Projekt (privat) | Projekt (privat) | 0.8.0-72bc60c+dev | blank_2027.rvt (566e86fe) | 2027 / - | Bauplan (plan.json) | e2e | real project data (details private) |
+| 2026-11-27 13:17 | Projekt (privat) | Projekt (privat) | 0.8.0-e51ebca+dev | blank_2027.rvt (566e86fe) | 2027 / - | Bauplan (plan.json) | e2e | real project data (details private) |
 | 2026-11-25 21:47 | Projekt B | Projekt B, 3. OG | 0.8.0-b2d995a+dev | blank_2027.rvt (566e86fe) | 2027 / - | Bauplan (plan.json) | e2e | real project data (details private) |
 | 2026-11-25 17:24 | Projekt B | Projekt B, 3. OG | 0.8.0-98ee957+dev | blank_2027.rvt (566e86fe) | 2027 / - | Bauplan (plan.json) | e2e | real project data (details private) |
 | 2026-11-25 17:01 | Projekt B | Projekt B, 3. OG | 0.8.0-ebb732c+dev | blank_2027.rvt (566e86fe) | 2027 / - | Bauplan (plan.json) | e2e | real project data (details private) |
